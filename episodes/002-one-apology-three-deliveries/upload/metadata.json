@@ -1,0 +1,27 @@
+{
+  "title": "He Tried Not to Overdo the Apology",
+  "description": "Idempotency explained through an apology that accidentally becomes three flower deliveries.\n\nHe orders one small bouquet. The confirmation never arrives. Two retries later, his promise not to overdo things takes an unfortunate turn.\n\nIn software, idempotency lets you retry the same intended request without creating extra effects. A missing confirmation doesn\u2019t necessarily mean the original order failed.\n\nSoftware in Disguise \u00b7 Episode 02 \u00b7 The Unplanned Stack\n\nOriginal AI-generated illustrations, synthetic character voices, and original music and sound effects.\n\n#SoftwareInDisguise #Idempotency #SoftwareEngineering",
+  "tags": [
+    "idempotency",
+    "idempotency explained",
+    "duplicate orders",
+    "retry requests",
+    "software engineering",
+    "programming explained",
+    "software concepts",
+    "software comedy",
+    "flower delivery",
+    "apology",
+    "Software in Disguise",
+    "The Unplanned Stack"
+  ],
+  "language": "en",
+  "suggested_category": "Education",
+  "suggested_audience": "Not made for kids",
+  "suggested_playlist": "Software in Disguise",
+  "suggested_license": "Standard YouTube License",
+  "suggested_initial_visibility": "Private \u2014 review before publishing",
+  "thumbnail": "../deliverables/thumbnail-v3.jpg",
+  "video": "../deliverables/short.mp4",
+  "subtitles": "../deliverables/subtitles.srt"
+}

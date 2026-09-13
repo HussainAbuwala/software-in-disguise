@@ -1,0 +1,11 @@
+Idempotency explained through an apology that accidentally becomes three flower deliveries.
+
+He orders one small bouquet. The confirmation never arrives. Two retries later, his promise not to overdo things takes an unfortunate turn.
+
+In software, idempotency lets you retry the same intended request without creating extra effects. A missing confirmation doesn’t necessarily mean the original order failed.
+
+Software in Disguise · Episode 02 · The Unplanned Stack
+
+Original AI-generated illustrations, synthetic character voices, and original music and sound effects.
+
+#SoftwareInDisguise #Idempotency #SoftwareEngineering

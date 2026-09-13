@@ -9,6 +9,7 @@ The format is designed for both technical and nontechnical viewers: the story an
 | Episode | Story | Software concept | Status |
 | --- | --- | --- | --- |
 | 01 | Two people buy the same concert seat | Race condition / check-then-act | Published on 2026-09-12 |
+| 02 | One apology becomes three flower deliveries | Idempotency | Produced for review; not published |
 
 Episode 1 and its source material are archived under [`episodes/001-two-people-bought-the-same-concert-seat`](episodes/001-two-people-bought-the-same-concert-seat).
 

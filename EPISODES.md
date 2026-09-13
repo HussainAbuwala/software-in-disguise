@@ -15,6 +15,17 @@
 - **Files:** [`episodes/001-two-people-bought-the-same-concert-seat`](episodes/001-two-people-bought-the-same-concert-seat)
 - **Public URL:** Not recorded yet
 
+## Produced for review
+
+### Episode 02 — One apology. Three deliveries.
+
+- **Status:** Full 35.4-second voiced cut produced for review; not published
+- **Working title:** `He Tried Not to Overdo the Apology`
+- **Concept:** Idempotency / safely retrying the same intended order
+- **Story:** An apology promises restraint. Missing confirmations lead the sender to retry twice, creating three flower deliveries.
+- **Format:** Vertical illustrated limited animation with synthetic dialogue, audio-driven mouths, reactions, original music and sound effects
+- **Files:** [`episodes/002-one-apology-three-deliveries`](episodes/002-one-apology-three-deliveries)
+
 ## Concepts not yet used
 
 This is an idea bank, not an approved schedule. Each premise still needs research and creative review.
