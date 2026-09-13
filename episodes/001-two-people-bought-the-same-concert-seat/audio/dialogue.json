@@ -1,0 +1,57 @@
+{
+  "excuse": {
+    "voice": "af_bella",
+    "text": "Excuse me. That is my seat.",
+    "duration": 1.8773333333333333
+  },
+  "ticket": {
+    "voice": "af_bella",
+    "text": "A twelve.",
+    "duration": 0.7893333333333333
+  },
+  "mine": {
+    "voice": "am_michael",
+    "text": "Mine too.",
+    "duration": 1.1093333333333333
+  },
+  "last": {
+    "voice": "af_bella",
+    "text": "One ticket left!",
+    "duration": 1.0026666666666666
+  },
+  "yes": {
+    "voice": "am_michael",
+    "text": "Yes! Got it.",
+    "duration": 1.1093333333333333
+  },
+  "also": {
+    "voice": "af_bella",
+    "text": "Got it!",
+    "duration": 0.576
+  },
+  "under": {
+    "voice": "af_bella",
+    "text": "It is not under there.",
+    "duration": 1.1733333333333333
+  },
+  "check": {
+    "voice": "am_michael",
+    "text": "Just checking.",
+    "duration": 1.1946666666666668
+  },
+  "solution": {
+    "voice": "bf_emma",
+    "text": "We have arranged alternative seating.",
+    "duration": 2.1333333333333333
+  },
+  "support": {
+    "voice": "af_bella",
+    "text": "Does it come with emotional support?",
+    "duration": 1.8773333333333333
+  },
+  "reveal": {
+    "voice": "am_michael",
+    "text": "In software, this is a race condition. Both checked the seat before either booking marked it sold.",
+    "duration": 5.824
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "source_order": [
+    "excuse",
+    "ticket",
+    "mine",
+    "last",
+    "yes",
+    "also",
+    "under",
+    "check",
+    "solution",
+    "support",
+    "reveal"
+  ],
+  "criteria": {
+    "silence_threshold_dbfs": -45,
+    "clipping_sample_threshold": 32760
+  },
+  "summary": {
+    "files_checked": 11,
+    "passed": 11,
+    "failed": 0
+  },
+  "files": {
+    "excuse": {
+      "file": "excuse.wav",
+      "duration_s": 1.877,
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "peak_dbfs": -3.19,
+      "rms_dbfs": -21.31,
+      "leading_silence_s": 0.03,
+      "trailing_silence_s": 0.068,
+      "clipped_samples": 0,
+      "status": "pass",
+      "audition_gain_db": 1.19
+    },
+    "ticket": {
+      "file": "ticket.wav",
+      "duration_s": 0.789,
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "peak_dbfs": -4.78,
+      "rms_dbfs": -20.96,
+      "leading_silence_s": 0.043,
+      "trailing_silence_s": 0.075,
+      "clipped_samples": 0,
+      "status": "pass",
+      "audition_gain_db": 0.96
+    },
+    "mine": {
+      "file": "mine.wav",
+      "duration_s": 1.109,
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "peak_dbfs": -0.56,
+      "rms_dbfs": -21.71,
+      "leading_silence_s": 0.085,
+      "trailing_silence_s": 0.206,
+      "clipped_samples": 0,
+      "status": "pass",
+      "audition_gain_db": -1.44
+    },
+    "last": {
+      "file": "last.wav",
+      "duration_s": 1.003,
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "peak_dbfs": -7.08,
+      "rms_dbfs": -20.49,
+      "leading_silence_s": 0.038,
+      "trailing_silence_s": 0.068,
+      "clipped_samples": 0,
+      "status": "pass",
+      "audition_gain_db": 0.49
+    },
+    "yes": {
+      "file": "yes.wav",
+      "duration_s": 1.109,
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "peak_dbfs": -4.88,
+      "rms_dbfs": -21.61,
+      "leading_silence_s": 0.073,
+      "trailing_silence_s": 0.245,
+      "clipped_samples": 0,
+      "status": "pass",
+      "audition_gain_db": 1.61
+    },
+    "also": {
+      "file": "also.wav",
+      "duration_s": 0.576,
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "peak_dbfs": -6.75,
+      "rms_dbfs": -20.83,
+      "leading_silence_s": 0.032,
+      "trailing_silence_s": 0.081,
+      "clipped_samples": 0,
+      "status": "pass",
+      "audition_gain_db": 0.83
+    },
+    "under": {
+      "file": "under.wav",
+      "duration_s": 1.173,
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "peak_dbfs": -6.77,
+      "rms_dbfs": -21.25,
+      "leading_silence_s": 0.025,
+      "trailing_silence_s": 0.168,
+      "clipped_samples": 0,
+      "status": "pass",
+      "audition_gain_db": 1.25
+    },
+    "check": {
+      "file": "check.wav",
+      "duration_s": 1.195,
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "peak_dbfs": -2.09,
+      "rms_dbfs": -20.5,
+      "leading_silence_s": 0.048,
+      "trailing_silence_s": 0.184,
+      "clipped_samples": 0,
+      "status": "pass",
+      "audition_gain_db": 0.09
+    },
+    "solution": {
+      "file": "solution.wav",
+      "duration_s": 2.133,
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "peak_dbfs": -2.5,
+      "rms_dbfs": -19.15,
+      "leading_silence_s": 0.038,
+      "trailing_silence_s": 0.07,
+      "clipped_samples": 0,
+      "status": "pass",
+      "audition_gain_db": -0.85
+    },
+    "support": {
+      "file": "support.wav",
+      "duration_s": 1.877,
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "peak_dbfs": -5.46,
+      "rms_dbfs": -22.13,
+      "leading_silence_s": 0.025,
+      "trailing_silence_s": 0.175,
+      "clipped_samples": 0,
+      "status": "pass",
+      "audition_gain_db": 2.13
+    },
+    "reveal": {
+      "file": "reveal.wav",
+      "duration_s": 5.824,
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "peak_dbfs": -2.48,
+      "rms_dbfs": -23.18,
+      "leading_silence_s": 0.041,
+      "trailing_silence_s": 0.065,
+      "clipped_samples": 0,
+      "status": "pass",
+      "audition_gain_db": 0.48
+    }
+  },
+  "audition": {
+    "file": "voice-audition.mp3",
+    "gap_s": 0.4,
+    "source_wavs_modified": false,
+    "duration_s": 22.667,
+    "sample_rate_hz": 48000,
+    "channels": 1,
+    "encoding": "MP3 192 kb/s",
+    "measured_pcm_peak_dbfs": -2.0,
+    "measured_pcm_rms_dbfs": -21.72,
+    "normalization": "per-line RMS target -20 dBFS, gain capped at -2 dBFS peak"
+  }
+}
