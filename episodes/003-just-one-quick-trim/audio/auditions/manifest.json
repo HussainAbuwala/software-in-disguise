@@ -1,0 +1,145 @@
+{
+  "engine": "Kokoro-82M via kokoro-onnx",
+  "candidates": {
+    "groom-G1": {
+      "voice": "am_liam",
+      "speed": 1.0,
+      "language": "en-us",
+      "text": "I'm getting married at two. Time for a haircut? What if you just cut the front? That's quick.",
+      "duration": 4.16,
+      "sample_rate": 24000,
+      "peak": 0.810215950012207,
+      "rms": 0.08508127927780151
+    },
+    "groom-G2": {
+      "voice": "am_eric",
+      "speed": 0.98,
+      "language": "en-us",
+      "text": "I'm getting married at two. Time for a haircut? What if you just cut the front? That's quick.",
+      "duration": 4.074666666666666,
+      "sample_rate": 24000,
+      "peak": 0.5770952701568604,
+      "rms": 0.09149067103862762
+    },
+    "groom-G3": {
+      "voice": "am_michael",
+      "speed": 0.98,
+      "language": "en-us",
+      "text": "I'm getting married at two. Time for a haircut? What if you just cut the front? That's quick.",
+      "duration": 5.4736666666666665,
+      "sample_rate": 24000,
+      "peak": 0.504385769367218,
+      "rms": 0.0649065375328064
+    },
+    "barber-B1": {
+      "voice": "bm_george",
+      "speed": 0.96,
+      "language": "en-gb",
+      "text": "Plenty of time. You're next. Won't take a minute.",
+      "duration": 3.328,
+      "sample_rate": 24000,
+      "peak": 0.4980919659137726,
+      "rms": 0.09471205621957779
+    },
+    "barber-B2": {
+      "voice": "am_adam",
+      "speed": 0.95,
+      "language": "en-us",
+      "text": "Plenty of time. You're next. Won't take a minute.",
+      "duration": 2.474666666666667,
+      "sample_rate": 24000,
+      "peak": 0.8199999928474426,
+      "rms": 0.11014345288276672
+    },
+    "barber-B3": {
+      "voice": "am_onyx",
+      "speed": 0.96,
+      "language": "en-us",
+      "text": "Plenty of time. You're next. Won't take a minute.",
+      "duration": 2.7306666666666666,
+      "sample_rate": 24000,
+      "peak": 0.51793372631073,
+      "rms": 0.08335056900978088
+    },
+    "narrator-N1": {
+      "voice": "bf_emma",
+      "speed": 1.01,
+      "language": "en-gb",
+      "text": "That's starvation. Imagine your report never printing because every new one-page job jumps ahead. Good software makes sure waiting work gets a turn.",
+      "duration": 8.597333333333333,
+      "sample_rate": 24000,
+      "peak": 0.7740472555160522,
+      "rms": 0.09398919343948364
+    },
+    "narrator-N2": {
+      "voice": "bm_daniel",
+      "speed": 1.0,
+      "language": "en-gb",
+      "text": "That's starvation. Imagine your report never printing because every new one-page job jumps ahead. Good software makes sure waiting work gets a turn.",
+      "duration": 8.490666666666666,
+      "sample_rate": 24000,
+      "peak": 0.5999888777732849,
+      "rms": 0.09032905846834183
+    },
+    "beard-C1A": {
+      "voice": "am_puck",
+      "speed": 1.0,
+      "language": "en-us",
+      "text": "Just a quick beard trim?",
+      "duration": 1.408,
+      "sample_rate": 24000,
+      "peak": 0.8200000524520874,
+      "rms": 0.09921956807374954
+    },
+    "beard-C1B": {
+      "voice": "am_echo",
+      "speed": 0.98,
+      "language": "en-us",
+      "text": "Just a quick beard trim?",
+      "duration": 1.8344166666666666,
+      "sample_rate": 24000,
+      "peak": 0.8199999928474426,
+      "rms": 0.089159294962883
+    },
+    "neckline-C2A": {
+      "voice": "am_fenrir",
+      "speed": 1.0,
+      "language": "en-us",
+      "text": "Just the neckline.",
+      "duration": 1.0026666666666666,
+      "sample_rate": 24000,
+      "peak": 0.7807009220123291,
+      "rms": 0.13197457790374756
+    },
+    "neckline-C2B": {
+      "voice": "bm_lewis",
+      "speed": 0.98,
+      "language": "en-gb",
+      "text": "Just the neckline.",
+      "duration": 1.3653333333333333,
+      "sample_rate": 24000,
+      "peak": 0.8199999928474426,
+      "rms": 0.07553810626268387
+    },
+    "moustache-C3A": {
+      "voice": "bm_fable",
+      "speed": 0.95,
+      "language": "en-gb",
+      "text": "Only the moustache.",
+      "duration": 1.6426666666666667,
+      "sample_rate": 24000,
+      "peak": 0.45980605483055115,
+      "rms": 0.08150782436132431
+    },
+    "moustache-C3B": {
+      "voice": "am_santa",
+      "speed": 0.96,
+      "language": "en-us",
+      "text": "Only the moustache.",
+      "duration": 1.2373333333333334,
+      "sample_rate": 24000,
+      "peak": 0.5932773947715759,
+      "rms": 0.08959341049194336
+    }
+  }
+}

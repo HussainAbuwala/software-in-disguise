@@ -26,6 +26,17 @@
 - **Format:** Vertical illustrated limited animation with synthetic dialogue, audio-driven mouths, reactions, original music and sound effects
 - **Files:** [`episodes/002-one-apology-three-deliveries`](episodes/002-one-apology-three-deliveries)
 
+### Episode 03 — Just One Quick Trim
+
+- **Status:** Final 50.8-second voiced cut and YouTube metadata rendered; not published
+- **Working title:** `Just One Quick Trim`
+- **Series cover hook:** `YOU'RE NEXT.`
+- **Concept:** Starvation in scheduling
+- **Plain explanation:** Small jobs keep going first, so a bigger one may never finish—like a 20-page report that never prints because every new one-page job jumps ahead.
+- **Story:** A groom arrives for a haircut before his wedding. The barber repeatedly serves tiny walk-in jobs first. When the wedding car arrives, the still-uncut groom asks how much it would cost to cut only the front.
+- **Format:** Vertical illustrated story with static human scenes, a simple animated printer-queue reveal, synthetic dialogue, situation-specific sound, and original sparse music
+- **Files:** [`episodes/003-just-one-quick-trim`](episodes/003-just-one-quick-trim)
+
 ## Concepts not yet used
 
 This is an idea bank, not an approved schedule. Each premise still needs research and creative review.
@@ -38,4 +49,3 @@ This is an idea bank, not an approved schedule. Each premise still needs researc
 - Several people edit the same shared list — conflict resolution / optimistic concurrency
 - A coat-check ticket retrieves the right coat — keys and lookup tables
 - A household keeps duplicate emergency supplies — redundancy and fault tolerance
-

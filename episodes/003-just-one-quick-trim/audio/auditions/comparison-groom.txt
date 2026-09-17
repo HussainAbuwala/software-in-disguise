@@ -1,0 +1,5 @@
+file '/private/tmp/episode3-work/audio/auditions/groom-G1.wav'
+file '/private/tmp/episode3-work/audio/auditions/silence-700ms.wav'
+file '/private/tmp/episode3-work/audio/auditions/groom-G2.wav'
+file '/private/tmp/episode3-work/audio/auditions/silence-700ms.wav'
+file '/private/tmp/episode3-work/audio/auditions/groom-G3.wav'

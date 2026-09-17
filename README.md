@@ -10,8 +10,9 @@ The format is designed for both technical and nontechnical viewers: the story an
 | --- | --- | --- | --- |
 | 01 | Two people buy the same concert seat | Race condition / check-then-act | Published on 2026-09-12 |
 | 02 | One apology becomes three flower deliveries | Idempotency | Produced for review; not published |
+| 03 | A groom keeps losing his turn at the barbershop | Starvation | Final cut and metadata complete; not published |
 
-Episode 1 and its source material are archived under [`episodes/001-two-people-bought-the-same-concert-seat`](episodes/001-two-people-bought-the-same-concert-seat).
+Episode 3 establishes a static-image production direction: fixed illustrated states, character voices, and situation-specific sound rather than character or camera animation. Its runtime follows the story rather than a strict 30-second target.
 
 ## Start here next time
 
@@ -30,4 +31,3 @@ templates/      Briefs to copy when starting an episode
 SERIES_GUIDE.md Creative rules and production workflow
 EPISODES.md     Canonical episode ledger and future idea guardrails
 ```
-

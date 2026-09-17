@@ -1,0 +1,102 @@
+{
+  "duration": 50.800000000000004,
+  "segments": [
+    {
+      "name": "01-opening",
+      "start": 0.0,
+      "duration": 4.2,
+      "image": "/private/tmp/episode3-final/build/01-opening.png"
+    },
+    {
+      "name": "02-promise",
+      "start": 4.2,
+      "duration": 3.1,
+      "image": "/private/tmp/episode3-final/build/02-promise.png"
+    },
+    {
+      "name": "03-beard",
+      "start": 7.300000000000001,
+      "duration": 2.5,
+      "image": "/private/tmp/episode3-final/build/03-beard.png"
+    },
+    {
+      "name": "03b-two-minutes",
+      "start": 9.8,
+      "duration": 1.9,
+      "image": "/private/tmp/episode3-final/build/03b-two-minutes.png"
+    },
+    {
+      "name": "04-first-wait",
+      "start": 11.700000000000001,
+      "duration": 2.7,
+      "image": "/private/tmp/episode3-final/build/04-first-wait.png"
+    },
+    {
+      "name": "05-neckline",
+      "start": 14.400000000000002,
+      "duration": 2.7,
+      "image": "/private/tmp/episode3-final/build/05-neckline.png"
+    },
+    {
+      "name": "05b-then-you",
+      "start": 17.1,
+      "duration": 2.5,
+      "image": "/private/tmp/episode3-final/build/05b-then-you.png"
+    },
+    {
+      "name": "06-second-wait",
+      "start": 19.6,
+      "duration": 3.2,
+      "image": "/private/tmp/episode3-final/build/06-second-wait.png"
+    },
+    {
+      "name": "07-moustache",
+      "start": 22.8,
+      "duration": 2.5,
+      "image": "/private/tmp/episode3-final/build/07-moustache.png"
+    },
+    {
+      "name": "07b-one-minute",
+      "start": 25.3,
+      "duration": 2.7,
+      "image": "/private/tmp/episode3-final/build/07b-one-minute.png"
+    },
+    {
+      "name": "08-phone",
+      "start": 28.0,
+      "duration": 3.6,
+      "image": "/private/tmp/episode3-final/build/08-phone.png"
+    },
+    {
+      "name": "09-payoff",
+      "start": 31.6,
+      "duration": 4.2,
+      "image": "/private/tmp/episode3-final/build/09-payoff.png"
+    },
+    {
+      "name": "10-reaction",
+      "start": 35.800000000000004,
+      "duration": 3.0,
+      "image": "/private/tmp/episode3-final/build/10-reaction.png"
+    },
+    {
+      "name": "11-reveal",
+      "start": 38.800000000000004,
+      "duration": 12.0,
+      "image": "/private/tmp/episode3-final/build/11-reveal.png"
+    }
+  ],
+  "dialogue_starts": {
+    "01-groom-opening": 0.72,
+    "02-barber-promise": 4.48,
+    "03-beard-request": 7.48,
+    "04-barber-two-minutes": 10.02,
+    "05-groom-sure": 12.05,
+    "06-neckline-request": 14.62,
+    "07-barber-then-you": 17.36,
+    "08-moustache-request": 22.98,
+    "09-barber-one-minute": 25.48,
+    "10-groom-payoff": 31.92,
+    "11-narrator-reveal": 39.18
+  }
+}

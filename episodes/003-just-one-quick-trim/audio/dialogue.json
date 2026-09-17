@@ -1,0 +1,123 @@
+{
+  "01-groom-opening": {
+    "speaker": "groom",
+    "voice": "am_liam",
+    "speed": 1.0,
+    "language": "en-us",
+    "text": "I'm getting married at two. Time for a haircut?",
+    "duration": 2.432,
+    "sample_rate": 24000,
+    "peak": 0.8199999928474426,
+    "rms": 0.08676370233297348
+  },
+  "02-barber-promise": {
+    "speaker": "barber",
+    "voice": "bm_george",
+    "speed": 0.96,
+    "language": "en-gb",
+    "text": "Plenty of time. You're next.",
+    "duration": 2.1546666666666665,
+    "sample_rate": 24000,
+    "peak": 0.4541489779949188,
+    "rms": 0.09747474640607834
+  },
+  "03-beard-request": {
+    "speaker": "beard_customer",
+    "voice": "am_echo",
+    "speed": 0.98,
+    "language": "en-us",
+    "text": "Just a quick beard trim?",
+    "duration": 1.8344166666666666,
+    "sample_rate": 24000,
+    "peak": 0.8199999928474426,
+    "rms": 0.089159294962883
+  },
+  "04-barber-two-minutes": {
+    "speaker": "barber",
+    "voice": "bm_george",
+    "speed": 0.96,
+    "language": "en-gb",
+    "text": "Two minutes.",
+    "duration": 1.024,
+    "sample_rate": 24000,
+    "peak": 0.6446138620376587,
+    "rms": 0.1031603142619133
+  },
+  "05-groom-sure": {
+    "speaker": "groom",
+    "voice": "am_liam",
+    "speed": 1.0,
+    "language": "en-us",
+    "text": "Sure.",
+    "duration": 0.6543333333333333,
+    "sample_rate": 24000,
+    "peak": 0.4430238902568817,
+    "rms": 0.09417164325714111
+  },
+  "06-neckline-request": {
+    "speaker": "neckline_customer",
+    "voice": "bm_lewis",
+    "speed": 0.98,
+    "language": "en-gb",
+    "text": "Just the neckline.",
+    "duration": 1.3653333333333333,
+    "sample_rate": 24000,
+    "peak": 0.8199999928474426,
+    "rms": 0.07553810626268387
+  },
+  "07-barber-then-you": {
+    "speaker": "barber",
+    "voice": "bm_george",
+    "speed": 0.96,
+    "language": "en-gb",
+    "text": "Then you're up.",
+    "duration": 1.3013333333333332,
+    "sample_rate": 24000,
+    "peak": 0.48041701316833496,
+    "rms": 0.10113350301980972
+  },
+  "08-moustache-request": {
+    "speaker": "moustache_customer",
+    "voice": "bm_fable",
+    "speed": 0.95,
+    "language": "en-gb",
+    "text": "Only the moustache.",
+    "duration": 1.6426666666666667,
+    "sample_rate": 24000,
+    "peak": 0.45980605483055115,
+    "rms": 0.08150782436132431
+  },
+  "09-barber-one-minute": {
+    "speaker": "barber",
+    "voice": "bm_george",
+    "speed": 0.96,
+    "language": "en-gb",
+    "text": "Won't take a minute.",
+    "duration": 1.5146666666666666,
+    "sample_rate": 24000,
+    "peak": 0.4543532133102417,
+    "rms": 0.10164324194192886
+  },
+  "10-groom-payoff": {
+    "speaker": "groom",
+    "voice": "am_liam",
+    "speed": 1.0,
+    "language": "en-us",
+    "text": "What if you just cut the front? That's quick.",
+    "duration": 2.2826666666666666,
+    "sample_rate": 24000,
+    "peak": 0.6661277413368225,
+    "rms": 0.09149710088968277
+  },
+  "11-narrator-reveal": {
+    "speaker": "narrator",
+    "voice": "bf_emma",
+    "speed": 1.01,
+    "language": "en-gb",
+    "text": "That's starvation. Imagine your report never printing because every new one-page job jumps ahead. Good software makes sure waiting work gets a turn.",
+    "duration": 8.597333333333333,
+    "sample_rate": 24000,
+    "peak": 0.7740472555160522,
+    "rms": 0.09398919343948364
+  }
+}

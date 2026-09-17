@@ -1,0 +1,5 @@
+file '/private/tmp/episode3-work/audio/auditions/barber-B1.wav'
+file '/private/tmp/episode3-work/audio/auditions/silence-700ms.wav'
+file '/private/tmp/episode3-work/audio/auditions/barber-B2.wav'
+file '/private/tmp/episode3-work/audio/auditions/silence-700ms.wav'
+file '/private/tmp/episode3-work/audio/auditions/barber-B3.wav'

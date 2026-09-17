@@ -1,0 +1,17 @@
+{
+  "generator": "OpenAI built-in image generation",
+  "date": "2026-09-17",
+  "style": "Original adult editorial-comic illustration with controlled black ink, warm muted cream/teal/ochre/rust/burgundy palette, natural skin tones, subtle paper and halftone texture; no named-artist imitation.",
+  "reference_sheet": "Groom in early thirties with medium brown skin, slightly overgrown wavy black hair, short untidy beard, cream rolled-sleeve shirt, dark trousers and charcoal suit bag; barber in late forties with olive skin, brushed-back salt-and-pepper hair and beard, muted teal overshirt; supporting customers in rust, mustard and burgundy; shop entrance left, waiting bench left foreground, chair center-right, mirror behind, wall clock rear.",
+  "final_stills": [
+    "01-arrival: groom enters with suit bag; barber welcomes him beside an empty chair; open negative space for title.",
+    "03-beard-arrives: bearded regular in rust jacket interrupts at left doorway while groom pauses and barber listens.",
+    "04-beard-chair: groom waits with suit bag while barber trims bearded customer in the chair.",
+    "05-neckline-arrives: groom expects his turn; mustard-shirt customer gestures to the back of his neck; chair empty.",
+    "06-neckline-chair: groom remains waiting while barber cleans the neckline of the customer viewed from behind.",
+    "07-moustache-arrives: groom recognizes the pattern; older silver-haired customer in burgundy indicates his moustache.",
+    "09-payoff: medium-close groom leans forward, tired and sincere, hair still uncut, with space for reveal text.",
+    "10-reaction: older moustache customer seated under burgundy cape; barber holds stopped clippers and looks off-screen with mild embarrassment."
+  ],
+  "constraints": "Portrait 9:16; consistent characters and geography; no generated dialogue, labels, logos, watermarks, motion blur, duplicated people, or confusing mirror reflections. All readable text is added later as a deterministic overlay."
+}

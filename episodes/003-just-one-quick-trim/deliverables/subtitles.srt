@@ -1,0 +1,43 @@
+1
+00:00:00,720 --> 00:00:03,152
+I'm getting married at two. Time for a haircut?
+
+2
+00:00:04,480 --> 00:00:06,635
+Plenty of time. You're next.
+
+3
+00:00:07,480 --> 00:00:09,314
+Just a quick beard trim?
+
+4
+00:00:10,020 --> 00:00:11,044
+Two minutes.
+
+5
+00:00:12,050 --> 00:00:12,704
+Sure.
+
+6
+00:00:14,620 --> 00:00:15,985
+Just the neckline.
+
+7
+00:00:17,360 --> 00:00:18,661
+Then you're up.
+
+8
+00:00:22,980 --> 00:00:24,623
+Only the moustache.
+
+9
+00:00:25,480 --> 00:00:26,995
+Won't take a minute.
+
+10
+00:00:31,920 --> 00:00:34,203
+What if you just cut the front? That's quick.
+
+11
+00:00:39,180 --> 00:00:47,777
+That's starvation. Imagine your report never printing because every new one-page job jumps ahead. Good software makes sure waiting work gets a turn.

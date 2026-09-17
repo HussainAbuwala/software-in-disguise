@@ -1,0 +1,11 @@
+.DS_Store
+build/
+deliverables/short.mp4
+
+# The comparison reel preserves every candidate in a compact review artifact.
+# Individual audition exports and split chemistry lines are reproducible via voices.py.
+audio/auditions/*.wav
+audio/auditions/*/*.wav
+!audio/auditions/comparison-reel.wav
+!audio/auditions/chemistry-P1-restrained.wav
+!audio/auditions/chemistry-P2-warmer.wav
