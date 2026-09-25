@@ -8,12 +8,24 @@ from .canvas import ALERT, DEMI, HAND, HEAVY, INK, MUSTARD, PAPER, TEAL, W, Came
 from .cast import Pose
 
 
-def promise(c: Canvas):
+def promise(c: Canvas, size: int = 44):
+    """The payoff promise line. Episodes 04-05 use one small line (size 44); Episode 06 onward uses a larger, bolder
+    two-line card (size 60+) so it registers in the first second."""
     text = "Programmers have a name for this."
-    f = font(44, DEMI)
-    w = c.d.textlength(text, font=f) / 2 + 64
-    c.rect(540 - w / 2, 230, 540 + w / 2, 318, fill=PAPER, radius=44, width=5)
-    c.text(540, 274, text, 44, weight=DEMI)
+    if size <= 44:
+        f = font(size, DEMI)
+        w = c.d.textlength(text, font=f) / 2 + 64
+        c.rect(540 - w / 2, 230, 540 + w / 2, 318, fill=PAPER, radius=44, width=5)
+        c.text(540, 274, text, size, weight=DEMI)
+        return
+    lines = ("Programmers have", "a name for this.")
+    f = font(size, HEAVY)
+    w = max(c.d.textlength(l, font=f) for l in lines) / 2 + 90
+    lh = size * 1.15
+    top, h = 190, lh * 2 + 50
+    c.rect(540 - w / 2, top, 540 + w / 2, top + h, fill=MUSTARD, radius=36, width=7)
+    for i, l in enumerate(lines):
+        c.text(540, top + 25 + lh * (i + 0.5), l, size, weight=HEAVY)
 
 
 def card(c: Canvas, text: str, k: float):

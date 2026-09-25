@@ -56,6 +56,8 @@ Target 20–30 s total, 35 s ceiling. Change the picture at least every ~2 s.
 - [ ] 1080×1920 H.264/AAC export verified
 - [ ] Thumbnail, title, description, tags, and hashtags prepared
 - [ ] GPT-6 Astra completed final creative review
+- [ ] YouTube upload scheduled (checklist in SERIES_GUIDE.md)
+- [ ] Instagram Reel posted (checklist in SERIES_GUIDE.md)
 - [ ] Episode ledger updated after publication
 
 ## Packaging
@@ -65,8 +67,8 @@ Target 20–30 s total, 35 s ceiling. Change the picture at least every ~2 s.
 - **Description:**
 - **Hashtags:**
 - **YouTube Studio tags:**
-- **Published URL:**
-- **Published date:**
+- **YouTube:** URL, scheduled date and time (Mon/Wed/Fri 9:00 AM ET)
+- **Instagram:** URL, date (same day, 12:00 PM ET)
 
 ## Post-publication notes
 

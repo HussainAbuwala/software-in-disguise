@@ -320,6 +320,25 @@ def _arms(c: Canvas, look: Look, pose: Pose, x: float, y: float, standing: bool 
         hand(c, *hand_p, look, r=24)
         c.limb([far_sh, (x - f * 110, y + 110), (x - f * 70, y + 170)], look.top, sleeve)
         hand(c, x - f * 70, y + 170, look, r=22)
+    elif pose.hands in ("phone_ear", "wave_phone", "point_phone"):
+        # Far hand holds a phone to the far ear (the ear drawn by head()); near hand rests, waves or points.
+        ear = (x - f * 76, y - 100)
+        c.limb([far_sh, (x - f * 110, y + 10), ear], look.top, sleeve)
+        c.rect(ear[0] - 14, ear[1] - 52, ear[0] + 14, ear[1] + 30, fill=(40, 40, 46), radius=8, width=5)
+        hand(c, ear[0] - f * 4, ear[1] + 8, look, r=22)
+        if pose.hands == "wave_phone":
+            wave = pose.extras.get("wave", 0.0)
+            hand_p = (x + f * (125 + 22 * wave), y - 120)
+            c.limb([near_sh, (x + f * 120, y - 10), hand_p], look.top, sleeve)
+            hand(c, *hand_p, look, r=24)
+        elif pose.hands == "point_phone":
+            tx, ty = pose.reach
+            mid = ((near_sh[0] + tx) / 2, (near_sh[1] + ty) / 2 + 20)
+            c.limb([near_sh, mid, (tx - f * 26, ty)], look.top, sleeve)
+            hand(c, tx - f * 26, ty, look, r=22)
+            c.line([(tx - f * 26, ty), (tx, ty)], fill=look.skin, width=14)
+        else:
+            c.limb([near_sh, (x + f * 75, y + 150)], look.top, sleeve)
     elif pose.hands == "far_rest":
         # Near arm drawn separately by the shot (e.g. reaching into a fridge in screen space).
         c.limb([far_sh, (x - f * 75, y + 150)], look.top, sleeve)

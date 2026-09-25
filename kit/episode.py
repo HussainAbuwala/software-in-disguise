@@ -94,40 +94,43 @@ class Ctx:
         return Pose(x, feet, facing, expr, mouth=self.mouth(who), blink=self.blink(who), standing=True, **kw)
 
     def bubbles(self, c: Canvas, cam: Camera, poses: dict):
-        for line in self.shot.lines:
-            if line.bubble and self.t >= line.offset:
-                x, y, w = line.bubble
-                pose = poses.get(line.speaker)
-                target = mouth_point(cam, pose) if pose else (x + w * 0.35 + 200, y + 600)
-                bubble(c, line.speaker, line.text, x, y, w, target)
+        started = [l for l in self.shot.lines if l.bubble and self.t >= l.offset]
+        for line in started:
+            if any(o.speaker == line.speaker and o.offset > line.offset for o in started):
+                continue  # a newer line from the same speaker replaces this bubble
+            x, y, w = line.bubble
+            pose = poses.get(line.speaker)
+            target = mouth_point(cam, pose) if pose else (x + w * 0.35 + 200, y + 600)
+            bubble(c, line.speaker, line.text, x, y, w, target)
 
 
 Cast = list[tuple[Look, Pose]]
 
 
 def scene(ctx: Ctx, cam: Camera, *, time: str = "day", seated: Cast = (), standing: Cast = (), behind: Cast = (),
-          sleepers: tuple[Pose, ...] = (), overlay: Callable | None = None, **room_kw) -> Image.Image:
-    """The living room with characters. Draw order: room, `behind` (behind the couch back), couch back, `seated`,
-    couch front, `standing` (in front of the couch), sleeping Z's, bubbles, `overlay(screen_canvas)`, promise line."""
-    img = new_frame(room.wall_color(time))
+          sleepers: tuple[Pose, ...] = (), overlay: Callable | None = None, set=room, **room_kw) -> Image.Image:
+    """A set (the living room by default) with characters. Draw order: set back, `behind` (e.g. behind the couch
+    back), `seated`, set front (couch front / tables), `standing`, sleeping Z's, bubbles, `overlay(screen_canvas)`,
+    promise line. A set module provides wall_color(time), back(c, time, t=, behind=, **kw) and front(c, **kw)."""
+    img = new_frame(set.wall_color(time))
     c = Canvas(img, cam)
     draw_behind = (lambda cv: [cast.draw(cv, look, pose) for look, pose in behind]) if behind else None
-    room.back(c, time, t=ctx.g, behind=draw_behind, **room_kw)
+    set.back(c, time, t=ctx.g, behind=draw_behind, **room_kw)
     for look, pose in seated:
         cast.draw(c, look, pose)
-    room.front(c, room_kw.get("pizza", False))
+    set.front(c, **room_kw)
     for look, pose in standing:
         cast.draw(c, look, pose)
     for i, pose in enumerate(sleepers):
         dx, dy = (60, -230) if pose.facing > 0 else (-20, -240)
-        cast.zzz(c, pose.x + dx, pose.y + dy, ctx.g, 0.5 * i, room.wall_color(time))
+        cast.zzz(c, pose.x + dx, pose.y + dy, ctx.g, 0.5 * i, set.wall_color(time))
     screen = Canvas(img, SCREEN)
     poses = {look.name.upper(): pose for look, pose in (*behind, *seated, *standing)}
     ctx.bubbles(screen, cam, poses)
     if overlay:
         overlay(screen)
     if ctx.g < ctx.ep.promise_until:
-        promise(screen)
+        promise(screen, ctx.ep.promise_size)
     return img
 
 
@@ -136,6 +139,7 @@ class Episode:
     final_name: str  # upload file name
     reveal_chunks = ["reveal-1", "reveal-2", "reveal-3", "reveal-4"]
     promise_until = 3.0
+    promise_size = 44
 
     def __init__(self):
         self.dialogue_dir = self.here / "audio" / "dialogue"
@@ -264,8 +268,16 @@ class Episode:
             end = caps[i + 1][0] if i + 1 < len(caps) else r1.dur - 0.3
             entries.append((r1.start + start, r1.start + end, text))
         entries.sort()
-        # A subtitle never runs into the next one.
-        entries = [(a, min(b, entries[i + 1][0]) if i + 1 < len(entries) else b, t) for i, (a, b, t) in enumerate(entries)]
+        # Lines spoken together (starting within 0.6 s) share one two-line subtitle; otherwise a subtitle never runs
+        # into the next one.
+        merged = []
+        for a, b, t in entries:
+            if merged and a - merged[-1][0] < 0.6:
+                pa, pb, pt = merged[-1]
+                merged[-1] = (pa, max(pb, b), f"{pt}\n{t}")
+            else:
+                merged.append((a, b, t))
+        entries = [(a, min(b, merged[i + 1][0]) if i + 1 < len(merged) else b, t) for i, (a, b, t) in enumerate(merged)]
         path.write_text("\n".join(f"{i + 1}\n{srt_time(a)} --> {srt_time(b)}\n{t}\n" for i, (a, b, t) in enumerate(entries)))
 
     def render(self):

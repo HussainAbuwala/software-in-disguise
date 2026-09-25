@@ -108,7 +108,7 @@ def back(c: Canvas, time: str = "day", tv: str = "off", pizza: bool = False, t: 
         c.rect(530, 1124, 650, 1214, fill=(214, 172, 124), width=4)
 
 
-def front(c: Canvas, pizza: bool = False):
+def front(c: Canvas, pizza: bool = False, **_):
     """Couch seat front and arms, drawn over the seated characters' laps."""
     c.rect(110, 1230, 1070, 1380, fill=COUCH_DARK, radius=34)
     c.rect(100, 1120, 200, 1390, fill=COUCH, radius=40)

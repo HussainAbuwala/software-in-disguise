@@ -12,10 +12,10 @@ Episodes 1–3 averaged 72 views. Episode 1, the only one whose first frame show
 
 - **The first frame is the conflict.** No title card, series card, or episode number at 0:00. Open on the moment the problem is already visible: two people holding one ticket, two hands gripping one object, a person staring at three bouquets.
 - **Speech starts within 0.3 seconds.** The first line is mid-argument, not setup. "Excuse me, that is my seat" works; "You don't have to make everything a grand gesture" does not.
-- **Promise the payoff on screen from 0:00 to about 0:03 without naming it.** Use a small, persistent line such as `Programmers have a name for this.` or `This is a real software bug.` The term itself stays hidden until the reveal. The line gives nontechnical viewers a reason to stay and tells technical viewers there is a payoff.
+- **Promise the payoff on screen from 0:00 to about 0:03 without naming it.** From Episode 6 this is a large two-line mustard card, `Programmers have / a name for this.` (`promise_size = 64`); Episodes 4–5 used a small one-line pill. The term itself stays hidden until the reveal. The line gives nontechnical viewers a reason to stay and tells technical viewers there is a payoff.
 - **Change the picture at least every 2 seconds.** Hard cut, punch-in on a face or object, a new time card, or a new arrival. A still that holds longer than about 2.5 seconds must be carrying a dialogue beat.
 - **Target 20–30 seconds; 35 seconds is the ceiling.** If the story needs more, cut an escalation step rather than slowing the pace. Three interruptions can become two. Episode 3's 50.8 seconds is not a precedent.
-- **Reveal in no more than about 8 seconds.** Name the concept, give one real-software example, and optionally one sentence on the fix.
+- **Reveal in about 6 seconds: three short sentences.** Name the concept, give the one real-software fact that maps to the story, and let the diagram show the rest. Episode 1's retention graph lost about half its remaining viewers during a ~8 s reveal. A fix sentence is optional and is the first thing to cut.
 - **End on a loop.** The final beat either cuts straight back to the opening conflict or restarts a new version of it, so the replay feels intentional. No end card longer than 1 second.
 - **Mobile-safe captions.** Keep all text inside the Shorts safe zone. Leave the bottom 20% and the right 15% clear of important text.
 
@@ -103,9 +103,47 @@ Avoid committing downloaded voice-model weights. Store them in the repository-le
 - Use a small number of focused hashtags in the description. Keep hashtags out of the title.
 - Reserve the maximum caption footprint before placing story or explanation graphics. Review every animated state, not only the opening and final frames, and use a contact sheet when several objects accumulate or cross paths.
 
+## Publishing schedule
+
+Consistency matters more than the exact slot. A new episode is never held back to protect a previous one that's still
+climbing: each Short is tested on its own.
+
+- **Same date and time on both platforms.** Each new episode goes live on YouTube Shorts and Instagram Reels at the
+  same moment, three episodes a week (Monday, Wednesday, Friday; the slot can be morning or evening, as long as both
+  platforms match). Schedule both a day or more ahead.
+- **YouTube:** check that Studio is on The Unplanned Stack channel (it can open on the personal channel).
+- **Instagram:** account `theunplannedstack`. The web composer supports **Schedule content** (a toggle on the caption
+  step), so Reels can be scheduled ahead like YouTube. The composer defaults to a square crop: pick **Original** in
+  "Select crop" before continuing.
+- **Which episodes go to Instagram:** Episode 4 onward, the code-drawn format with Hussain's voice. Episodes 1–3 stay
+  YouTube-only: they use the old AI-illustrated look and slow openings, and would introduce the series to a new
+  audience with its weakest episodes.
+
+### YouTube upload checklist
+
+- Title (no hashtags), the description from the brief, and 2–3 **unambiguous** hashtags. Avoid tags that collide with
+  other topics: `#deadlock` pulls in Valve's game, so prefer `#computerscience` or `#concurrency`.
+- The custom thumbnail from `deliverables/thumbnail.png`.
+- Audience: not made for kids. Paid promotion: no. AI use: no (cartoon, fictional characters, Hussain's real voice).
+  Revisit this if an episode ever depicts a real person or a realistic scene.
+- Playlist: **Software in Disguise**. Related video: the previous episode. Once the new one is public, update the
+  previous episode's related video to point forward to it.
+- After it goes public: pin the comment from the brief.
+
+### Instagram upload checklist
+
+- Upload the same final MP4 (never a re-download from YouTube, which carries compression and possibly a watermark).
+- Caption: the brief's description, with the first line rewritten as the hook (Instagram shows about one line before
+  "more"). 3–5 hashtags: `#SoftwareInDisguise #programming #computerscience` plus the concept.
+- Cover: `deliverables/thumbnail.png`. Keep "Also share to feed" on.
+- Safe zones: Instagram's caption and buttons cover roughly the bottom 20% and the right edge, the same reserve the
+  series already keeps clear.
+- After it goes up: pin the same comment question.
+
 ## Measuring retention
 
-Record these in each episode's brief 48 hours after publishing:
+Record these in each episode's brief 48 hours after publishing (YouTube Studio; for Instagram, the Reel's
+insights: plays, average watch time, and skip rate if shown):
 
 - **Viewed vs. swiped away** (YouTube Studio → the Short → Engagement). This is the main measure of the hook. It says whether the first second worked.
 - **Average percentage viewed.** Above 100% means viewers are replaying, which means the loop worked.
