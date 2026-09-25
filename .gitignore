@@ -5,3 +5,4 @@ models/
 render/
 *.pyc
 
+episodes/*/build/

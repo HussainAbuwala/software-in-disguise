@@ -14,13 +14,14 @@
 - **Format:** 30-second vertical voiced comic with original situational music and sound effects
 - **Files:** [`episodes/001-two-people-bought-the-same-concert-seat`](episodes/001-two-people-bought-the-same-concert-seat)
 - **Public URL:** Not recorded yet
-
-## Produced for review
+- **Performance (2026-09-24):** 163 views. Best of the first three; the first frame already showed the conflict.
 
 ### Episode 02 — One apology. Three deliveries.
 
-- **Status:** Full 35.4-second voiced cut produced for review; not published
-- **Working title:** `He Tried Not to Overdo the Apology`
+- **Status:** Published
+- **Published:** 2026-09-13
+- **Public title used:** `He Tried Not to Overdo the Apology`
+- **Performance (2026-09-24):** 21 views. The opening showed a calm setup scene with no visible conflict.
 - **Concept:** Idempotency / safely retrying the same intended order
 - **Story:** An apology promises restraint. Missing confirmations lead the sender to retry twice, creating three flower deliveries.
 - **Format:** Vertical illustrated limited animation with synthetic dialogue, audio-driven mouths, reactions, original music and sound effects
@@ -28,8 +29,10 @@
 
 ### Episode 03 — Just One Quick Trim
 
-- **Status:** Final 50.8-second voiced cut and YouTube metadata rendered; not published
-- **Working title:** `Just One Quick Trim`
+- **Status:** Published
+- **Published:** 2026-09-17
+- **Public title used:** `Just One Quick Trim | Starvation in Computers Explained`
+- **Performance (2026-09-24):** 31 views. Runtime was 50.8 seconds, and nothing went wrong in the opening scene.
 - **Series cover hook:** `YOU'RE NEXT.`
 - **Concept:** Starvation in scheduling
 - **Plain explanation:** Small jobs keep going first, so a bigger one may never finish—like a 20-page report that never prints because every new one-page job jumps ahead.
@@ -37,15 +40,28 @@
 - **Format:** Vertical illustrated story with static human scenes, a simple animated printer-queue reveal, synthetic dialogue, situation-specific sound, and original sparse music
 - **Files:** [`episodes/003-just-one-quick-trim`](episodes/003-just-one-quick-trim)
 
+## In development
+
+### Episode 04 — Neither Roommate Would Let Go
+
+- **Status:** Final 29.5 s cut rendered with Hussain's recorded reveal; waiting on voice approval, then publish
+- **Concept:** Deadlock (hold-and-wait with a circular wait)
+- **Story:** Dev holds the TV remote. Mira holds the only batteries. Neither will hand theirs over first; three hours later, still holding; next morning, asleep holding. Jo turns the TV on with its own button ("It has a button."). The TV shows golf, so the standoff resumes and the Short loops.
+- **Format:** First fully code-drawn episode (shared `kit/`); introduces the recurring cast and their voices
+- **Files:** [`episodes/004-neither-roommate-would-let-go`](episodes/004-neither-roommate-would-let-go)
+
 ## Concepts not yet used
 
-This is an idea bank, not an approved schedule. Each premise still needs research and creative review.
+This is an idea bank, not an approved schedule. Each premise still needs research and creative review. Every premise is written as a failure, because a mechanism working correctly has no conflict. Where possible, set it in the Dev and Mira apartment.
 
-- A busy café reuses a recently prepared order — caching
-- A bakery serves customers in arrival order — queue / FIFO
-- A building key opens only certain rooms — authorization and permissions
-- A group passes a message through unreliable friends — networking and retries
-- A restaurant accepts more reservations than tables — overbooking and capacity planning
-- Several people edit the same shared list — conflict resolution / optimistic concurrency
-- A coat-check ticket retrieves the right coat — keys and lookup tables
-- A household keeps duplicate emergency supplies — redundancy and fault tolerance
+- The roommates' shared grocery list says "milk" twice and "eggs" zero times after both edit it offline — conflict resolution / lost update
+- Dev keeps serving guests the snack list from last week's party; the snacks have changed — stale cache
+- Mira asks Dev and Dev's sister separately for the car; both say yes to different people — split brain
+- The apartment Wi-Fi goes down; everyone reconnects at the same instant and it goes down again — retry storm / thundering herd
+- "Meet on the first floor" in a building where the ground floor is zero — off-by-one
+- Dev and Mira meet in the hallway; both politely step aside, again and again — livelock
+- Four cars arrive at a four-way stop at once; everyone yields to the right — circular wait / deadlock (a later sequel to Episode 4)
+- A house key copied for a dog-sitter still works a year later — revoking access / permission expiry
+- The group chat shows a reply before the question it answers — message ordering / eventual consistency
+- A restaurant accepts more reservations than it has tables — overbooking and capacity planning
+- The coat-check gives two coats the same ticket number — hash collision
