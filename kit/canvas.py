@@ -15,7 +15,9 @@ W, H = 1080, 1920
 SS = 2
 
 FONT_PATH = "/System/Library/Fonts/Avenir Next.ttc"
+HAND_FONT_PATH = "/System/Library/Fonts/Noteworthy.ttc"  # handwriting, for sticky notes
 BOLD, DEMI, MEDIUM, HEAVY = 0, 2, 5, 8
+HAND = "hand"
 
 # Series palette.
 INK = (28, 26, 24)
@@ -31,10 +33,12 @@ LW = 7  # standard ink line width, world units
 _fonts: dict = {}
 
 
-def font(size: float, weight: int = BOLD) -> ImageFont.FreeTypeFont:
+def font(size: float, weight: int | str = BOLD) -> ImageFont.FreeTypeFont:
+    """Avenir Next at the given weight, or Noteworthy Bold when weight is HAND."""
     key = (round(size * SS), weight)
     if key not in _fonts:
-        _fonts[key] = ImageFont.truetype(FONT_PATH, key[0], index=weight)
+        path, index = (HAND_FONT_PATH, 1) if weight == HAND else (FONT_PATH, weight)
+        _fonts[key] = ImageFont.truetype(path, key[0], index=index)
     return _fonts[key]
 
 

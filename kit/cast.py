@@ -44,6 +44,10 @@ EXPRESSIONS = {
     "asleep": dict(lid=1.0, brow=(-2, 4), mouth="o_small"),
     "shock": dict(lid=0.0, brow=(-18, -14), mouth="o", pupil=0.6),
     "deadpan": dict(lid=0.45, brow=(0, 0), mouth="flat"),
+    "confident": dict(lid=0.3, brow=(-6, -10), mouth="smile"),
+    "phone": dict(lid=0.4, brow=(-2, -4), mouth="smile", gaze_y=1.0),  # absorbed in a phone, pleased with himself
+    "annoyed": dict(lid=0.32, brow=(12, -2), mouth="flat"),
+    "cheerful": dict(lid=0.15, brow=(-10, -8), mouth="smile"),
 }
 
 
@@ -56,6 +60,7 @@ class Pose:
     mouth: float = 0.0  # 0..1 from dialogue loudness
     blink: bool = False
     gaze: float | None = None  # pupils: -1 left .. 1 right; default = facing
+    gaze_y: float | None = None  # pupils: -1 up .. 1 down; default from the expression
     standing: bool = False
     hands: str = "rest"  # raise_remote | clutch_batteries | mug | reach | shrug | rest
     raise_amt: float = 1.0  # raise_remote: 1 = high, lower when tired
@@ -69,15 +74,15 @@ class Pose:
 # Face
 
 
-def _eye(c: Canvas, cx, cy, look: Look, lid: float, gaze: float, pupil_scale: float, blink: bool):
+def _eye(c: Canvas, cx, cy, look: Look, lid: float, gaze: float, pupil_scale: float, blink: bool, gaze_y: float = 0.0):
     rx, ry = 17, 21
     if blink or lid >= 0.95:
         c.arc(cx - rx, cy - 6, cx + rx, cy + 10, 10, 170, width=6)
         return
     c.ellipse(cx - rx, cy - ry, cx + rx, cy + ry, fill=PAPER, width=5)
     pr = 8 * pupil_scale
-    px = cx + gaze * 7
-    c.ellipse(px - pr, cy - pr + 2, px + pr, cy + pr + 2, fill=INK, outline=None)
+    px, py = cx + gaze * 7, cy + 2 + gaze_y * 9
+    c.ellipse(px - pr, py - pr, px + pr, py + pr, fill=INK, outline=None)
     if lid > 0.02:
         start, end = lid_chord_angles(lid)
         c.chord(cx - rx, cy - ry, cx + rx, cy + ry, start, end, fill=look.skin, width=5)
@@ -132,6 +137,7 @@ def head(c: Canvas, look: Look, pose: Pose, hx: float, hy: float):
     f = pose.facing
     ex = EXPRESSIONS[pose.expr]
     gaze = f * 1.0 if pose.gaze is None else pose.gaze
+    gaze_y = ex.get("gaze_y", 0.0) if pose.gaze_y is None else pose.gaze_y
     _hair_back(c, look, hx, hy, f)
     c.circle(hx, hy, HEAD_R, fill=look.skin)
     # Ear on the far side from the face.
@@ -142,7 +148,7 @@ def head(c: Canvas, look: Look, pose: Pose, hx: float, hy: float):
     eyes = (fx - 23, fx + 23)
     lid = ex["lid"]
     for i, e in enumerate(eyes):
-        _eye(c, e, hy + 3, look, lid, gaze, ex.get("pupil", 1.0), pose.blink)
+        _eye(c, e, hy + 3, look, lid, gaze, ex.get("pupil", 1.0), pose.blink, gaze_y)
     if ex.get("bags"):
         for e in eyes:
             c.arc(e - 16, hy + 12, e + 16, hy + 34, 20, 160, fill=(120, 80, 70), width=4)
@@ -183,6 +189,24 @@ def battery(c: Canvas, x, y, scale=1.0):
 def mug(c: Canvas, x, y):
     c.rect(x - 30, y - 60, x + 30, y, fill=PAPER, radius=8)
     c.arc(x + 18, y - 48, x + 50, y - 14, 270, 90, width=7)
+
+
+def phone(c: Canvas, x, y, glow=(170, 210, 235)):
+    """Phone held flat-ish, screen toward the holder; a sliver of screen glow shows."""
+    c.rect(x - 34, y - 58, x + 34, y + 58, fill=(40, 40, 46), radius=12, width=6)
+    c.rect(x - 24, y - 46, x + 24, y + 44, fill=glow, outline=None, radius=6)
+
+
+def milk_carton(c: Canvas, x, y, upside_down=False, scale=1.0):
+    """Gable-top carton. (x, y) is the bottom center, or the top center when upside down."""
+    k, d = scale, (-1 if upside_down else 1)
+    w, h, gable = 34 * k, 110 * k, 34 * k
+    body = [(x - w, y), (x + w, y), (x + w, y - d * h), (x - w, y - d * h)]
+    c.poly(body, fill=PAPER, width=6)
+    c.poly([(x - w, y - d * h), (x + w, y - d * h), (x + w * 0.6, y - d * (h + gable)), (x - w * 0.6, y - d * (h + gable))], fill=(236, 240, 246), width=6)
+    c.rect(x - w * 0.5, y - d * (h + gable) - (8 * k if d > 0 else 0), x + w * 0.5, y - d * (h + gable) + (0 if d > 0 else 8 * k), fill=(236, 240, 246), width=5)
+    band_y = y - d * h * 0.55
+    c.rect(x - w, band_y - 16 * k, x + w, band_y + 16 * k, fill=(70, 130, 200), width=5)
 
 
 def hand(c: Canvas, x, y, look: Look, r=26):
@@ -260,6 +284,45 @@ def _arms(c: Canvas, look: Look, pose: Pose, x: float, y: float, standing: bool 
         c.limb([near_sh, mid, (tx - f * 22, ty)], look.top, sleeve)
         hand(c, tx - f * 22, ty, look, r=22)
         c.line([(tx - f * 22, ty), (tx, ty)], fill=look.skin, width=14)  # pointing finger
+    elif pose.hands == "phone":
+        for hx_, sh in ((x - 34, (x - 76, y + 4)), (x + 34, (x + 76, y + 4))):
+            c.limb([sh, (sh[0], y + 70), (hx_, y + 60)], look.top, sleeve)
+        phone(c, x + f * 4, y + 40)
+        for hx_ in (x - 34, x + 34):
+            hand(c, hx_, y + 64, look, r=22)
+    elif pose.hands == "carton":
+        # Near hand holds the carton upside down at head height; far hand on the hip.
+        # Held up high and shaken, so the empty carton is the first thing you see.
+        shake = pose.extras.get("shake", 0.0)
+        hand_p = (x + f * 135 + shake, y - 170)
+        c.limb([near_sh, (x + f * 150, y - 40), hand_p], look.top, sleeve)
+        milk_carton(c, hand_p[0], hand_p[1] - 20, upside_down=True, scale=1.5)
+        hand(c, *hand_p, look, r=26)
+        drop = pose.extras.get("drop")
+        if drop is not None:  # one last drop falling from the spout
+            sy = hand_p[1] - 20 + (110 + 34 + 12) * 1.5
+            c.ellipse(hand_p[0] - 9, sy + drop, hand_p[0] + 9, sy + 26 + drop, fill=PAPER, width=4)
+        c.limb([far_sh, (x - f * 110, y + 110), (x - f * 70, y + 170)], look.top, sleeve)
+        hand(c, x - f * 70, y + 170, look, r=22)
+    elif pose.hands == "wave_mug":
+        wave = pose.extras.get("wave", 0.0)
+        hand_p = (x + f * (120 + 20 * wave), y - 90)
+        c.limb([near_sh, (x + f * 110, y + 10), hand_p], look.top, sleeve)
+        hand(c, *hand_p, look, r=24)
+        c.limb([far_sh, (x - f * 70, y + 130), (x - f * 30, y + 110)], look.top, sleeve)
+        mug(c, x - f * 30, y + 120)
+        hand(c, x - f * 30 - 30, y + 95, look, r=22)
+    elif pose.hands == "mug_up":
+        # Holding an empty mug up, like the carton in the opening: the loop rhyme.
+        hand_p = (x + f * 120, y - 40)
+        c.limb([near_sh, (x + f * 130, y + 50), hand_p], look.top, sleeve)
+        mug(c, hand_p[0] + f * 4, hand_p[1] - 8)
+        hand(c, *hand_p, look, r=24)
+        c.limb([far_sh, (x - f * 110, y + 110), (x - f * 70, y + 170)], look.top, sleeve)
+        hand(c, x - f * 70, y + 170, look, r=22)
+    elif pose.hands == "far_rest":
+        # Near arm drawn separately by the shot (e.g. reaching into a fridge in screen space).
+        c.limb([far_sh, (x - f * 75, y + 150)], look.top, sleeve)
     elif pose.hands == "shrug":
         for side in (-1, 1):
             sh = (x + side * 58, y + 20)

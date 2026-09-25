@@ -1,0 +1,25 @@
+{
+  "source": "reveal-hussain-raw.m4a",
+  "trim": [
+    1.68,
+    10.28
+  ],
+  "captions": [
+    [
+      0.08,
+      "That's a stale cache."
+    ],
+    [
+      1.5,
+      "An answer saved once, and never checked again."
+    ],
+    [
+      4.61,
+      "It's why a site can show you yesterday's price."
+    ],
+    [
+      7.13,
+      "Good caches expire."
+    ]
+  ]
+}

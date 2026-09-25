@@ -59,7 +59,7 @@ The series name and episode number belong on the thumbnail and in a small corner
 
 The series needs 2–3 episodes per week for about four weeks before the format can be judged. Cadence matters more than polish.
 
-- Reuse the character kit (`kit/`), voice assignments, sound-design helpers, caption styling, and renderer from the previous episode. A new episode should need only a script, shot functions, and a recorded reveal. Copy the previous episode's `render_episode.py` as the starting point.
+- Reuse the kit. `kit/episode.py` handles the timeline, lip-sync, dialogue levelling and mixing, rendering, subtitles and the contact sheet. An episode's `render_episode.py` subclasses `Episode` and contains only the story: shot functions, `build_shots()`, `sound_design()`, `thumbnail()` and `reveal_frame()`. Start from the previous episode's files.
 - When a story needs something the kit lacks (a new prop, pose, set, or character), add it to `kit/` so later episodes get it too.
 - If a premise is not working after one draft, move it to the idea bank and pick another. Do not build three versions of one episode.
 

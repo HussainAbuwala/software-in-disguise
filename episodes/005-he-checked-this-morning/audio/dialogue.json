@@ -1,0 +1,121 @@
+{
+  "engine": "Kokoro-82M via kokoro-onnx",
+  "cast": {
+    "DEV": {
+      "voice": "am_puck",
+      "base_speed": 1.0
+    },
+    "MIRA": {
+      "voice": "af_heart",
+      "base_speed": 0.95
+    },
+    "JO": {
+      "voice": "af_nicole",
+      "base_speed": 0.9
+    },
+    "NARRATOR": {
+      "voice": "am_michael",
+      "base_speed": 1.0
+    }
+  },
+  "lines": {
+    "mira-said-milk": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "You said there was milk.",
+      "duration": 1.368
+    },
+    "dev-i-checked": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 1.0,
+      "text": "There is. I checked.",
+      "duration": 1.082
+    },
+    "mira-jo-asleep": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "Is Jo still asleep?",
+      "duration": 1.377
+    },
+    "dev-fast-asleep": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 1.0,
+      "text": "Fast asleep.",
+      "duration": 0.937
+    },
+    "jo-morning": {
+      "speaker": "JO",
+      "voice": "af_nicole",
+      "speed": 0.95,
+      "text": "Morning!",
+      "duration": 0.865
+    },
+    "mira-raining": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "Is it still raining?",
+      "duration": 1.231
+    },
+    "dev-sunny": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 1.0,
+      "text": "Nope. Sunny.",
+      "duration": 0.894
+    },
+    "dev-sunny-at-seven": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 0.95,
+      "text": "It was sunny at seven.",
+      "duration": 1.278
+    },
+    "mira-coffee": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "Is there coffee?",
+      "duration": 1.065
+    },
+    "dev-yep-checked": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 1.0,
+      "text": "Yep. Checked.",
+      "duration": 0.875
+    },
+    "reveal-1": {
+      "speaker": "NARRATOR",
+      "voice": "am_michael",
+      "speed": 1.0,
+      "text": "That's a stale cache.",
+      "duration": 1.387
+    },
+    "reveal-2": {
+      "speaker": "NARRATOR",
+      "voice": "am_michael",
+      "speed": 1.0,
+      "text": "An answer saved once, and never checked again.",
+      "duration": 2.991
+    },
+    "reveal-3": {
+      "speaker": "NARRATOR",
+      "voice": "am_michael",
+      "speed": 1.0,
+      "text": "It's why a site can show you yesterday's price.",
+      "duration": 2.761
+    },
+    "reveal-4": {
+      "speaker": "NARRATOR",
+      "voice": "am_michael",
+      "speed": 0.97,
+      "text": "Good caches expire.",
+      "duration": 1.579
+    }
+  }
+}

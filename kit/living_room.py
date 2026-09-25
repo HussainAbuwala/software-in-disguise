@@ -28,9 +28,10 @@ def wall_color(time: str):
     return TIMES[time]["wall"]
 
 
-def _window(c: Canvas, time: str, t: float):
-    x0, y0, x1, y1 = 330, 560, 820, 880
-    c.rect(x0, y0, x1, y1, fill=TIMES[time]["sky"][0])
+RAIN_SKY = (120, 128, 140)
+
+
+def _sky(c: Canvas, time: str, t: float):
     if time == "day":
         cx = 470 + (t * 6) % 200  # a slow cloud keeps the day frame alive
         for dx, r in ((0, 34), (38, 44), (80, 30)):
@@ -42,6 +43,23 @@ def _window(c: Canvas, time: str, t: float):
             c.circle(sx, sy, 4, fill=(240, 234, 210), outline=None)
     elif time == "morning":
         c.chord(620, 780, 780, 940, 180, 360, fill=(250, 190, 90), outline=None)
+
+
+def _rain(c: Canvas, x0, y0, x1, y1, t: float):
+    c.rect(x0, y0, x1, y1, fill=RAIN_SKY)
+    for i in range(26):  # falling streaks, wrapped inside the pane
+        sx = x0 + 12 + (i * 53) % (x1 - x0 - 24)
+        sy = y0 + ((i * 97 + t * 900) % (y1 - y0 - 40))
+        c.line([(sx, sy), (sx - 8, sy + 34)], fill=(210, 220, 232), width=4)
+
+
+def _window(c: Canvas, time: str, t: float, weather: str = "clear"):
+    x0, y0, x1, y1 = 330, 560, 820, 880
+    if weather == "rain":
+        _rain(c, x0, y0, x1, y1, t)
+    else:
+        c.rect(x0, y0, x1, y1, fill=TIMES[time]["sky"][0])
+        _sky(c, time, t)
     c.rect(x0, y0, x1, y1, width=7)
     c.line([(575, y0), (575, y1)], width=7)
     c.rect(300, 870, 850, 900, fill=PAPER)
@@ -72,15 +90,18 @@ def _tv(c: Canvas, tv: str, t: float):
     c.circle(*POWER_BUTTON, 7, fill=(120, 220, 120) if button_on else (209, 73, 91), width=3)
 
 
-def back(c: Canvas, time: str = "day", tv: str = "off", pizza: bool = False, t: float = 0.0):
-    """Everything behind the seated characters."""
+def back(c: Canvas, time: str = "day", tv: str = "off", pizza: bool = False, t: float = 0.0, weather: str = "clear",
+         behind=None):
+    """Everything behind the seated characters. `behind(c)` draws anyone standing behind the couch."""
     tod = TIMES[time]
     c.rect(-2000, -2000, 3000, 1380, fill=tod["wall"], outline=None)
     c.rect(-2000, 1380, 3000, 4000, fill=tod["floor"], outline=None)
     c.line([(-2000, 1380), (3000, 1380)], width=7)
-    _window(c, time, t)
+    _window(c, time, t, weather)
     _picture(c)
     _tv(c, tv, t)
+    if behind:
+        behind(c)
     c.rect(140, 1000, 1040, 1240, fill=COUCH, radius=40)
     if pizza:
         c.rect(515, 1110, 665, 1228, fill=(196, 150, 100), width=6)

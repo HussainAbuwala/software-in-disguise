@@ -24,7 +24,9 @@ every episode.
 ../../.venv/bin/python render_episode.py  # frames + sound design + mix → deliverables/
 ```
 
-Requires Pillow, NumPy, SoundFile and kokoro-onnx in the repo's `.venv`, plus FFmpeg. Set `KOKORO_MODEL_DIR` to a
+The shared machinery (timeline, lip-sync, mixing, rendering) is in `kit/episode.py`, which was extracted from
+this episode's original renderer and verified to reproduce it frame- and sample-identically. Requires Pillow, NumPy,
+SoundFile and kokoro-onnx in the repo's `.venv`, plus FFmpeg. Set `KOKORO_MODEL_DIR` to a
 folder containing `kokoro.onnx` and `voices.bin` (defaults to the Episode 01 model folder). A render takes about
 90 seconds.
 

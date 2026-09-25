@@ -1,0 +1,55 @@
+1
+00:00:00,120 --> 00:00:01,688
+MIRA: You said there was milk.
+
+2
+00:00:01,918 --> 00:00:03,200
+DEV: There is. I checked.
+
+3
+00:00:08,200 --> 00:00:09,777
+MIRA: Is Jo still asleep?
+
+4
+00:00:10,027 --> 00:00:11,127
+DEV: Fast asleep.
+
+5
+00:00:11,127 --> 00:00:12,191
+JO: Morning!
+
+6
+00:00:12,677 --> 00:00:14,108
+MIRA: Is it still raining?
+
+7
+00:00:14,308 --> 00:00:15,402
+DEV: Nope. Sunny.
+
+8
+00:00:16,302 --> 00:00:17,780
+DEV: It was sunny at seven.
+
+9
+00:00:19,110 --> 00:00:20,530
+That's a stale cache.
+
+10
+00:00:20,530 --> 00:00:23,640
+An answer saved once, and never checked again.
+
+11
+00:00:23,640 --> 00:00:26,160
+It's why a site can show you yesterday's price.
+
+12
+00:00:26,160 --> 00:00:27,830
+Good caches expire.
+
+13
+00:00:28,230 --> 00:00:29,445
+MIRA: Is there coffee?
+
+14
+00:00:29,445 --> 00:00:30,520
+DEV: Yep. Checked.

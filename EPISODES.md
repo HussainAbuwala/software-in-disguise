@@ -44,18 +44,26 @@
 
 ### Episode 04 — Neither Roommate Would Let Go
 
-- **Status:** Final 29.5 s cut rendered with Hussain's recorded reveal; waiting on voice approval, then publish
+- **Status:** Published by Hussain on 2026-09-24 (21 views in its first hour)
 - **Concept:** Deadlock (hold-and-wait with a circular wait)
 - **Story:** Dev holds the TV remote. Mira holds the only batteries. Neither will hand theirs over first; three hours later, still holding; next morning, asleep holding. Jo turns the TV on with its own button ("It has a button."). The TV shows golf, so the standoff resumes and the Short loops.
 - **Format:** First fully code-drawn episode (shared `kit/`); introduces the recurring cast and their voices
 - **Files:** [`episodes/004-neither-roommate-would-let-go`](episodes/004-neither-roommate-would-let-go)
+
+### Episode 05 — He Checked This Morning
+
+- **Status:** Scheduled on The Unplanned Stack for 2026-09-25 9:00 AM EDT
+- **Public URL:** https://youtube.com/shorts/oroEZpeOLDs
+- **Concept:** Stale cache (plus expiry / TTL as the fix)
+- **Story:** Dev answers every question from what he saw at 7:02: milk (Jo finished it at 8:15), "Fast asleep" (Jo walks in saying "Morning!"), "Sunny" (thunder). Payoff: "It was sunny at seven." Loop: "Is there coffee?" "Yep. Checked."
+- **Format:** Code-drawn (`kit/`); introduces Dev's memory note as a visual device; first episode that isn't about concurrency
+- **Files:** [`episodes/005-he-checked-this-morning`](episodes/005-he-checked-this-morning)
 
 ## Concepts not yet used
 
 This is an idea bank, not an approved schedule. Each premise still needs research and creative review. Every premise is written as a failure, because a mechanism working correctly has no conflict. Where possible, set it in the Dev and Mira apartment.
 
 - The roommates' shared grocery list says "milk" twice and "eggs" zero times after both edit it offline — conflict resolution / lost update
-- Dev keeps serving guests the snack list from last week's party; the snacks have changed — stale cache
 - Mira asks Dev and Dev's sister separately for the car; both say yes to different people — split brain
 - The apartment Wi-Fi goes down; everyone reconnects at the same instant and it goes down again — retry storm / thundering herd
 - "Meet on the first floor" in a building where the ground floor is zero — off-by-one
