@@ -1,0 +1,21 @@
+{
+  "source": "reveal-hussain-raw.m4a",
+  "trim": [
+    1.48,
+    8.63
+  ],
+  "captions": [
+    [
+      0.08,
+      "That's an off-by-one error."
+    ],
+    [
+      1.82,
+      "Computers count from zero, people from one."
+    ],
+    [
+      4.53,
+      "One slip means a skipped item, or a crash."
+    ]
+  ]
+}

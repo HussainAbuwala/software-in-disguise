@@ -1,0 +1,66 @@
+1
+00:00:00,100 --> 00:00:01,765
+MIRA: I'm here. First floor.
+
+2
+00:00:01,895 --> 00:00:03,448
+DEV: Me too. Window table.
+
+3
+00:00:03,578 --> 00:00:05,138
+MIRA: I'm AT the window table.
+
+4
+00:00:05,388 --> 00:00:06,395
+DEV: I'm waving!
+
+5
+00:00:06,395 --> 00:00:07,431
+MIRA: So am I!
+
+6
+00:00:07,681 --> 00:00:08,980
+DEV: The sign says one!
+
+7
+00:00:09,180 --> 00:00:10,905
+MIRA: The front door is right here!
+
+8
+00:00:11,105 --> 00:00:12,369
+MIRA: Oh! Upstairs!
+
+9
+00:00:12,369 --> 00:00:13,544
+DEV: Oh! The entrance!
+
+10
+00:00:13,544 --> 00:00:14,960
+MIRA: Stay there, I'm coming!
+DEV: Stay there, I'm coming!
+
+11
+00:00:18,244 --> 00:00:19,903
+DEV: Okay. I'm here.
+MIRA: Okay. I'm here.
+
+12
+00:00:20,003 --> 00:00:20,818
+MIRA: Where?
+
+13
+00:00:21,548 --> 00:00:23,288
+That's an off-by-one error.
+
+14
+00:00:23,288 --> 00:00:25,998
+Computers count from zero, people from one.
+
+15
+00:00:25,998 --> 00:00:28,818
+One slip means a skipped item, or a crash.
+
+16
+00:00:29,218 --> 00:00:30,505
+DEV: Coming up!
+MIRA: Coming down!

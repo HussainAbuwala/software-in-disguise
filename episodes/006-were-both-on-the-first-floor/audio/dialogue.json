@@ -1,0 +1,156 @@
+{
+  "engine": "Kokoro-82M via kokoro-onnx",
+  "cast": {
+    "DEV": {
+      "voice": "am_puck",
+      "base_speed": 1.0
+    },
+    "MIRA": {
+      "voice": "af_heart",
+      "base_speed": 0.95
+    },
+    "JO": {
+      "voice": "af_nicole",
+      "base_speed": 0.9
+    },
+    "NARRATOR": {
+      "voice": "am_michael",
+      "base_speed": 1.0
+    }
+  },
+  "lines": {
+    "mira-first-floor": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "I'm here. First floor.",
+      "duration": 1.465
+    },
+    "dev-window-table": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 1.0,
+      "text": "Me too. Window table.",
+      "duration": 1.353
+    },
+    "mira-at-window": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "I'm AT the window table.",
+      "duration": 1.36
+    },
+    "dev-waving": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 1.0,
+      "text": "I'm waving!",
+      "duration": 0.857
+    },
+    "mira-so-am-i": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "So am I!",
+      "duration": 0.836
+    },
+    "dev-sign-says-one": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 1.0,
+      "text": "The sign says one!",
+      "duration": 1.099
+    },
+    "mira-front-door": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "The front door is right here!",
+      "duration": 1.525
+    },
+    "mira-realize": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "Oh! Upstairs!",
+      "duration": 1.164
+    },
+    "dev-realize": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 1.0,
+      "text": "Oh! The entrance!",
+      "duration": 1.025
+    },
+    "mira-stay-there": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 1.0,
+      "text": "Stay there, I'm coming!",
+      "duration": 1.216
+    },
+    "dev-stay-there": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 1.05,
+      "text": "Stay there, I'm coming!",
+      "duration": 1.05
+    },
+    "dev-im-here": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 1.0,
+      "text": "Okay. I'm here.",
+      "duration": 1.069
+    },
+    "mira-im-here": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "Okay. I'm here.",
+      "duration": 1.259
+    },
+    "mira-where": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "Where?",
+      "duration": 0.615
+    },
+    "dev-coming-up-loop": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 1.05,
+      "text": "Coming up!",
+      "duration": 0.683
+    },
+    "mira-coming-down-loop": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 1.0,
+      "text": "Coming down!",
+      "duration": 0.887
+    },
+    "reveal-1": {
+      "speaker": "NARRATOR",
+      "voice": "am_michael",
+      "speed": 1.0,
+      "text": "That's an off-by-one error.",
+      "duration": 1.657
+    },
+    "reveal-2": {
+      "speaker": "NARRATOR",
+      "voice": "am_michael",
+      "speed": 1.08,
+      "text": "Computers count from zero, people from one.",
+      "duration": 2.718
+    },
+    "reveal-3": {
+      "speaker": "NARRATOR",
+      "voice": "am_michael",
+      "speed": 1.08,
+      "text": "One slip means a skipped item, or a crash.",
+      "duration": 2.594
+    }
+  }
+}

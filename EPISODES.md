@@ -40,6 +40,30 @@
 - **Format:** Vertical illustrated story with static human scenes, a simple animated printer-queue reveal, synthetic dialogue, situation-specific sound, and original sparse music
 - **Files:** [`episodes/003-just-one-quick-trim`](episodes/003-just-one-quick-trim)
 
+## Publishing plan
+
+| Episode | YouTube | Instagram |
+| --- | --- | --- |
+| 01–03 | Published | Not posted (old format) |
+| 04 | Published 2026-09-24 ([link](https://youtube.com/shorts/ZZZFeXNJyp8)) | Scheduled Fri 2026-09-25, 12:00 PM ET (catch-up) |
+| 05 | Published Fri 2026-09-25, 9:00 AM ET ([link](https://youtube.com/shorts/oroEZpeOLDs)) | Scheduled Fri 2026-09-25, 4:00 PM ET (catch-up) |
+| 06 | Scheduled Fri 2026-09-25, 8:00 PM ET ([link](https://youtube.com/shorts/EVcvuKnatMA)) | Scheduled Fri 2026-09-25, 8:00 PM ET (same time) |
+
+From Episode 6 on, both platforms go live at the same time.
+
+## Retention baseline (read from YouTube Studio, 2026-09-25)
+
+| Episode | Views | Stayed to watch | Avg view duration | Where viewers leave |
+| --- | --- | --- | --- | --- |
+| 01 (old format, 31 s) | 162 | 23.1% | 0:22 (71%) | Holds through the story, then falls from about 65% to 30% over the last ~8 s (the reveal) |
+| 02 (old format, 36 s) | 21 | 50.0% (tiny sample) | 0:16 (44%) | Steps down to about 45% within the first ~8 s of setup |
+| 03 (old format, 51 s) | 32 | 35.5% | 0:19 (37%) | Falls to about 30% during the slow opening (3–12 s) |
+| 04 (new format, 29.5 s) | 821 in ~7 h | 49.2% | 0:22 (74%) | Retention graph not available yet |
+
+Episode 1 is the only old episode with a comparable sample size. Against it, the new cold open roughly doubled the
+share of viewers who stay (23% → 49%). The open question is the reveal: Episode 1 lost about half its remaining
+viewers there. Check Episode 4's graph when it appears before shortening future reveals.
+
 ## In development
 
 ### Episode 04 — Neither Roommate Would Let Go
@@ -59,6 +83,14 @@
 - **Format:** Code-drawn (`kit/`); introduces Dev's memory note as a visual device; first episode that isn't about concurrency
 - **Files:** [`episodes/005-he-checked-this-morning`](episodes/005-he-checked-this-morning)
 
+### Episode 06 — We're Both on the First Floor
+
+- **Status:** Scheduled on YouTube and Instagram for Fri 2026-09-25, 8:00 PM ET
+- **Concept:** Off-by-one error (counting from zero vs. from one)
+- **Story:** On the phone at identical window tables, Dev (upstairs, "1") and Mira (entrance level, "G") are each sure they're on the first floor. Each finally gets the other's count, both say "Stay there, I'm coming!", and they swap floors by stairs and elevator, passing in slow motion, still one apart. "Okay. I'm here." "…Where?"
+- **Format:** New two-floor café set; first episode with the short (~6 s) reveal and the two-line promise card
+- **Files:** [`episodes/006-were-both-on-the-first-floor`](episodes/006-were-both-on-the-first-floor)
+
 ## Concepts not yet used
 
 This is an idea bank, not an approved schedule. Each premise still needs research and creative review. Every premise is written as a failure, because a mechanism working correctly has no conflict. Where possible, set it in the Dev and Mira apartment.
@@ -66,7 +98,6 @@ This is an idea bank, not an approved schedule. Each premise still needs researc
 - The roommates' shared grocery list says "milk" twice and "eggs" zero times after both edit it offline — conflict resolution / lost update
 - Mira asks Dev and Dev's sister separately for the car; both say yes to different people — split brain
 - The apartment Wi-Fi goes down; everyone reconnects at the same instant and it goes down again — retry storm / thundering herd
-- "Meet on the first floor" in a building where the ground floor is zero — off-by-one
 - Dev and Mira meet in the hallway; both politely step aside, again and again — livelock
 - Four cars arrive at a four-way stop at once; everyone yields to the right — circular wait / deadlock (a later sequel to Episode 4)
 - A house key copied for a dog-sitter still works a year later — revoking access / permission expiry

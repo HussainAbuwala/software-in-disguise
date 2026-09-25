@@ -13,6 +13,7 @@ The format is designed for both technical and nontechnical viewers: the story an
 | 03 | A groom keeps losing his turn at the barbershop | Starvation | Published on 2026-09-17 |
 | 04 | Two roommates, one remote, one set of batteries | Deadlock | Published on 2026-09-24 |
 | 05 | Dev answers everything from what he saw at 7:02 | Stale cache | Scheduled for 2026-09-25 9:00 AM EDT |
+| 06 | Dev and Mira are both "on the first floor", one floor apart | Off-by-one | Scheduled: YouTube + Instagram, Fri 2026-09-25 8:00 PM ET |
 
 From Episode 4 the series follows the September 2026 revision in [`SERIES_GUIDE.md`](SERIES_GUIDE.md):
 
