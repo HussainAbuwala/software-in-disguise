@@ -1,0 +1,118 @@
+{
+  "engine": "Kokoro-82M via kokoro-onnx",
+  "cast": {
+    "DEV": {
+      "voice": "am_puck",
+      "base_speed": 1.0
+    },
+    "MIRA": {
+      "voice": "af_heart",
+      "base_speed": 0.95
+    },
+    "JO": {
+      "voice": "af_nicole",
+      "base_speed": 0.9
+    },
+    "TV": {
+      "voice": "bm_george",
+      "base_speed": 0.88
+    },
+    "NARRATOR": {
+      "voice": "am_michael",
+      "base_speed": 1.0
+    }
+  },
+  "lines": {
+    "dev-batteries-now": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 1.0,
+      "text": "Batteries. Now.",
+      "duration": 1.03
+    },
+    "mira-remote-first": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "Remote first.",
+      "duration": 1.059
+    },
+    "dev-doesnt-work": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 1.05,
+      "text": "It doesn't even work without them!",
+      "duration": 1.626
+    },
+    "mira-why-holding": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "Then why are you holding it?",
+      "duration": 1.514
+    },
+    "dev-let-go": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 0.92,
+      "text": "You could just let go.",
+      "duration": 1.274
+    },
+    "mira-you-first": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.9,
+      "text": "You first.",
+      "duration": 0.931
+    },
+    "jo-button": {
+      "speaker": "JO",
+      "voice": "af_nicole",
+      "speed": 0.9,
+      "text": "It has a button.",
+      "duration": 1.296
+    },
+    "tv-golf-1": {
+      "speaker": "TV",
+      "voice": "bm_george",
+      "speed": 0.88,
+      "text": "Lovely conditions out here this morning.",
+      "duration": 3.22
+    },
+    "tv-golf-2": {
+      "speaker": "TV",
+      "voice": "bm_george",
+      "speed": 0.88,
+      "text": "He'll want to take his time with this one.",
+      "duration": 2.688
+    },
+    "reveal-1": {
+      "speaker": "NARRATOR",
+      "voice": "am_michael",
+      "speed": 1.0,
+      "text": "That's a deadlock.",
+      "duration": 1.23
+    },
+    "reveal-2": {
+      "speaker": "NARRATOR",
+      "voice": "am_michael",
+      "speed": 1.0,
+      "text": "Each one holds what the other needs,",
+      "duration": 2.163
+    },
+    "reveal-3": {
+      "speaker": "NARRATOR",
+      "voice": "am_michael",
+      "speed": 0.97,
+      "text": "so both wait forever.",
+      "duration": 1.578
+    },
+    "reveal-4": {
+      "speaker": "NARRATOR",
+      "voice": "am_michael",
+      "speed": 1.0,
+      "text": "It's one reason apps freeze.",
+      "duration": 1.748
+    }
+  }
+}

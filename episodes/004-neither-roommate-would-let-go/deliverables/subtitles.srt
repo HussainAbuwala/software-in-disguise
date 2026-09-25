@@ -1,0 +1,43 @@
+1
+00:00:00,120 --> 00:00:01,350
+DEV: Batteries. Now.
+
+2
+00:00:01,880 --> 00:00:03,139
+MIRA: Remote first.
+
+3
+00:00:03,400 --> 00:00:05,226
+DEV: It doesn't even work without them!
+
+4
+00:00:05,526 --> 00:00:07,240
+MIRA: Then why are you holding it?
+
+5
+00:00:08,540 --> 00:00:10,014
+DEV: You could just let go.
+
+6
+00:00:10,264 --> 00:00:11,395
+MIRA: You first.
+
+7
+00:00:17,445 --> 00:00:18,941
+JO: It has a button.
+
+8
+00:00:20,471 --> 00:00:21,871
+That's a deadlock.
+
+9
+00:00:21,871 --> 00:00:23,681
+Each one holds what the other needs,
+
+10
+00:00:23,681 --> 00:00:25,601
+so both wait forever.
+
+11
+00:00:25,601 --> 00:00:27,581
+It's one reason apps freeze.

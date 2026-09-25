@@ -1,0 +1,25 @@
+{
+  "source": "reveal-hussain-raw.m4a",
+  "trim": [
+    1.76,
+    8.75
+  ],
+  "captions": [
+    [
+      0.08,
+      "That's a deadlock."
+    ],
+    [
+      1.48,
+      "Each one holds what the other needs,"
+    ],
+    [
+      3.29,
+      "so both wait forever."
+    ],
+    [
+      5.21,
+      "It's one reason apps freeze."
+    ]
+  ]
+}
