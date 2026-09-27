@@ -106,6 +106,17 @@ widen it. Subscribers: +3, +1, +2.
 - **Format:** New two-floor café set; first episode with the short (~6 s) reveal and the two-line promise card
 - **Files:** [`episodes/006-were-both-on-the-first-floor`](episodes/006-were-both-on-the-first-floor)
 
+### Episode 07 — Anywhere's Fine
+
+- **Status:** Brief written, awaiting Hussain's approval
+- **Concept:** Leader election (the usual fix for the consensus problem)
+- **Story:** Dev, Mira and Jo, starving on the couch: "Where should we eat?" "Anywhere's fine." Forty minutes later,
+  Mira makes Jo the decider: "Thai." They're at the door instantly. Final gag at the restaurant: "So… what should we
+  order?" Jo: "I'm not doing this every time."
+- **Format:** First episode built on the Episode 4–6 analytics: close-up first frame, speech through the first 10 s, a
+  3–4 s reveal inside the scene, and a final gag after the reveal
+- **Files:** [`episodes/007-anywheres-fine`](episodes/007-anywheres-fine)
+
 ## Concepts not yet used
 
 This is an idea bank, not an approved schedule. Each premise still needs research and creative review. Premises start from a situation people have lived (see the Core promise in `SERIES_GUIDE.md`). The fuller, rated list is in `book/IDEATION.md`. Set each one wherever the situation happens; reusing an existing set is a bonus, not a requirement.

@@ -34,12 +34,14 @@ other modes against it before relying on them.
 
 Episodes 1–3 averaged 72 views. Episode 1, the only one whose first frame showed the conflict, received about six times the views of the other two. Most Shorts views come from the swipe feed, so the first second decides whether anything else is seen.
 
-- **The first frame is the conflict.** No title card, series card, or episode number at 0:00. Open on the moment the problem is already visible: two people holding one ticket, two hands gripping one object, a person staring at three bouquets.
+- **The first frame is the conflict, in close-up.** No title card, series card, or episode number at 0:00. Open on the moment the problem is already visible: two people holding one ticket, two hands gripping one object, a person staring at three bouquets. Faces must be big enough to read on a phone: Episode 6's wide cross-section with two small figures had the most swipe-aways of Episodes 4–6 (58%), although its story held viewers best.
 - **Speech starts within 0.3 seconds.** The first line is mid-argument, not setup. "Excuse me, that is my seat" works; "You don't have to make everything a grand gesture" does not.
 - **Promise the payoff on screen from 0:00 to about 0:03 without naming it.** From Episode 6 this is a large two-line mustard card, `Programmers have / a name for this.` (`promise_size = 64`); Episodes 4–5 used a small one-line pill. The term itself stays hidden until the reveal. The line gives nontechnical viewers a reason to stay and tells technical viewers there is a payoff.
+- **Speech and faces through the first 10 seconds.** No silent inserts, time cards or flashbacks before about 0:10: Episode 4's wordless close-up of the remote (0:03) and Episode 5's time cards and silent flashback (0:04–0:08) are where those episodes lost their early viewers. Show time passing inside the scene (a wall clock, lower light) while people keep talking.
 - **Change the picture at least every 2 seconds.** Hard cut, punch-in on a face or object, a new time card, or a new arrival. A still that holds longer than about 2.5 seconds must be carrying a dialogue beat.
 - **Target 20–30 seconds; 35 seconds is the ceiling.** If the story needs more, cut an escalation step rather than slowing the pace. Three interruptions can become two. Episode 3's 50.8 seconds is not a precedent.
-- **Reveal in about 6 seconds: three short sentences.** Name the concept, give the one real-software fact that maps to the story, and let the diagram show the rest. Episode 1's retention graph lost about half its remaining viewers during a ~8 s reveal. A fix sentence is optional and is the first thing to cut.
+- **Reveal in 3–4 seconds, inside the scene.** One or two sentences: name the concept and give one fact. The characters stay on screen (freeze frame, term stamped over them, a tiny diagram at most) instead of cutting to a separate explainer card. The reveal was the biggest exit point in Episodes 1 and 4–6: Episode 6 held about 83% through its story and lost about half of them in a ~7.5 s card reveal; Episode 5's four-sentence reveal ended at about 16%. The "why it matters" line goes in the description or pinned comment.
+- **Reward staying past the reveal.** A final gag comes after the reveal, then the loop, so viewers learn that the end is worth reaching.
 - **End on a loop.** The final beat either cuts straight back to the opening conflict or restarts a new version of it, so the replay feels intentional. No end card longer than 1 second.
 - **Mobile-safe captions.** Keep all text inside the Shorts safe zone. Leave the bottom 20% and the right 15% clear of important text.
 
@@ -58,6 +60,8 @@ AI illustration combined with synthetic voices is the pattern viewers swipe past
 ## Creative rules
 
 - Lead with a human situation. The title and most of the episode should make sense to someone outside software.
+- **Moments first.** Pick moments people have really lived (the book's moment lists in `book/UNSURE.md` are the source), then map a concept onto them. Stories invented to fit a concept feel forced.
+- **No screens in the story.** If the moment happens in an app, a website, an online order or a digital list, the software is showing and the disguise fails. Phones can be props; the behavior must happen offline.
 - Keep the technical term hidden until the final reveal. Promise that a term is coming (see Retention rules), but do not name it.
 - Make the story stand on its own for someone who doesn't program: recognizable first, funny wherever possible. The technical explanation is the satisfying second payoff.
 - Use one concept per episode and explain it in one plain sentence.
@@ -74,8 +78,8 @@ AI illustration combined with synthetic voices is the pattern viewers swipe past
 1. **Cold open (0:00–0:02):** the conflict is already on screen and someone is already speaking. The payoff promise line is overlaid at the top.
 2. **Escalation (to about 0:15):** make the problem or pattern visible through actions, reactions, and time jumps. Two escalation steps are usually enough.
 3. **Comic payoff (about 0:15–0:19):** land the human joke before teaching. Give it a beat of silence.
-4. **Software reveal (at most about 8 seconds):** Hussain's voice names the concept, maps the story to it, and gives one real-software example.
-5. **Loop tail (about 1–2 seconds):** a final beat that leads straight back into the opening conflict. The `SOFTWARE IN DISGUISE` wordmark sits small in a corner during the reveal instead of on a separate end card.
+4. **Software reveal (3–4 seconds, inside the scene):** Hussain's voice names the concept and gives one fact over a freeze frame of the story.
+5. **Final gag and loop tail (about 3–5 seconds):** one more human beat that rewards staying, leading straight back into the opening conflict. The `SOFTWARE IN DISGUISE` wordmark sits small in a corner during the reveal instead of on a separate end card.
 
 The series name and episode number belong on the thumbnail and in a small corner mark, never on a full-screen card at the start.
 
