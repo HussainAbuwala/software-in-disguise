@@ -166,7 +166,8 @@ climbing: each Short is tested on its own.
 - Cover: `deliverables/thumbnail.png`. Keep "Also share to feed" on.
 - Safe zones: Instagram's caption and buttons cover roughly the bottom 20% and the right edge, the same reserve the
   series already keeps clear.
-- After it goes up: pin the same comment question.
+- After it goes up: post the same comment question. Instagram's website can't pin comments (it only offers
+  Delete), so pin it from the mobile app.
 
 ## Measuring retention
 

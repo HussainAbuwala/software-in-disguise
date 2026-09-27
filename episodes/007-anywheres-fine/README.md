@@ -1,6 +1,7 @@
 # Episode 07 — Anywhere's Fine
 
-Status: final 29.1-second cut with Hussain's recorded reveal, approved 2026-09-26; scheduling next.
+Status: published on YouTube (https://youtube.com/shorts/YgS1JV5h7rY) and Instagram
+(https://www.instagram.com/theunplannedstack/reel/Ddxs2mFCE0i/) on Sat 2026-09-26, ~11:55 PM ET.
 YouTube title: `Anywhere's Fine | Leader Election Explained`.
 
 Three starving friends can't decide where to eat until Mira makes Jo the decider: leader election. The first episode

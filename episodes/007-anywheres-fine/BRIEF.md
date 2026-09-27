@@ -91,8 +91,11 @@ separate explainer card, no list, no second diagram. The `SOFTWARE IN DISGUISE �
 - [ ] Retention checks: close-up conflict in frame 1, speech by 0.3 s, speech and faces through 0:10, reveal ≤ 4 s,
       final gag after the reveal, runtime ≤ 30 s, loop works
 - [x] Thumbnail, subtitles
-- [ ] YouTube and Instagram scheduled at the same date and time
-- [ ] Ledger updated
+- [x] Published on YouTube and Instagram together, Sat 2026-09-26 ~11:55 PM ET (playlist Software in Disguise;
+      related video: Episode 6, and Episode 6 now points forward to Episode 7; not made for kids; AI use: no; paid
+      promotion: no; custom thumbnail and Instagram cover; original crop; AI label off; pinned comment on YouTube;
+      the Instagram comment is posted but must be pinned from the mobile app)
+- [x] Ledger updated
 
 ## Packaging
 
@@ -110,6 +113,8 @@ separate explainer card, no list, no second diagram. The `SOFTWARE IN DISGUISE �
 - **Instagram caption hook (first line):** `Every group needs one person who just decides. 🍜`
 - **Instagram hashtags:** `#SoftwareInDisguise #programming #computerscience #coding #friends`
 - **Pinned comment:** `Who's the one friend in your group who just decides? Tag them 👇`
+- **YouTube URL:** https://youtube.com/shorts/YgS1JV5h7rY
+- **Instagram URL:** https://www.instagram.com/theunplannedstack/reel/Ddxs2mFCE0i/
 
 ## Post-publication notes (fill in 48 h after publishing)
 

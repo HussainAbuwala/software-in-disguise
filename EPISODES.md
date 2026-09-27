@@ -48,6 +48,7 @@
 | 04 | Published 2026-09-24 ([link](https://youtube.com/shorts/ZZZFeXNJyp8)) | Scheduled Fri 2026-09-25, 12:00 PM ET (catch-up) |
 | 05 | Published Fri 2026-09-25, 9:00 AM ET ([link](https://youtube.com/shorts/oroEZpeOLDs)) | Scheduled Fri 2026-09-25, 4:00 PM ET (catch-up) |
 | 06 | Scheduled Fri 2026-09-25, 8:00 PM ET ([link](https://youtube.com/shorts/EVcvuKnatMA)) | Scheduled Fri 2026-09-25, 8:00 PM ET (same time) |
+| 07 | Published Sat 2026-09-26, ~11:55 PM ET ([link](https://youtube.com/shorts/YgS1JV5h7rY)) | Published the same time ([link](https://www.instagram.com/theunplannedstack/reel/Ddxs2mFCE0i/)) |
 
 From Episode 6 on, both platforms go live at the same time.
 
@@ -113,7 +114,9 @@ widen it. Subscribers: +3, +1, +2.
 
 ### Episode 07 — Anywhere's Fine
 
-- **Status:** Final cut approved by Hussain (29.1 s, his recorded reveal); scheduling next
+- **Status:** Published on YouTube and Instagram on Sat 2026-09-26, about 11:55 PM ET (uploaded immediately at
+  Hussain's request)
+- **YouTube:** https://youtube.com/shorts/YgS1JV5h7rY · **Instagram:** https://www.instagram.com/theunplannedstack/reel/Ddxs2mFCE0i/
 - **Title:** `Anywhere's Fine | Leader Election Explained`
 - **Concept:** Leader election (the usual fix for the consensus problem)
 - **Story:** Dev, Mira and Jo, starving on the couch: "Where should we eat?" "Anywhere's fine." Forty minutes later,
