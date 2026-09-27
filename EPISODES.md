@@ -51,18 +51,33 @@
 
 From Episode 6 on, both platforms go live at the same time.
 
-## Retention baseline (read from YouTube Studio, 2026-09-25)
+## Retention baseline (read from YouTube Studio; Episodes 4–6 updated 2026-09-26)
 
 | Episode | Views | Stayed to watch | Avg view duration | Where viewers leave |
 | --- | --- | --- | --- | --- |
 | 01 (old format, 31 s) | 162 | 23.1% | 0:22 (71%) | Holds through the story, then falls from about 65% to 30% over the last ~8 s (the reveal) |
 | 02 (old format, 36 s) | 21 | 50.0% (tiny sample) | 0:16 (44%) | Steps down to about 45% within the first ~8 s of setup |
 | 03 (old format, 51 s) | 32 | 35.5% | 0:19 (37%) | Falls to about 30% during the slow opening (3–12 s) |
-| 04 (new format, 29.5 s) | 821 in ~7 h | 49.2% | 0:22 (74%) | Retention graph not available yet |
+| 04 (29.5 s) | 1,187 | 51.5% | 0:22 (73%) | Sharpest drop at 0:03–0:05 (the silent insert of the remote, as the promise card leaves); then a steady slide through the reveal to ~35% at the end |
+| 05 (31 s) | 1,202 | 59.2% | 0:19 (61%) | Drops from ~108% to ~72% during 0:04–0:10 (time cards and a silent flashback); steepest fall at the reveal (0:19–0:23), ending at ~16% |
+| 06 (31 s) | 1,123 | 41.7% | 0:26 (84%) | Most swipes of the three in the first seconds, but the story holds (~90% at 0:16, ~83% at 0:20); halves during the reveal (~80% → ~40%) |
 
-Episode 1 is the only old episode with a comparable sample size. Against it, the new cold open roughly doubled the
-share of viewers who stay (23% → 49%). The open question is the reveal: Episode 1 lost about half its remaining
-viewers there. Check Episode 4's graph when it appears before shortening future reveals.
+Episodes 4–6 were read on 2026-09-26, about 1–2 days after publishing. Retention figures are read off the Studio
+chart and are approximate. All three got about 93–96% of their views from the Shorts feed, and their views stopped
+growing within about 4–12 hours at roughly 1.1–1.2K each: the feed tested each Short on a first audience and didn't
+widen it. Subscribers: +3, +1, +2.
+
+**What Episodes 4–6 show:**
+
+- **The reveal is the main exit.** It's where each of Episodes 4–6 loses the most viewers after the opening, as
+  Episode 1 did. Viewers who leave there also miss the loop tail, so there are fewer replays.
+- **Silence and inserts early cost viewers.** Episode 5's time cards and wordless flashback (0:04–0:08) and Episode 4's
+  silent insert (0:03) are the early drop points. Speech and faces held; cutaways without dialogue didn't.
+- **Episode 6: weak hook, strong story.** 58% swiped away (the worst of the three), probably because the wide
+  cross-section with two small figures on phones doesn't show the conflict at phone size. Those who stayed watched the
+  most of any episode (84%).
+- **Loops work.** Episodes 4 and 6 start above 100% retention, so some viewers replay them.
+- **Versus the old format:** stayed-to-watch is up from 23% (Episode 1) to 42–59%.
 
 ## In development
 
@@ -93,7 +108,7 @@ viewers there. Check Episode 4's graph when it appears before shortening future 
 
 ## Concepts not yet used
 
-This is an idea bank, not an approved schedule. Each premise still needs research and creative review. Every premise is written as a failure, because a mechanism working correctly has no conflict. Where possible, set it in the Dev and Mira apartment.
+This is an idea bank, not an approved schedule. Each premise still needs research and creative review. Premises start from a situation people have lived (see the Core promise in `SERIES_GUIDE.md`). The fuller, rated list is in `book/IDEATION.md`. Set each one wherever the situation happens; reusing an existing set is a bonus, not a requirement.
 
 - The roommates' shared grocery list says "milk" twice and "eggs" zero times after both edit it offline — conflict resolution / lost update
 - Mira asks Dev and Dev's sister separately for the car; both say yes to different people — split brain

@@ -2,9 +2,33 @@
 
 ## Core promise
 
-The viewer sees a short comic about ordinary life, laughs at the situation, and then learns that the situation has a software name.
+> *You've already lived it. Programmers just have a name for it.*
 
-The series is intentionally broader than software bugs. Episodes may cover algorithms, data structures, networking, databases, security, permissions, caching, queues, distributed systems, architecture, tradeoffs, testing, reliability, or good design. Premises still work best when something **goes wrong**: a mechanism with no failure (a queue working correctly) has no conflict and no joke. Reframe such concepts around their failure mode (a stale cache, a jammed queue).
+Everyday situations often behave the way software does. The viewer recognizes a moment from their own life ("that's
+happened to me"), then learns that it has a software name. Recognition comes first and the lesson rides along with it:
+nobody should feel taught.
+
+- **Recognition is the test.** Before anything else, ask whether a viewer who doesn't program has lived this, or could
+  easily picture it. Start from real, lived situations and find the software behavior they match, not the other way
+  round. Stories invented to fit a concept tend to feel like textbook examples.
+- **Humor is a strong bonus, not the requirement.** In Shorts, a laugh keeps people watching and makes the series fun,
+  so aim for one wherever the situation allows. It never replaces recognition.
+- **The mapping must be true.** Getting it right is what makes the series teach something; a mapping that's only cute
+  just decorates. See the accuracy rule under Creative rules.
+
+The series is intentionally broader than software bugs. Episodes may cover algorithms, data structures, networking, databases, security, permissions, caching, queues, distributed systems, architecture, tradeoffs, testing, reliability, or good design.
+
+Not every story has to be a disaster. A Short needs **a question in frame 1**, and several kinds of story create one:
+
+| Mode | The question | Example |
+| --- | --- | --- |
+| Mishap | Why is this going wrong? | Both "on the first floor", one floor apart (off-by-one) |
+| Clever trick | How do they pull that off? | A coat check never mixes up 300 coats (key → value) |
+| Trade-off | Which way is right? | One trip with a full tray, or one glass at a time (batching vs. latency) |
+| Curiosity | How does that even work? | Finding your row in a dark cinema by asking the person in front (recursion) |
+
+Mishaps are the most reliable hook so far (Episodes 1 and 4–6), and their retention data is the baseline. Test the
+other modes against it before relying on them.
 
 ## Retention rules (September 2026 revision)
 
@@ -25,7 +49,7 @@ AI illustration combined with synthetic voices is the pattern viewers swipe past
 
 - **Hussain's real voice delivers the reveal.** The story characters may stay synthetic. The reveal ("That's a deadlock...") is recorded by Hussain, so the teaching moment has a person behind it and connects the Shorts to the long-form channel.
 - **Optional face cameo, recommended once the format stabilizes.** A 1–2 second clip of Hussain to camera delivering the concept name, with the illustrated scene continuing behind or after it. The real face is the strongest trust signal the series has.
-- **Recurring cast.** From Episode 4, stories take place in one small world: the same two roommates, Dev and Mira, their apartment, and people they know. A recurring cast reads as intentional authorship. It lets returning viewers recognize the series before any text appears, and each new episode reuses the same character kit.
+- **Recurring cast.** From Episode 4, stories take place in one world centered on Dev, Mira and Jo. A recurring cast reads as intentional authorship. It lets returning viewers recognize the series before any text appears, and each new episode reuses the same character kit. **The situation decides the cast and the setting, never the other way round.** The world grows to fit the moment: family (parents, a grandparent, a younger sibling), coworkers, neighbors, strangers, and any place the story needs, whether an office, a wedding, a car or an airport. The core trio appears when they fit, not in every episode. A new character or set is added to `kit/` once and reused from then on.
 - **Code-drawn art, no image generation.** From Episode 4, every frame is drawn by the shared kit in `kit/`: bold uniform ink lines, flat color fills, a limited palette, simple backgrounds, and exaggerated but consistent expressions. This rules out generative tells (wrong fingers, melted objects, squiggle text, characters that change between panels), and characters stay identical across episodes by construction. Fewer details, more personality.
 - **Small signs of life.** Mouths move with the dialogue audio, eyes blink, bodies breathe, and cameras push in. A still frame with a blinking, breathing character reads as animated and intentional.
 - **Deliberate comic timing through sound.** A well-timed silence, a clock tick, or a single comic sting reads as human judgment. A constant music bed reads as automation.
@@ -35,7 +59,7 @@ AI illustration combined with synthetic voices is the pattern viewers swipe past
 
 - Lead with a human situation. The title and most of the episode should make sense to someone outside software.
 - Keep the technical term hidden until the final reveal. Promise that a term is coming (see Retention rules), but do not name it.
-- Make the comedy stand on its own. The technical explanation is the satisfying second payoff.
+- Make the story stand on its own for someone who doesn't program: recognizable first, funny wherever possible. The technical explanation is the satisfying second payoff.
 - Use one concept per episode and explain it in one plain sentence.
 - Verify that the analogy is technically accurate before writing jokes. If the story matches a neighboring concept better (for example, polite doorway dancing is livelock, not deadlock), change either the story or the concept.
 - Prefer fully static illustrated states, character voices, and situation-specific sound. Tell a sequential story through deliberate compositions, close-ups, reactions, and hard cuts. A restrained conceptual animation is appropriate when motion itself explains the mechanism; animate the data or state change rather than decorating the scene.

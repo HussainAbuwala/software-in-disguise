@@ -1,8 +1,8 @@
 # Software in Disguise
 
-**Software in Disguise** is a YouTube Shorts series for **The Unplanned Stack**. Each episode begins as a funny, recognizable everyday story. Only near the end does it reveal the software concept that the audience has just watched play out.
+**Software in Disguise** is a YouTube Shorts series for **The Unplanned Stack**. Each episode begins as a recognizable everyday story (funny wherever possible). Only near the end does it reveal the software concept that the audience has just watched play out.
 
-The format is designed for both technical and nontechnical viewers: the story and joke must work without software knowledge, while the ending gives the situation a useful technical name and explanation.
+The format is designed for both technical and nontechnical viewers: the story must work without software knowledge, while the ending gives the situation a useful technical name and explanation.
 
 ## Current status
 
