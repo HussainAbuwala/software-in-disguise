@@ -55,7 +55,8 @@ def sit(ctx: Ctx, who: str, expr: str, sink: float = 0.0, **kw) -> Pose:
     return pose
 
 
-def couch(ctx: Ctx, cam: Camera, poses: dict, time="evening", clock=EVENING, **kw):
+def couch(ctx: Ctx, cam: Camera, poses: dict, time="evening", clock=None, **kw):
+    """The clock only hangs in shots from S05 on, where time passing is the point; the opening stays uncluttered."""
     return scene(ctx, cam, time=time, seated=[(LOOKS[w], p) for w, p in poses.items()], clock=clock, **kw)
 
 
@@ -177,9 +178,9 @@ class Episode07(Episode):
             Shot("S04 Mira don't mind", 0.08 + d("mira-dont-mind") + 0.25, s04_mira,
                  [ln("mira-dont-mind", 0.08, close_b)]),
             Shot("S05 forty minutes later", same_at + d("jo-same") + 0.35, s05_forty_minutes,
-                 # Stacked to the right of the wall clock, so the forty minutes stay visible.
-                 [ln("dev-whatever", 0.5, (230, 400, 760)), ln("mira-easy", easy_at, (600, 560, 440)),
-                  ln("jo-same", same_at, (250, 740, 400))]),
+                 # Each bubble sits over its speaker (Dev left, Jo middle, Mira right), clear of the wall clock.
+                 [ln("dev-whatever", 0.5, (135, 740, 480)), ln("mira-easy", easy_at, (660, 740, 330)),
+                  ln("jo-same", same_at, (555, 520, 260))]),
             Shot("S06a Dev what about Thai", 0.08 + d("dev-thai") + 0.2, s06a_dev_thai, [ln("dev-thai", 0.08, close_b)]),
             Shot("S06b Mira if you want", 0.08 + d("mira-if-you-want") + 0.2, s06b_mira_if,
                  [ln("mira-if-you-want", 0.08, close_b)]),
@@ -191,7 +192,7 @@ class Episode07(Episode):
             Shot("S08b at the door", self.door_hold, door_frame),
             Shot("R1 reveal", self.reveal_dur + self.reveal_hold, lambda ctx: ctx.ep.reveal_frame(ctx.t), self.reveal_lines),
             Shot("S09 what should we order (loops to S01)", not_at + d("jo-not-every-time") + 0.35, s09_order,
-                 [ln("mira-what-order", 0.3, (440, 440, 600)), ln("jo-not-every-time", not_at, (100, 655, 580))]),
+                 [ln("mira-what-order", 0.3, (540, 650, 520)), ln("jo-not-every-time", not_at, (300, 420, 520))]),
         ]
 
     # The reveal happens inside the scene: the doorway shot freezes and dims, Hussain's voice names the idea, a
