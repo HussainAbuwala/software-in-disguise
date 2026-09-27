@@ -69,13 +69,14 @@ Speech runs through the first 10 seconds; no shot before 0:10 is silent.
 
 ## Production
 
-- [ ] Hussain approves the brief
-- [ ] Kit additions
-- [ ] Voices generated with the cast's established voices
-- [ ] Reveal recorded by Hussain, cleaned with `prep_reveal.py`
+- [x] Hussain approves the brief
+- [x] Kit additions: cupboard with strain and a popping sock, clutter under the couch (`living_room.py`);
+      crossed/hips/armful hands (`cast.py`); checklist overlay and stamp size (`overlays.py`); creak (`sound.py`)
+- [x] Voices generated with the cast's established voices
+- [x] Reveal recorded by Hussain (one take, 2026-09-27), cleaned with `prep_reveal.py`
 - [ ] Full cut rendered; checked at phone size (bubbles over their speakers, nothing covering the list)
 - [ ] Retention checks: visible problem + accusing line in frame 1, speech through 0:10, reveal ≤ 4 s, final gag, loop
-- [ ] Thumbnail, subtitles
+- [x] Thumbnail, subtitles
 - [ ] Published on YouTube and Instagram at the same time
 - [ ] Ledger updated
 

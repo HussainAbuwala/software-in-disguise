@@ -8,7 +8,9 @@ from __future__ import annotations
 
 import math
 
-from .canvas import FLOOR, INK, MUSTARD, PAPER, WALL, Canvas
+from .canvas import ALERT, FLOOR, INK, MUSTARD, PAPER, WALL, Canvas
+
+TEAL_DARK = (32, 128, 116)
 
 DEV_SEAT = (330, 1130)
 MIRA_SEAT = (820, 1130)
@@ -125,8 +127,38 @@ def _door(c: Canvas, open_: bool):
         c.circle(d0 + 30, 1110, 12, fill=MUSTARD, width=4)
 
 
+CUPBOARD = (1000, 1240, 760)  # x0, x1, top; a tall two-door cupboard right of the couch (Episode 08)
+STUFF = [(200, 60, 70), (70, 120, 190), MUSTARD, (42, 157, 143), (236, 230, 220)]
+
+
+def _cupboard(c: Canvas, strain: float, sock: float):
+    """`strain` 0..1 bows the doors out around a gap of crammed stuff; `sock` 0..1 lets a sock dangle out of the gap."""
+    x0, x1, top = CUPBOARD
+    xm = (x0 + x1) / 2
+    c.rect(x0 - 12, top - 20, x1 + 12, 1380, fill=(120, 86, 62))
+    gap = 18 * strain
+    if gap > 1:  # the crammed interior showing through the gap
+        c.rect(xm - gap, top + 30, xm + gap, 1340, fill=(60, 50, 44), outline=None)
+        for i, col in enumerate(STUFF):
+            c.circle(xm, top + 110 + i * 110, gap * 1.1, fill=col, outline=None)
+    bow = 22 * strain
+    for side in (-1, 1):
+        inner = xm + side * gap
+        outer = x0 if side < 0 else x1
+        pts = [(outer, top), (inner, top + 10 * strain), (inner + side * bow, (top + 1360) / 2), (inner, 1350 - 10 * strain),
+               (outer, 1360)]
+        c.poly(pts, fill=WOOD)
+        c.circle(inner - side * 22 + side * bow * 0.6, (top + 1360) / 2, 9, fill=MUSTARD, width=4)
+    if sock > 0:
+        sy = (top + 1360) / 2 + 40
+        length = 90 * sock
+        c.line([(xm, sy), (xm + 10, sy + length)], fill=(236, 230, 220), width=26)
+        c.line([(xm + 10, sy + length), (xm + 34, sy + length + 8)], fill=(236, 230, 220), width=26)
+        c.line([(xm - 4, sy + length * 0.35), (xm + 12, sy + length * 0.35)], fill=ALERT, width=8)
+
+
 def back(c: Canvas, time: str = "day", tv: str = "off", pizza: bool = False, t: float = 0.0, weather: str = "clear",
-         behind=None, clock: float | None = None, door: str | None = None, **_):
+         behind=None, clock: float | None = None, door: str | None = None, cupboard: tuple | None = None, **_):
     """Everything behind the seated characters. `behind(c)` draws anyone standing behind the couch. `clock` (minutes
     since midnight) hangs a wall clock left of the window; `door` ("open" or "closed") draws the front door."""
     tod = TIMES[time]
@@ -139,6 +171,8 @@ def back(c: Canvas, time: str = "day", tv: str = "off", pizza: bool = False, t: 
         _clock(c, clock)
     if door:
         _door(c, door == "open")
+    if cupboard is not None:
+        _cupboard(c, *cupboard)
     _tv(c, tv, t)
     if behind:
         behind(c)
@@ -148,11 +182,24 @@ def back(c: Canvas, time: str = "day", tv: str = "off", pizza: bool = False, t: 
         c.rect(530, 1124, 650, 1214, fill=(214, 172, 124), width=4)
 
 
-def front(c: Canvas, pizza: bool = False, **_):
+def _clutter(c: Canvas):
+    """Things shoved under the couch, poking out along its bottom edge (Episode 08)."""
+    c.poly([(560, 1352), (720, 1340), (732, 1392), (570, 1398)], fill=(196, 150, 100), width=6)  # pizza box corner
+    c.line([(620, 1362), (680, 1356)], fill=(170, 120, 80), width=5)
+    for x in (780, 850):  # a pair of sneakers
+        c.ellipse(x - 40, 1352, x + 40, 1396, fill=(60, 64, 80), width=6)
+        c.line([(x - 26, 1372), (x + 26, 1372)], fill=PAPER, width=5)
+    c.limb([(900, 1368), (935, 1388), (975, 1380)], TEAL_DARK, 34)  # a hoodie sleeve
+    c.circle(982, 1380, 16, fill=TEAL_DARK, width=5)
+
+
+def front(c: Canvas, pizza: bool = False, clutter: bool = False, **_):
     """Couch seat front and arms, drawn over the seated characters' laps."""
     c.rect(110, 1230, 1070, 1380, fill=COUCH_DARK, radius=34)
     c.rect(100, 1120, 200, 1390, fill=COUCH, radius=40)
     c.rect(980, 1120, 1080, 1390, fill=COUCH, radius=40)
+    if clutter:
+        _clutter(c)
     if pizza:
         c.poly([(500, 1236), (680, 1236), (668, 1262), (512, 1262)], fill=(196, 150, 100), width=6)
         for cx, cy in ((550, 1246), (600, 1250), (630, 1244)):

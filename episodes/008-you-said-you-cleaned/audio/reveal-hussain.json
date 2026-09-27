@@ -1,0 +1,17 @@
+{
+  "source": "reveal-hussain-raw.mp4",
+  "trim": [
+    0.55,
+    3.97
+  ],
+  "captions": [
+    [
+      0.08,
+      "Software teams write this list first."
+    ],
+    [
+      1.95,
+      "It's called acceptance criteria."
+    ]
+  ]
+}

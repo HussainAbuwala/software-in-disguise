@@ -261,3 +261,16 @@ def whoosh(seconds: float = 0.35, seed: int = 93) -> np.ndarray:
     """A quick air swoosh for a hard cut."""
     t = t_axis(seconds)
     return noise(seconds, 400, 5000, seed) * np.sin(np.pi * t / seconds) ** 2
+
+
+# --- added for Episode 08 --------------------------------------------------------------------------------------
+
+
+def creak(seconds: float = 0.7, seed: int = 95) -> np.ndarray:
+    """A straining wooden door: a rough, slowly bending tone with stick-slip flutter."""
+    t = t_axis(seconds)
+    f = 140 + 60 * np.sin(np.pi * t / seconds)
+    tone = np.sign(np.sin(2 * np.pi * np.cumsum(f) / SR)) * 0.5
+    flutter = (np.sin(2 * np.pi * 28 * t) > 0.2).astype(float)
+    x = band(tone * flutter + noise(seconds, 300, 2500, seed) * 0.25, 90, 2400) * np.sin(np.pi * t / seconds)
+    return x / (np.max(np.abs(x)) + 1e-9)

@@ -1,0 +1,51 @@
+1
+00:00:00,100 --> 00:00:01,406
+MIRA: You said you cleaned!
+
+2
+00:00:01,406 --> 00:00:02,267
+DEV: I did!
+
+3
+00:00:02,467 --> 00:00:04,075
+MIRA: Everything's under the couch!
+
+4
+00:00:04,205 --> 00:00:05,534
+DEV: The floor is clean.
+
+5
+00:00:05,684 --> 00:00:06,709
+MIRA: And the cupboard?
+
+6
+00:00:06,709 --> 00:00:07,634
+DEV: Closed.
+
+7
+00:00:07,709 --> 00:00:09,130
+MIRA: Clean means THIS.
+
+8
+00:00:09,610 --> 00:00:10,870
+DEV: Oh. THAT clean.
+
+9
+00:00:11,170 --> 00:00:11,942
+DEV: Done!
+
+10
+00:00:13,572 --> 00:00:15,442
+Software teams write this list first.
+
+11
+00:00:15,442 --> 00:00:17,712
+It's called acceptance criteria.
+
+12
+00:00:18,912 --> 00:00:21,563
+JO: Why is all your stuff on my bed?
+
+13
+00:00:21,563 --> 00:00:22,913
+DEV: It wasn't on the list.

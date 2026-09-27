@@ -62,7 +62,7 @@ class Pose:
     gaze: float | None = None  # pupils: -1 left .. 1 right; default = facing
     gaze_y: float | None = None  # pupils: -1 up .. 1 down; default from the expression
     standing: bool = False
-    hands: str = "rest"  # raise_remote | clutch_batteries | mug | reach | shrug | belly | point | menu | rest
+    hands: str = "rest"  # raise_remote | clutch_batteries | mug | reach | shrug | belly | point | menu | crossed | hips | armful | rest
     raise_amt: float = 1.0  # raise_remote: 1 = high, lower when tired
     reach: tuple | None = None  # reach target in world coordinates
     head_dx: float = 0.0
@@ -363,6 +363,30 @@ def _arms(c: Canvas, look: Look, pose: Pose, x: float, y: float, standing: bool 
             c.line([(x - 52, top + 34 + i * 30), (x - 14, top + 34 + i * 30)], fill=(236, 214, 190), width=5)
         for hx_ in (x - 64, x + 64):
             hand(c, hx_, top + 60, look, r=22)
+    elif pose.hands == "crossed":
+        # Arms folded across the chest.
+        for side in (-1, 1):
+            sh = (x + side * 58, y + 20)
+            c.limb([sh, (x + side * 92, y + 110), (x - side * 40, y + 96)], look.top, sleeve)
+        for side in (-1, 1):
+            hand(c, x - side * 46, y + 96 - side * 6, look, r=20)
+    elif pose.hands == "hips":
+        # Hands on hips, elbows out: proud.
+        for side in (-1, 1):
+            sh = (x + side * 58, y + 20)
+            c.limb([sh, (x + side * 132, y + 96), (x + side * 70, y + 168)], look.top, sleeve)
+            hand(c, x + side * 70, y + 168, look, r=22)
+    elif pose.hands == "armful":
+        # Carrying a heap of someone else's clothes in both arms.
+        px = x + f * 24
+        heap = [((200, 60, 70), -70, 60), ((70, 120, 190), -40, 20), (MUSTARD, -80, -20), ((236, 230, 220), -50, -58)]
+        for col, dy, w in heap:
+            c.rect(px - 86 - w * 0.1, y + 80 + dy, px + 86 + w * 0.1, y + 130 + dy, fill=col, width=5, radius=18)
+        c.line([(px + 60, y + 30), (px + 104, y - 16)], fill=(236, 230, 220), width=22)  # a sleeve flopping out
+        for side in (-1, 1):
+            sh = (x + side * 58, y + 20)
+            c.limb([sh, (x + side * 96, y + 120), (px + side * 92, y + 150)], look.top, sleeve)
+            hand(c, px + side * 92, y + 150, look, r=22)
     elif pose.hands == "far_rest":
         # Near arm drawn separately by the shot (e.g. reaching into a fridge in screen space).
         c.limb([far_sh, (x - f * 75, y + 150)], look.top, sleeve)

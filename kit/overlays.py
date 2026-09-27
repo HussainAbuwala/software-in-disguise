@@ -163,12 +163,12 @@ def dotted_arrow(c: Canvas, a: tuple[float, float], b: tuple[float, float], k: f
         c.poly([tip, (b[0] - uy * 20, b[1] + ux * 20), (b[0] + uy * 20, b[1] - ux * 20)], fill=color, width=4)
 
 
-def stamp(c: Canvas, y: float, text: str, k: float):
+def stamp(c: Canvas, y: float, text: str, k: float, size: float = 92):
     """The concept's name, stamped across the frame on a mustard strip (screen coordinates)."""
     if k <= 0:
         return
     s = 1.35 - 0.35 * ease(k)  # lands from slightly too big, like a rubber stamp
-    size = 92 * s
+    size = size * s
     w = font(size, HEAVY).getlength(text) / 2 + 80
     c.rect(540 - w / 2, y - size * 0.75, 540 + w / 2, y + size * 0.75, fill=MUSTARD, width=8, radius=18)
     c.text(540, y + 2, text, size, weight=HEAVY)
@@ -182,3 +182,26 @@ def caption(c: Canvas, y: float, text: str, size: int = 50):
     c.rect(80, y, 1000, y + h, fill=PAPER, width=6, radius=28)
     for i, line in enumerate(lines):
         c.text(540, y + 22 + lh * (i + 0.5), line, size, weight=DEMI)
+
+
+# --- added for Episode 08 --------------------------------------------------------------------------------------
+
+
+def checklist(c: Canvas, x: float, y: float, w: float, title: str, items: list[str], ticks: list[float],
+              size: float = 50):
+    """A handwritten list on paper (screen coordinates). `ticks[i]` (0..1) draws item i's tick mark in."""
+    lh = size * 1.55
+    h = 70 + size * 1.4 + lh * len(items) + 30
+    c.rect(x + 10, y + 12, x + w + 10, y + h + 12, fill=(200, 190, 170), outline=None)  # shadow
+    c.rect(x, y, x + w, y + h, fill=PAPER, width=6)
+    for i in range(len(items) + 1):  # ruled lines
+        ly = y + 60 + size * 1.4 + lh * i - lh * 0.1
+        c.line([(x + 24, ly), (x + w - 24, ly)], fill=(190, 210, 230), width=3)
+    c.text(x + 40, y + 34 + size * 0.7, title, size * 1.05, weight=HAND, anchor="lm")
+    for i, item in enumerate(items):
+        iy = y + 60 + size * 1.4 + lh * (i + 0.45)
+        c.text(x + 110, iy, item, size, weight=HAND, anchor="lm")
+        c.rect(x + 42, iy - size * 0.38, x + 42 + size * 0.76, iy + size * 0.38, width=4, radius=6)
+        k = ticks[i] if i < len(ticks) else 0.0
+        if k > 0:
+            check_mark(c, x + 42 + size * 0.38, iy, size * 0.9 * (0.6 + 0.4 * ease(k)))
