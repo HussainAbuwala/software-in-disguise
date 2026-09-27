@@ -74,11 +74,15 @@ Speech runs through the first 10 seconds; no shot before 0:10 is silent.
       crossed/hips/armful hands (`cast.py`); checklist overlay and stamp size (`overlays.py`); creak (`sound.py`)
 - [x] Voices generated with the cast's established voices
 - [x] Reveal recorded by Hussain (one take, 2026-09-27), cleaned with `prep_reveal.py`
-- [ ] Full cut rendered; checked at phone size (bubbles over their speakers, nothing covering the list)
+- [x] Full cut rendered (23.1 s); Hussain's review fix: the cupboard contents and the under-couch clutter redrawn so
+      every item is recognizable
 - [ ] Retention checks: visible problem + accusing line in frame 1, speech through 0:10, reveal ≤ 4 s, final gag, loop
 - [x] Thumbnail, subtitles
-- [ ] Published on YouTube and Instagram at the same time
-- [ ] Ledger updated
+- [x] Published on YouTube and Instagram together, Sun 2026-09-27 (playlist Software in Disguise; related video:
+      Episode 7, and Episode 7 now points forward to Episode 8; not made for kids; AI use: no; paid promotion: no;
+      custom thumbnail and Instagram cover; original crop; AI label off; YouTube comment pinned; the Instagram comment
+      is posted and needs pinning from the app)
+- [x] Ledger updated
 
 ## Packaging
 
@@ -96,6 +100,8 @@ Speech runs through the first 10 seconds; no shot before 0:10 is silent.
 - **Instagram caption hook (first line):** `"I did clean." Technically. 🧦`
 - **Instagram hashtags:** `#SoftwareInDisguise #programming #computerscience #coding #roommates`
 - **Pinned comment:** `What's the most creative "clean" you've ever seen? 👇`
+- **YouTube URL:** https://youtube.com/shorts/h9lDr2ownpA
+- **Instagram URL:** https://www.instagram.com/theunplannedstack/reel/DdyZGjpiGOf/
 
 ## Post-publication notes (fill in 48 h after publishing)
 

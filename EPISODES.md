@@ -49,6 +49,7 @@
 | 05 | Published Fri 2026-09-25, 9:00 AM ET ([link](https://youtube.com/shorts/oroEZpeOLDs)) | Scheduled Fri 2026-09-25, 4:00 PM ET (catch-up) |
 | 06 | Scheduled Fri 2026-09-25, 8:00 PM ET ([link](https://youtube.com/shorts/EVcvuKnatMA)) | Scheduled Fri 2026-09-25, 8:00 PM ET (same time) |
 | 07 | Published Sat 2026-09-26, ~11:55 PM ET ([link](https://youtube.com/shorts/YgS1JV5h7rY)) | Published the same time ([link](https://www.instagram.com/theunplannedstack/reel/Ddxs2mFCE0i/)) |
+| 08 | Published Sun 2026-09-27 ([link](https://youtube.com/shorts/h9lDr2ownpA)) | Published the same time ([link](https://www.instagram.com/theunplannedstack/reel/DdyZGjpiGOf/)) |
 
 From Episode 6 on, both platforms go live at the same time.
 
@@ -135,7 +136,8 @@ plus an accusing line. Search was 0.6% of views so far. Recheck the retention gr
 
 ### Episode 08 — You Said You Cleaned
 
-- **Status:** Brief written, awaiting Hussain's approval
+- **Status:** Published on YouTube and Instagram on Sun 2026-09-27 (uploaded immediately at Hussain's request)
+- **YouTube:** https://youtube.com/shorts/h9lDr2ownpA · **Instagram:** https://www.instagram.com/theunplannedstack/reel/DdyZGjpiGOf/
 - **Title:** `You Said You Cleaned | Acceptance Criteria Explained`
 - **Concept:** Acceptance criteria (and their limits)
 - **Story:** "You said you cleaned!" "I did!" Everything is under the couch and jammed in the cupboard. Mira writes

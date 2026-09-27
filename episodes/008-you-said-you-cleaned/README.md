@@ -1,6 +1,7 @@
 # Episode 08 — You Said You Cleaned
 
-Status: first full cut (23.1 s) with Hussain's recorded reveal, awaiting review.
+Status: published on YouTube (https://youtube.com/shorts/h9lDr2ownpA) and Instagram
+(https://www.instagram.com/theunplannedstack/reel/DdyZGjpiGOf/) on Sun 2026-09-27.
 YouTube title: `You Said You Cleaned | Acceptance Criteria Explained`.
 
 "You said you cleaned!" "I did!" Everything is under the couch and jammed in the cupboard, until Mira writes down what
