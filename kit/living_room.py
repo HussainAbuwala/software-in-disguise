@@ -128,33 +128,78 @@ def _door(c: Canvas, open_: bool):
 
 
 CUPBOARD = (1000, 1240, 760)  # x0, x1, top; a tall two-door cupboard right of the couch (Episode 08)
-STUFF = [(200, 60, 70), (70, 120, 190), MUSTARD, (42, 157, 143), (236, 230, 220)]
+BALL = (226, 128, 52)
+SHIRT = (200, 60, 70)
+
+
+def _teddy(c: Canvas, x, y, r):
+    """A teddy bear's head peeking out."""
+    fur, snout = (150, 100, 64), (214, 176, 130)
+    for dx in (-0.75, 0.75):
+        c.circle(x + dx * r, y - 0.72 * r, 0.36 * r, fill=fur, width=5)
+    c.circle(x, y, r, fill=fur, width=6)
+    c.ellipse(x - 0.42 * r, y + 0.05 * r, x + 0.42 * r, y + 0.62 * r, fill=snout, width=5)
+    c.circle(x, y + 0.2 * r, 0.12 * r, fill=INK, outline=None)
+    for dx in (-0.36, 0.36):
+        c.circle(x + dx * r, y - 0.2 * r, 0.1 * r, fill=INK, outline=None)
+
+
+def _ball(c: Canvas, x, y, r):
+    c.circle(x, y, r, fill=BALL, width=6)
+    c.line([(x - r, y), (x + r, y)], width=4)
+    c.arc(x - r * 0.55, y - r, x + r * 0.55, y + r, 90, 270, width=4)
+    c.arc(x - r * 0.55, y - r, x + r * 0.55, y + r, 270, 90, width=4)
+
+
+def sneaker(c: Canvas, x, y, facing=1, color=(60, 64, 80), scale=1.0):
+    """Side-view sneaker; (x, y) is the middle of the sole's bottom."""
+    k, f = scale, facing
+    c.rect(x - 58 * k, y - 18 * k, x + 58 * k, y, fill=PAPER, width=5, radius=8 * k)  # sole
+    upper = [(x - 56 * k * f, y - 18 * k), (x - 50 * k * f, y - 62 * k), (x - 10 * k * f, y - 66 * k),
+             (x + 20 * k * f, y - 44 * k), (x + 56 * k * f, y - 34 * k), (x + 58 * k * f, y - 18 * k)]
+    c.poly(upper, fill=color, width=5)
+    for i in range(3):  # laces
+        lx = x + (-4 + i * 12) * k * f
+        c.line([(lx, y - 58 * k + i * 6 * k), (lx + 10 * k * f, y - 50 * k + i * 6 * k)], fill=PAPER, width=4)
 
 
 def _cupboard(c: Canvas, strain: float, sock: float):
-    """`strain` 0..1 bows the doors out around a gap of crammed stuff; `sock` 0..1 lets a sock dangle out of the gap."""
+    """`strain` 0..1 pushes the doors apart and lets the crammed stuff squeeze out: a teddy bear at the top, a shirt sleeve,
+    a basketball, a sneaker at the bottom. `sock` 0..1 lets a sock dangle out of the gap."""
     x0, x1, top = CUPBOARD
     xm = (x0 + x1) / 2
+    mid = (top + 1360) / 2
     c.rect(x0 - 12, top - 20, x1 + 12, 1380, fill=(120, 86, 62))
-    gap = 18 * strain
-    if gap > 1:  # the crammed interior showing through the gap
-        c.rect(xm - gap, top + 30, xm + gap, 1340, fill=(60, 50, 44), outline=None)
-        for i, col in enumerate(STUFF):
-            c.circle(xm, top + 110 + i * 110, gap * 1.1, fill=col, outline=None)
-    bow = 22 * strain
+    gap = 16 * strain
+    if gap > 1:
+        c.rect(xm - gap, top + 20, xm + gap, 1350, fill=(52, 44, 40), outline=None)
+    bow = 20 * strain
     for side in (-1, 1):
         inner = xm + side * gap
         outer = x0 if side < 0 else x1
-        pts = [(outer, top), (inner, top + 10 * strain), (inner + side * bow, (top + 1360) / 2), (inner, 1350 - 10 * strain),
+        pts = [(outer, top), (inner, top + 10 * strain), (inner + side * bow, mid), (inner, 1350 - 10 * strain),
                (outer, 1360)]
         c.poly(pts, fill=WOOD)
-        c.circle(inner - side * 22 + side * bow * 0.6, (top + 1360) / 2, 9, fill=MUSTARD, width=4)
-    if sock > 0:
-        sy = (top + 1360) / 2 + 40
+        c.circle(inner - side * 24 + side * bow * 0.6, mid, 9, fill=MUSTARD, width=4)
+    if strain <= 0.05:
+        return
+    # Stuff squeezing out through the gap, drawn over the door edges so it reads as spilling out.
+    _teddy(c, xm + 4, top + 110, 46 * strain)
+    c.limb([(xm, mid - 90), (xm + 30, mid - 20), (xm + 22, mid + 50)], SHIRT, 40 * strain)  # a shirt sleeve
+    c.rect(xm + 22 - 24 * strain, mid + 44, xm + 22 + 24 * strain, mid + 64, fill=PAPER, width=5, radius=6)  # its cuff
+    _ball(c, xm - 8, 1150, 44 * strain)
+    sneaker(c, xm + 30, 1330, 1, scale=0.8 * strain)
+    for side in (-1, 1):  # strain marks around the doors
+        for dy in (-160, 0, 160):
+            ex = (x0 - 30) if side < 0 else (x1 + 30)
+            c.arc(ex - 18, mid + dy - 26, ex + 18, mid + dy + 26, 120 if side < 0 else -60, 240 if side < 0 else 60,
+                  width=5)
+    if sock > 0:  # hanging out of the gap over the left door, between the teddy and the sleeve
+        sy = top + 175
         length = 90 * sock
-        c.line([(xm, sy), (xm + 10, sy + length)], fill=(236, 230, 220), width=26)
-        c.line([(xm + 10, sy + length), (xm + 34, sy + length + 8)], fill=(236, 230, 220), width=26)
-        c.line([(xm - 4, sy + length * 0.35), (xm + 12, sy + length * 0.35)], fill=ALERT, width=8)
+        c.line([(xm - 12, sy), (xm - 50, sy + length)], fill=(236, 230, 220), width=26)
+        c.line([(xm - 50, sy + length), (xm - 78, sy + length + 4)], fill=(236, 230, 220), width=26)
+        c.line([(xm - 36, sy + length * 0.45 - 10), (xm - 20, sy + length * 0.45 + 4)], fill=ALERT, width=8)
 
 
 def back(c: Canvas, time: str = "day", tv: str = "off", pizza: bool = False, t: float = 0.0, weather: str = "clear",
@@ -182,24 +227,31 @@ def back(c: Canvas, time: str = "day", tv: str = "off", pizza: bool = False, t: 
         c.rect(530, 1124, 650, 1214, fill=(214, 172, 124), width=4)
 
 
-def _clutter(c: Canvas):
-    """Things shoved under the couch, poking out along its bottom edge (Episode 08)."""
-    c.poly([(560, 1352), (720, 1340), (732, 1392), (570, 1398)], fill=(196, 150, 100), width=6)  # pizza box corner
-    c.line([(620, 1362), (680, 1356)], fill=(170, 120, 80), width=5)
-    for x in (780, 850):  # a pair of sneakers
-        c.ellipse(x - 40, 1352, x + 40, 1396, fill=(60, 64, 80), width=6)
-        c.line([(x - 26, 1372), (x + 26, 1372)], fill=PAPER, width=5)
-    c.limb([(900, 1368), (935, 1388), (975, 1380)], TEAL_DARK, 34)  # a hoodie sleeve
-    c.circle(982, 1380, 16, fill=TEAL_DARK, width=5)
-
-
-def front(c: Canvas, pizza: bool = False, clutter: bool = False, **_):
-    """Couch seat front and arms, drawn over the seated characters' laps."""
-    c.rect(110, 1230, 1070, 1380, fill=COUCH_DARK, radius=34)
-    c.rect(100, 1120, 200, 1390, fill=COUCH, radius=40)
-    c.rect(980, 1120, 1080, 1390, fill=COUCH, radius=40)
+def _under_couch(c: Canvas, clutter: bool):
+    """Short legs and the dark gap under the couch; with `clutter`, stuff shoved into the gap pokes out of it."""
+    c.rect(120, 1322, 1060, 1380, fill=(64, 56, 50), outline=None)
     if clutter:
-        _clutter(c)
+        c.rect(470, 1334, 700, 1374, fill=(196, 150, 100), width=5)  # a pizza box, edge on
+        c.text(585, 1355, "PIZZA", 26, fill=ALERT, weight=8)
+        sneaker(c, 800, 1384, -1, scale=0.8)  # heel sticking out
+        c.limb([(930, 1330), (950, 1370), (1000, 1392)], TEAL_DARK, 34)  # a hoodie sleeve dangling out
+        c.rect(985, 1378, 1030, 1404, fill=(24, 100, 90), width=5, radius=6)  # its cuff
+    for x in (150, 1030):
+        c.rect(x - 14, 1322, x + 14, 1382, fill=(90, 70, 56), width=5)
+
+
+def front(c: Canvas, pizza: bool = False, clutter: bool = False, legs: bool = False, **_):
+    """Couch seat front and arms, drawn over the seated characters' laps. `legs` lifts the couch on short legs so
+    there's a visible gap underneath (Episode 08); `clutter` fills that gap."""
+    if legs:
+        _under_couch(c, clutter)
+        c.rect(110, 1230, 1070, 1330, fill=COUCH_DARK, radius=34)
+        c.rect(100, 1120, 200, 1334, fill=COUCH, radius=40)
+        c.rect(980, 1120, 1080, 1334, fill=COUCH, radius=40)
+    else:
+        c.rect(110, 1230, 1070, 1380, fill=COUCH_DARK, radius=34)
+        c.rect(100, 1120, 200, 1390, fill=COUCH, radius=40)
+        c.rect(980, 1120, 1080, 1390, fill=COUCH, radius=40)
     if pizza:
         c.poly([(500, 1236), (680, 1236), (668, 1262), (512, 1262)], fill=(196, 150, 100), width=6)
         for cx, cy in ((550, 1246), (600, 1250), (630, 1244)):

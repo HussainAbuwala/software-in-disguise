@@ -41,7 +41,7 @@ LIST_ITEMS = ["Floor clear", "Nothing under the couch", "Cupboard shuts"]
 def room_scene(ctx: Ctx, cam: Camera, standing: dict, messy: bool, strain=1.0, sock=0.4, overlay=None):
     cup = (strain, sock) if messy else (0.0, 0.0)
     return scene(ctx, cam, time="day", standing=[(LOOKS[w], p) for w, p in standing.items()], cupboard=cup,
-                 clutter=messy, overlay=overlay)
+                 clutter=messy, legs=True, overlay=overlay)
 
 
 def dev(ctx, expr, x=DEV_X, facing=1, **kw):
@@ -209,7 +209,7 @@ class Episode08(Episode):
         img = new_frame(room.wall_color("day"))
         c = Canvas(img, Camera(1.25, 1110, 880, 540, 1150))
         room.back(c, "day", cupboard=(1.0, 0.8))
-        room.front(c, clutter=True)
+        room.front(c, clutter=True, legs=True)
         cast.draw(c, DEV, Pose(DEV_X, FLOOR, 1, "confident", standing=True, hands="hips"))
         cast.draw(c, MIRA, Pose(MIRA_X, FLOOR, -1, "annoyed", standing=True, hands="crossed"))
         s = Canvas(img, SCREEN)
