@@ -6,7 +6,9 @@ couch at x -320..0 with its power button at POWER_BUTTON. Seated characters sit 
 
 from __future__ import annotations
 
-from .canvas import INK, PAPER, WALL, FLOOR, Canvas
+import math
+
+from .canvas import FLOOR, INK, MUSTARD, PAPER, WALL, Canvas
 
 DEV_SEAT = (330, 1130)
 MIRA_SEAT = (820, 1130)
@@ -21,6 +23,7 @@ TIMES = {
     "day": dict(wall=WALL, floor=FLOOR, sky=[(160, 205, 222)]),
     "night": dict(wall=(176, 168, 158), floor=(150, 128, 104), sky=[(38, 48, 82)]),
     "morning": dict(wall=(244, 230, 210), floor=(204, 176, 142), sky=[(252, 222, 180)]),
+    "evening": dict(wall=(236, 216, 192), floor=(192, 162, 128), sky=[(240, 168, 118)]),
 }
 
 
@@ -43,6 +46,8 @@ def _sky(c: Canvas, time: str, t: float):
             c.circle(sx, sy, 4, fill=(240, 234, 210), outline=None)
     elif time == "morning":
         c.chord(620, 780, 780, 940, 180, 360, fill=(250, 190, 90), outline=None)
+    elif time == "evening":
+        c.chord(440, 800, 600, 960, 180, 360, fill=(252, 214, 120), outline=None)  # the sun going down
 
 
 def _rain(c: Canvas, x0, y0, x1, y1, t: float):
@@ -90,15 +95,50 @@ def _tv(c: Canvas, tv: str, t: float):
     c.circle(*POWER_BUTTON, 7, fill=(120, 220, 120) if button_on else (209, 73, 91), width=3)
 
 
+CLOCK = (205, 700)
+DOOR = (1390, 1600)  # front door x range, right of the couch (outside every camera used before Episode 07)
+
+
+def _clock(c: Canvas, minutes: float):
+    """Wall clock; `minutes` since midnight (19 * 60 = 7:00 PM)."""
+    x, y = CLOCK
+    c.circle(x, y, 66, fill=PAPER, width=8)
+    for i in range(12):
+        a = i / 12 * 2 * math.pi
+        c.line([(x + 50 * math.sin(a), y - 50 * math.cos(a)), (x + 58 * math.sin(a), y - 58 * math.cos(a))], width=5)
+    ah = (minutes / 60 % 12) / 12 * 2 * math.pi
+    am = (minutes % 60) / 60 * 2 * math.pi
+    c.line([(x, y), (x + 30 * math.sin(ah), y - 30 * math.cos(ah))], width=9)
+    c.line([(x, y), (x + 46 * math.sin(am), y - 46 * math.cos(am))], width=6)
+    c.circle(x, y, 7, fill=INK, outline=None)
+
+
+def _door(c: Canvas, open_: bool):
+    d0, d1 = DOOR
+    top = 820
+    c.rect(d0 - 22, top - 22, d1 + 22, 1380, fill=WOOD)
+    if open_:
+        c.rect(d0, top, d1, 1380, fill=(70, 74, 96))  # the dark hallway outside
+        c.poly([(d0, top), (d0 + 70, top + 30), (d0 + 70, 1360), (d0, 1380)], fill=(176, 132, 96))
+    else:
+        c.rect(d0, top, d1, 1380, fill=(176, 132, 96))
+        c.circle(d0 + 30, 1110, 12, fill=MUSTARD, width=4)
+
+
 def back(c: Canvas, time: str = "day", tv: str = "off", pizza: bool = False, t: float = 0.0, weather: str = "clear",
-         behind=None):
-    """Everything behind the seated characters. `behind(c)` draws anyone standing behind the couch."""
+         behind=None, clock: float | None = None, door: str | None = None, **_):
+    """Everything behind the seated characters. `behind(c)` draws anyone standing behind the couch. `clock` (minutes
+    since midnight) hangs a wall clock left of the window; `door` ("open" or "closed") draws the front door."""
     tod = TIMES[time]
     c.rect(-2000, -2000, 3000, 1380, fill=tod["wall"], outline=None)
     c.rect(-2000, 1380, 3000, 4000, fill=tod["floor"], outline=None)
     c.line([(-2000, 1380), (3000, 1380)], width=7)
     _window(c, time, t, weather)
     _picture(c)
+    if clock is not None:
+        _clock(c, clock)
+    if door:
+        _door(c, door == "open")
     _tv(c, tv, t)
     if behind:
         behind(c)

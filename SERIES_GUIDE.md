@@ -125,7 +125,7 @@ Avoid committing downloaded voice-model weights. Store them in the repository-le
 
 ## Discovery and packaging
 
-- Write a human title around the episode's situation. Put the strongest relevant phrase near the beginning. The title should describe a conflict ("Neither Roommate Would Let Go") rather than a character's intention ("He Tried Not to Overdo the Apology").
+- Title format (from 2026-09-26): **human hook | Concept Explained**, for example `Neither Roommate Would Let Go | Deadlock Explained`. The hook comes first and describes a conflict ("Neither Roommate Would Let Go") rather than a character's intention ("He Tried Not to Overdo the Apology"). The concept after the bar makes the Short findable in search: Episodes 4–6 got only 1–2% of their views from search with human-only titles, and search is what keeps a Short getting views after the feed test ends. Feed viewers rarely read the title, so naming the concept there barely spoils the reveal.
 - Keep the series name and episode number on the thumbnail instead of spending title space or the first second of video on them.
 - Put the technical concept in the first description line so search can still understand the topic.
 - Use a small number of focused hashtags in the description. Keep hashtags out of the title.

@@ -119,3 +119,66 @@ def memory_note(c: Canvas, head: tuple[float, float], x: float, y: float, text: 
     mx = min(x + 34 + tw + 42, x + w - 36)
     (check_mark if mark == "check" else cross_mark)(c, mx, y + 68, 44)
     c.text(x + 34, y + 140, stamp, 38, fill=(150, 70, 60), weight=HAND, anchor="lm")
+
+
+# --- added for Episode 07: the in-scene reveal ----------------------------------------------------------------
+
+
+def dim(img, amount: float):
+    """Darken a finished frame toward ink, for a freeze-frame reveal."""
+    from PIL import Image
+
+    return Image.blend(img, Image.new("RGB", img.size, INK), amount)
+
+
+def leader_tag(c: Canvas, x: float, y: float, k: float):
+    """A mustard "LEADER" tag with a small crown, popping in above someone's head (screen coordinates)."""
+    if k <= 0:
+        return
+    s = 0.6 + 0.4 * ease(k)
+    w, h = 250 * s, 78 * s
+    y -= (1 - ease(k)) * 30
+    c.rect(x - w / 2, y - h / 2, x + w / 2, y + h / 2, fill=MUSTARD, width=6, radius=h / 2)
+    c.text(x, y + 2, "LEADER", 46 * s, weight=HEAVY)
+    cy = y - h / 2 - 12
+    crown = [(x - 46 * s, cy), (x - 46 * s, cy - 44 * s), (x - 22 * s, cy - 20 * s), (x, cy - 52 * s),
+             (x + 22 * s, cy - 20 * s), (x + 46 * s, cy - 44 * s), (x + 46 * s, cy)]
+    c.poly(crown, fill=MUSTARD, width=6)
+
+
+def dotted_arrow(c: Canvas, a: tuple[float, float], b: tuple[float, float], k: float, color=PAPER):
+    """Dots from a to b (screen coordinates), drawn progressively as k goes 0 -> 1, with an arrowhead at the end."""
+    if k <= 0:
+        return
+    k = ease(k)
+    n = 9
+    for i in range(int(n * k) + 1):
+        f = i / n
+        c.circle(lerp(a[0], b[0], f), lerp(a[1], b[1], f), 9, fill=color, width=4)
+    if k > 0.95:
+        dx, dy = b[0] - a[0], b[1] - a[1]
+        d = math.hypot(dx, dy) or 1
+        ux, uy = dx / d, dy / d
+        tip = (b[0] + ux * 26, b[1] + uy * 26)
+        c.poly([tip, (b[0] - uy * 20, b[1] + ux * 20), (b[0] + uy * 20, b[1] - ux * 20)], fill=color, width=4)
+
+
+def stamp(c: Canvas, y: float, text: str, k: float):
+    """The concept's name, stamped across the frame on a mustard strip (screen coordinates)."""
+    if k <= 0:
+        return
+    s = 1.35 - 0.35 * ease(k)  # lands from slightly too big, like a rubber stamp
+    size = 92 * s
+    w = font(size, HEAVY).getlength(text) / 2 + 80
+    c.rect(540 - w / 2, y - size * 0.75, 540 + w / 2, y + size * 0.75, fill=MUSTARD, width=8, radius=18)
+    c.text(540, y + 2, text, size, weight=HEAVY)
+
+
+def caption(c: Canvas, y: float, text: str, size: int = 50):
+    """The narrator's current phrase, on a paper strip (screen coordinates)."""
+    lines = wrap(text, size, 860)
+    lh = size * 1.25
+    h = lh * len(lines) + 44
+    c.rect(80, y, 1000, y + h, fill=PAPER, width=6, radius=28)
+    for i, line in enumerate(lines):
+        c.text(540, y + 22 + lh * (i + 0.5), line, size, weight=DEMI)

@@ -25,7 +25,7 @@ The moment comes from the book's moment lists (round 2, #45), ticked by Hussain.
 
 ## Audience promise
 
-- **Title:** `Anywhere's Fine`. Alternates: `Where Should We Eat?`, `Nobody Would Pick`.
+- **Title:** `Anywhere's Fine | Leader Election Explained` (hook first, concept after the bar; see Packaging in `SERIES_GUIDE.md`).
 - **Cold-open frame:** a tight three-shot on the couch, faces filling the frame, all three slumped and hungry. A
   stomach growl on the first frame. The two-line promise card at the top.
 - **First spoken line (0.1 s):** MIRA: "Where should we eat?"
@@ -80,20 +80,23 @@ separate explainer card, no list, no second diagram. The `SOFTWARE IN DISGUISE �
 
 ## Production
 
-- [ ] Hussain approves the brief
-- [ ] Kit additions: wall clock, slumped pose, menus, leader tag overlay, stomach growl
-- [ ] Voices generated with the cast's established voices
-- [ ] Reveal recorded by Hussain, cleaned with `prep_reveal.py`
-- [ ] Full cut rendered; contact sheet reviewed at phone size
+- [x] Hussain approves the brief
+- [x] Kit additions: evening light, wall clock, front door (`living_room.py`); belly/point/menu hands (`cast.py`); a
+      restaurant set (`restaurant.py`, replacing the café reuse); growl and whoosh (`sound.py`); dim, leader tag, dotted
+      arrow, stamp and caption overlays (`overlays.py`)
+- [x] Voices generated with the cast's established voices
+- [x] Reveal recorded by Hussain (one take, 2026-09-26, 2.95 s after trimming), cleaned with `prep_reveal.py`
+- [x] Full cut rendered (29.1 s); tight framing throughout; Hussain's review fixes: the restaurant sign and the wall
+      clock were covered by bubbles
 - [ ] Retention checks: close-up conflict in frame 1, speech by 0.3 s, speech and faces through 0:10, reveal ≤ 4 s,
       final gag after the reveal, runtime ≤ 30 s, loop works
-- [ ] Thumbnail, subtitles
+- [x] Thumbnail, subtitles
 - [ ] YouTube and Instagram scheduled at the same date and time
 - [ ] Ledger updated
 
 ## Packaging
 
-- **YouTube title:** `Anywhere's Fine`
+- **YouTube title:** `Anywhere's Fine | Leader Election Explained`
 - **Description first line:** `Leader election explained through three friends who can't decide where to eat.`
 - **Description:**
   > "Where should we eat?" "Anywhere's fine." Forty minutes later…

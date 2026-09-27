@@ -51,6 +51,11 @@
 
 From Episode 6 on, both platforms go live at the same time.
 
+**Titles changed 2026-09-26** to the "human hook | Concept Explained" format for search: Episode 4 `Neither Roommate
+Would Let Go | Deadlock Explained`, Episode 5 `He Checked This Morning | Stale Cache Explained`, Episode 6 `We're Both on
+the First Floor | Off-by-One Error Explained`. Compare their search-traffic share before and after.
+
+
 ## Retention baseline (read from YouTube Studio; Episodes 4–6 updated 2026-09-26)
 
 | Episode | Views | Stayed to watch | Avg view duration | Where viewers leave |
@@ -108,7 +113,8 @@ widen it. Subscribers: +3, +1, +2.
 
 ### Episode 07 — Anywhere's Fine
 
-- **Status:** Brief written, awaiting Hussain's approval
+- **Status:** Final cut approved by Hussain (29.1 s, his recorded reveal); scheduling next
+- **Title:** `Anywhere's Fine | Leader Election Explained`
 - **Concept:** Leader election (the usual fix for the consensus problem)
 - **Story:** Dev, Mira and Jo, starving on the couch: "Where should we eat?" "Anywhere's fine." Forty minutes later,
   Mira makes Jo the decider: "Thai." They're at the door instantly. Final gag at the restaurant: "So… what should we

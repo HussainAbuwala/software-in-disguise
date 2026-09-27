@@ -1,0 +1,135 @@
+{
+  "engine": "Kokoro-82M via kokoro-onnx",
+  "cast": {
+    "DEV": {
+      "voice": "am_puck",
+      "base_speed": 1.0
+    },
+    "MIRA": {
+      "voice": "af_heart",
+      "base_speed": 0.95
+    },
+    "JO": {
+      "voice": "af_nicole",
+      "base_speed": 0.9
+    },
+    "NARRATOR": {
+      "voice": "am_michael",
+      "base_speed": 1.0
+    }
+  },
+  "lines": {
+    "mira-where-eat": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "Where should we eat?",
+      "duration": 1.118
+    },
+    "dev-anywhere": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 0.95,
+      "text": "Anywhere's fine.",
+      "duration": 1.021
+    },
+    "jo-you-pick": {
+      "speaker": "JO",
+      "voice": "af_nicole",
+      "speed": 0.9,
+      "text": "You pick.",
+      "duration": 0.975
+    },
+    "mira-dont-mind": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "I don't mind.",
+      "duration": 0.966
+    },
+    "dev-whatever": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 0.88,
+      "text": "Whatever you guys want.",
+      "duration": 1.353
+    },
+    "mira-easy": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.9,
+      "text": "I'm easy.",
+      "duration": 0.851
+    },
+    "jo-same": {
+      "speaker": "JO",
+      "voice": "af_nicole",
+      "speed": 0.85,
+      "text": "Same.",
+      "duration": 0.9
+    },
+    "dev-thai": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 1.05,
+      "text": "What about Thai?",
+      "duration": 0.939
+    },
+    "mira-if-you-want": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "Sure, if you want.",
+      "duration": 1.155
+    },
+    "dev-only-if-you": {
+      "speaker": "DEV",
+      "voice": "am_puck",
+      "speed": 0.95,
+      "text": "Only if YOU want.",
+      "duration": 1.107
+    },
+    "mira-jo-choose": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 1.05,
+      "text": "Jo. You choose. Nobody's allowed to argue.",
+      "duration": 2.581
+    },
+    "jo-thai": {
+      "speaker": "JO",
+      "voice": "af_nicole",
+      "speed": 0.85,
+      "text": "Thai.",
+      "duration": 0.902
+    },
+    "mira-what-order": {
+      "speaker": "MIRA",
+      "voice": "af_heart",
+      "speed": 0.95,
+      "text": "So... what should we order?",
+      "duration": 1.464
+    },
+    "jo-not-every-time": {
+      "speaker": "JO",
+      "voice": "af_nicole",
+      "speed": 0.9,
+      "text": "I'm not doing this every time.",
+      "duration": 2.841
+    },
+    "reveal-1": {
+      "speaker": "NARRATOR",
+      "voice": "am_michael",
+      "speed": 1.0,
+      "text": "Computers get stuck like this too.",
+      "duration": 2.013
+    },
+    "reveal-2": {
+      "speaker": "NARRATOR",
+      "voice": "am_michael",
+      "speed": 1.0,
+      "text": "So they elect a leader.",
+      "duration": 1.44
+    }
+  }
+}

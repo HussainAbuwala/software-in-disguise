@@ -242,3 +242,22 @@ def tonk() -> np.ndarray:
     """Hollow knock: an empty carton set down."""
     t = t_axis(0.25)
     return (np.sin(2 * np.pi * 330 * t) + 0.6 * np.sin(2 * np.pi * 495 * t)) * np.exp(-t * 22)
+
+
+# --- added for Episode 07 --------------------------------------------------------------------------------------
+
+
+def growl(seconds: float = 0.9, seed: int = 91) -> np.ndarray:
+    """Stomach growl: low, wobbling filtered noise with a gurgle in the middle."""
+    t = t_axis(seconds)
+    wobble = 1 + 0.8 * np.sin(2 * np.pi * (7 + 5 * t / seconds) * t)
+    body = noise(seconds, 60, 320, seed) * wobble
+    gurgle = np.sin(2 * np.pi * np.cumsum(90 + 60 * np.sin(2 * np.pi * 3.5 * t)) / SR) * 0.6
+    x = (body + gurgle) * np.sin(np.pi * t / seconds) ** 1.2
+    return x / (np.max(np.abs(x)) + 1e-9)
+
+
+def whoosh(seconds: float = 0.35, seed: int = 93) -> np.ndarray:
+    """A quick air swoosh for a hard cut."""
+    t = t_axis(seconds)
+    return noise(seconds, 400, 5000, seed) * np.sin(np.pi * t / seconds) ** 2
