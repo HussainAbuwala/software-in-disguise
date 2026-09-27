@@ -67,11 +67,18 @@ the First Floor | Off-by-One Error Explained`. Compare their search-traffic shar
 | 04 (29.5 s) | 1,187 | 51.5% | 0:22 (73%) | Sharpest drop at 0:03–0:05 (the silent insert of the remote, as the promise card leaves); then a steady slide through the reveal to ~35% at the end |
 | 05 (31 s) | 1,202 | 59.2% | 0:19 (61%) | Drops from ~108% to ~72% during 0:04–0:10 (time cards and a silent flashback); steepest fall at the reveal (0:19–0:23), ending at ~16% |
 | 06 (31 s) | 1,123 | 41.7% | 0:26 (84%) | Most swipes of the three in the first seconds, but the story holds (~90% at 0:16, ~83% at 0:20); halves during the reveal (~80% → ~40%) |
+| 07 (29 s, first built on the new rules) | ~1.2K in the first hours | 43.0% | 0:20 (69%) | Retention graph not processed yet (read 2026-09-27); views flattened about 3.5 h after publishing, like Episodes 4–6 |
 
 Episodes 4–6 were read on 2026-09-26, about 1–2 days after publishing. Retention figures are read off the Studio
 chart and are approximate. All three got about 93–96% of their views from the Shorts feed, and their views stopped
 growing within about 4–12 hours at roughly 1.1–1.2K each: the feed tested each Short on a first audience and didn't
 widen it. Subscribers: +3, +1, +2.
+
+**Episode 7, first read (2026-09-27):** the swipe-away rate (57%) is no better than Episode 6 (58%) and worse than Episodes
+4 (48%) and 5 (41%). The close-up alone didn't fix the hook. The two best openers show an accusation over a visible
+problem (the empty remote, "You said there was milk" with the empty carton); Episodes 6 and 7 open on a mild question
+("I'm here. First floor." / "Where should we eat?") with nothing visibly wrong. Next test: frame 1 = a visible problem
+plus an accusing line. Search was 0.6% of views so far. Recheck the retention graph (reveal and final gag) in two days.
 
 **What Episodes 4–6 show:**
 
@@ -125,6 +132,17 @@ widen it. Subscribers: +3, +1, +2.
 - **Format:** First episode built on the Episode 4–6 analytics: close-up first frame, speech through the first 10 s, a
   3–4 s reveal inside the scene, and a final gag after the reveal
 - **Files:** [`episodes/007-anywheres-fine`](episodes/007-anywheres-fine)
+
+### Episode 08 — You Said You Cleaned
+
+- **Status:** Brief written, awaiting Hussain's approval
+- **Title:** `You Said You Cleaned | Acceptance Criteria Explained`
+- **Concept:** Acceptance criteria (and their limits)
+- **Story:** "You said you cleaned!" "I did!" Everything is under the couch and jammed in the cupboard. Mira writes
+  what "clean" means; Dev: "Oh. *That* clean." Every item gets ticked. Final gag: Jo, holding an armful of Dev's
+  things: "Why is all your stuff on my bed?" "It wasn't on the list."
+- **Format:** Tests the Episode 7 lesson: frame 1 = a visible problem plus an accusing line
+- **Files:** [`episodes/008-you-said-you-cleaned`](episodes/008-you-said-you-cleaned)
 
 ## Concepts not yet used
 
