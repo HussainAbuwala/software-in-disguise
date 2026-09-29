@@ -22,15 +22,18 @@ class Look:
     skin: tuple
     top: tuple
     bottoms: tuple
-    hair: str  # spiky | ponytail | buzz
+    hair: str  # spiky | ponytail | buzz | bun
     glasses: bool = False
     hoodie: bool = False
     pajamas: bool = False
+    hair_color: tuple = HAIR
 
 
 DEV = Look("Dev", skin=(166, 112, 76), top=MUSTARD, bottoms=(58, 60, 72), hair="spiky", hoodie=True)
 MIRA = Look("Mira", skin=(196, 142, 102), top=TEAL, bottoms=(120, 120, 124), hair="ponytail", glasses=True)
 JO = Look("Jo", skin=(112, 74, 52), top=(176, 176, 180), bottoms=(150, 150, 156), hair="buzz", pajamas=True)
+# Mira's mom (from Episode 03's remake): greying bun, plum kurta.
+MOM = Look("Mom", skin=(190, 136, 98), top=(142, 62, 104), bottoms=(96, 74, 92), hair="bun", hair_color=(96, 92, 92))
 
 # Expression = eyelid level (0 open .. 1 shut), brow (inner, outer) offsets per eye (negative = raised), mouth shape.
 EXPRESSIONS = {
@@ -48,6 +51,8 @@ EXPRESSIONS = {
     "phone": dict(lid=0.4, brow=(-2, -4), mouth="smile", gaze_y=1.0),  # absorbed in a phone, pleased with himself
     "annoyed": dict(lid=0.32, brow=(12, -2), mouth="flat"),
     "cheerful": dict(lid=0.15, brow=(-10, -8), mouth="smile"),
+    "pleading": dict(lid=0.1, brow=(-20, 2), mouth="smile", pupil=1.25),  # "just one quick thing" puppy eyes
+    "frazzled": dict(lid=0.2, brow=(-14, 6), mouth="frown", bags=True),  # worried and worn out
 }
 
 
@@ -119,6 +124,8 @@ def _hair_back(c: Canvas, look: Look, hx, hy, f):
     if look.hair == "ponytail":
         bx = hx - f * 48
         c.poly([(bx, hy - 72), (bx - f * 72, hy - 100), (bx - f * 92, hy - 30), (bx - f * 66, hy + 30), (bx - f * 26, hy - 12)], fill=HAIR)
+    elif look.hair == "bun":
+        c.circle(hx - f * 58, hy - 70, 40, fill=look.hair_color)
 
 
 def _hair_front(c: Canvas, look: Look, hx, hy, f):
@@ -131,6 +138,9 @@ def _hair_front(c: Canvas, look: Look, hx, hy, f):
         c.circle(hx - f * 44, hy - 84, 17, fill=HAIR)
     elif look.hair == "buzz":
         c.chord(hx - 79, hy - 80, hx + 79, hy + 6, 185, 355, fill=(70, 58, 50), width=5)
+    elif look.hair == "bun":
+        c.chord(hx - 81, hy - 88, hx + 81, hy + 16, 180, 360, fill=look.hair_color)
+        c.line([(hx + f * 10, hy - 84), (hx + f * 40, hy - 40)], fill=(170, 166, 162), width=6)  # a grey streak
 
 
 def head(c: Canvas, look: Look, pose: Pose, hx: float, hy: float):
@@ -387,6 +397,37 @@ def _arms(c: Canvas, look: Look, pose: Pose, x: float, y: float, standing: bool 
             sh = (x + side * 58, y + 20)
             c.limb([sh, (x + side * 96, y + 120), (px + side * 92, y + 150)], look.top, sleeve)
             hand(c, px + side * 92, y + 150, look, r=22)
+    elif pose.hands == "write":
+        # Seated at a desk: near hand writes at `reach` (a pen tip on the desk, world coordinates), far forearm on
+        # the desk. extras["pen"] (0..1) wiggles the hand as it writes; extras["pen_down"] = False lifts it.
+        tx, ty = pose.reach
+        wig = pose.extras.get("pen", 0.0)
+        hand_p = (tx - f * 20 + 10 * math.sin(wig * math.pi * 6), ty - 16 + 4 * math.cos(wig * math.pi * 9))
+        if not pose.extras.get("pen_down", True):
+            hand_p = (hand_p[0] - f * 30, hand_p[1] - 40)
+        c.limb([far_sh, (x + f * 20, y + 110), (tx - f * 70, ty - 6)], look.top, sleeve)
+        hand(c, tx - f * 70, ty - 6, look, r=22)
+        c.limb([near_sh, (x + f * 110, y + 100), hand_p], look.top, sleeve)
+        c.line([(hand_p[0] + f * 8, hand_p[1] + 16), (hand_p[0] - f * 30, hand_p[1] - 50)], fill=(40, 70, 150), width=11)
+        hand(c, *hand_p, look, r=22)
+    elif pose.hands == "press":
+        # Both hands flat on something on the wall (a sheet being taped up): the near hand at `reach`, the far hand
+        # at `reach` + extras["press_offset"] (world units).
+        tx, ty = pose.reach
+        ox, oy = pose.extras.get("press_offset", (-100, 60))
+        for sh, hp in ((far_sh, (tx + ox, ty + oy)), (near_sh, (tx, ty))):
+            elbow = ((sh[0] + hp[0]) / 2, max(sh[1], hp[1]) + 40)
+            c.limb([sh, elbow, hp], look.top, sleeve)
+            hand(c, *hp, look, r=24)
+    elif pose.hands == "carry":
+        # Both hands forward at waist height, holding the end of something heavy (the sofa).
+        for dx, dy in ((96, 150), (70, 172)):
+            sh = near_sh if dx == 96 else far_sh
+            hp = (x + f * dx, y + dy)
+            c.limb([sh, (x + f * (dx - 30), y + 110), hp], look.top, sleeve)
+            hand(c, *hp, look, r=24)
+    elif pose.hands == "none":
+        pass  # arms drawn later by a prop (e.g. `notepad_on_lap`, over the couch front)
     elif pose.hands == "far_rest":
         # Near arm drawn separately by the shot (e.g. reaching into a fridge in screen space).
         c.limb([far_sh, (x - f * 75, y + 150)], look.top, sleeve)
@@ -425,3 +466,64 @@ def jolt(t: float, strength: float = 16.0) -> float:
     if t < 0:
         return 0.0
     return -strength * math.exp(-t * 12) * math.cos(t * 30)
+
+
+# --------------------------------------------------------------------------------------------------------------
+# Added for Episode 03 (remake): a notepad on a seated character's lap
+
+
+RULE_BLUE = (170, 196, 226)
+
+
+def notepad_on_lap(c: Canvas, look: Look, pose: Pose, title: str, body: str = "", pen: float | None = None,
+                   held: bool = True):
+    """A spiral notepad on a seated character's lap, page toward the camera. Draw it after the couch front (the
+    `props` layer) with the pose's hands set to "none". `held` draws both arms holding its sides; `pen` (0..1) puts a
+    pen in the near hand, writing just after `body`, with 0..1 as its little scribble motion."""
+    from .canvas import HAND
+
+    f = pose.facing
+    x, y = pose.x, pose.y + pose.extras.get("breathe", 0.0) * 0.4
+    px, top, w, h = x + f * 8, y + 36, 320, 320
+    left, right = px - w / 2, px + w / 2
+    sleeve = 38
+    side_y = top + 170
+    near_hand = (right - 10, side_y) if f > 0 else (left + 10, side_y)
+    far_hand = (left + 10, side_y) if f > 0 else (right - 10, side_y)
+    if pen is not None:
+        near_hand = (px + f * 40 + 18 * math.sin(pen * math.pi * 6), top + 150 + 6 * math.cos(pen * math.pi * 9))
+    if held:
+        for sh, hp in (((x - f * 58, y + 20), far_hand), ((x + f * 58, y + 20), near_hand)):
+            elbow = (sh[0] + (hp[0] - x) * 0.9, (sh[1] + hp[1]) / 2 + 30)
+            c.limb([sh, elbow, hp], look.top, sleeve)
+    c.rect(left + 10, top + 12, right + 10, top + h + 12, fill=(200, 190, 170), outline=None)  # shadow
+    c.rect(left, top, right, top + h, fill=PAPER, width=6)
+    for i in range(5):  # ruled lines under the title
+        ly = top + 118 + i * 42
+        c.line([(left + 18, ly), (right - 18, ly)], fill=RULE_BLUE, width=3)
+    c.line([(left + 44, top + 20), (left + 44, top + h - 14)], fill=(226, 150, 150), width=3)  # margin
+    for i in range(6):  # spiral rings along the top
+        rx = left + 34 + i * (w - 68) / 5
+        c.ellipse(rx - 9, top - 16, rx + 9, top + 14, width=5)
+    c.text(px + 16, top + 60, title, 34, weight=HAND)
+    tw = min(w - 100, len(title) * 16)
+    c.line([(px + 16 - tw / 2, top + 84), (px + 16 + tw / 2, top + 84)], width=4)
+    if body:
+        c.text(left + 58, top + 100, body, 34, weight=HAND, anchor="lm")
+    if pen is not None:
+        tip = (near_hand[0] - f * 14, near_hand[1] - 6)
+        c.line([tip, (tip[0] + f * 70, tip[1] - 64)], fill=(40, 70, 150), width=12)
+    if held:
+        hand(c, *far_hand, look, r=24)
+        hand(c, *near_hand, look, r=24)
+
+
+def seated_legs(c: Canvas, look: Look, pose: Pose, floor: float = 1380):
+    """Legs for someone sitting on a chair (seen from the side), drawn before the body so the torso covers the hip.
+    The seated pose puts the hip about 170 below `pose.y`."""
+    f = pose.facing
+    hip = (pose.x + f * 10, pose.y + 150)
+    knee = (pose.x + f * 150, pose.y + 158)
+    ankle = (knee[0] + f * 10, floor - 18)
+    c.limb([hip, knee, ankle], look.bottoms, 58)
+    c.ellipse(ankle[0] - 30 + f * 18, floor - 30, ankle[0] + 30 + f * 34, floor + 4, fill=(90, 84, 80), width=5)

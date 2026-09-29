@@ -8,9 +8,21 @@ from .canvas import ALERT, DEMI, HAND, HEAVY, INK, MUSTARD, PAPER, TEAL, W, Came
 from .cast import Pose
 
 
-def promise(c: Canvas, size: int = 44):
+def promise(c: Canvas, size: int = 44, lines: tuple[str, ...] | None = None):
     """The payoff promise line. Episodes 04-05 use one small line (size 44); Episode 06 onward uses a larger, bolder
-    two-line card (size 60+) so it registers in the first second."""
+    two-line card (size 60+) so it registers in the first second. `lines` replaces the card's text; an all-caps line
+    is the concept's name and is set bigger and in red (Episode 03's remake names the concept in frame 1)."""
+    if lines:
+        sizes = [size * 1.5 if l.isupper() else size for l in lines]
+        w = max(c.d.textlength(l, font=font(s, HEAVY)) for l, s in zip(lines, sizes)) / 2 + 80
+        top = 170
+        h = sum(s * 1.15 for s in sizes) + 44
+        c.rect(540 - w / 2, top, 540 + w / 2, top + h, fill=MUSTARD, radius=36, width=7)
+        y = top + 22
+        for l, s in zip(lines, sizes):
+            c.text(540, y + s * 0.575, l, s, fill=ALERT if l.isupper() else INK, weight=HEAVY)
+            y += s * 1.15
+        return
     text = "Programmers have a name for this."
     if size <= 44:
         f = font(size, DEMI)
@@ -205,3 +217,39 @@ def checklist(c: Canvas, x: float, y: float, w: float, title: str, items: list[s
         k = ticks[i] if i < len(ticks) else 0.0
         if k > 0:
             check_mark(c, x + 42 + size * 0.38, iy, size * 0.9 * (0.6 + 0.4 * ease(k)))
+
+
+# --- added for Episode 03 (remake) -----------------------------------------------------------------------------
+
+
+def page_closeup(c: Canvas, title: str, text: str = "", k: float = 1.0, pen: bool = True, t: float = 0.0):
+    """Looking down at a notepad on a desk (screen coordinates, fills the frame). `text` is written on the first line,
+    `k` (0..1) of its characters so far, with the pen following the last letter; with no text the pen lies idle."""
+    c.rect(-10, -10, W + 10, 1930, fill=(176, 128, 88), outline=None)  # the desk
+    for i in range(7):
+        c.line([(-10, 180 + i * 260), (W + 10, 200 + i * 260)], fill=(160, 114, 78), width=4)  # wood grain
+    x0, y0, x1, y1 = 110, 330, 970, 1560
+    c.rect(x0 + 16, y0 + 18, x1 + 16, y1 + 18, fill=(140, 100, 70), outline=None)  # shadow
+    c.rect(x0, y0, x1, y1, fill=PAPER, width=7)
+    for i in range(10):  # spiral rings along the top
+        rx = x0 + 60 + i * (x1 - x0 - 120) / 9
+        c.ellipse(rx - 14, y0 - 30, rx + 14, y0 + 22, width=6)
+    c.line([(x0 + 110, y0 + 20), (x0 + 110, y1 - 20)], fill=(226, 150, 150), width=4)  # margin
+    rule0, gap = y0 + 250, 96
+    for i in range(12):
+        c.line([(x0 + 24, rule0 + i * gap), (x1 - 24, rule0 + i * gap)], fill=(170, 196, 226), width=4)
+    c.text(540, y0 + 110, title, 66, weight=HAND)
+    tw = font(66, HAND).getlength(title) / 2
+    c.line([(540 - tw / 2, y0 + 160), (540 + tw / 2, y0 + 160)], width=6)
+    shown = text[: round(len(text) * max(0.0, min(1.0, k)))]
+    if shown:
+        c.text(x0 + 140, rule0 + gap - 34, shown, 64, fill=(30, 50, 120), weight=HAND, anchor="lm")
+    if not pen:
+        return
+    if text:
+        ex = x0 + 140 + font(64, HAND).getlength(shown) / 2 + 8
+        ey = rule0 + gap - 20 + 6 * math.sin(t * 40)
+    else:  # lying idle on the empty page
+        ex, ey = 700, 900
+    c.line([(ex, ey), (ex + 150, ey - 190)], fill=(40, 70, 150), width=26)
+    c.line([(ex, ey), (ex + 14, ey - 18)], fill=INK, width=10)

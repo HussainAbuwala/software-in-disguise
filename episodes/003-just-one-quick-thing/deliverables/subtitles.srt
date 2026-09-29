@@ -1,0 +1,51 @@
+1
+00:00:00,100 --> 00:00:01,394
+DEV: Just one quick thing—
+
+2
+00:00:01,394 --> 00:00:03,435
+MIRA: I'm writing Priya's wedding speech!
+
+3
+00:00:03,635 --> 00:00:04,859
+DEV: Just two minutes!
+
+4
+00:00:05,709 --> 00:00:06,739
+MIRA: Yes, Mom?
+
+5
+00:00:06,739 --> 00:00:09,214
+MOM: Sweetie, one quick thing... did you eat?
+
+6
+00:00:11,214 --> 00:00:12,826
+MIRA: Laundry. Two minutes.
+
+7
+00:00:13,226 --> 00:00:15,033
+MIRA: The wedding is tomorrow.
+
+8
+00:00:16,233 --> 00:00:18,530
+JO: Every one of those was quick.
+
+9
+00:00:18,530 --> 00:00:20,642
+JO: So they always went first.
+
+10
+00:00:21,022 --> 00:00:24,122
+If quick jobs always go first, the big one never runs.
+
+11
+00:00:24,122 --> 00:00:26,192
+That's called starvation.
+
+12
+00:00:26,942 --> 00:00:28,693
+MIRA: Tomorrow. Nine sharp.
+
+13
+00:00:30,893 --> 00:00:32,287
+DEV: Just one quick thing—

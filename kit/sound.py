@@ -274,3 +274,45 @@ def creak(seconds: float = 0.7, seed: int = 95) -> np.ndarray:
     flutter = (np.sin(2 * np.pi * 28 * t) > 0.2).astype(float)
     x = band(tone * flutter + noise(seconds, 300, 2500, seed) * 0.25, 90, 2400) * np.sin(np.pi * t / seconds)
     return x / (np.max(np.abs(x)) + 1e-9)
+
+
+# --- added for Episode 03 (remake) -----------------------------------------------------------------------------
+
+
+def beep(count: int = 3) -> np.ndarray:
+    """Washing machine done: short square-ish beeps."""
+    out = []
+    for _ in range(count):
+        t = t_axis(0.14)
+        tone = np.sign(np.sin(2 * np.pi * 2100 * t)) * 0.4 + np.sin(2 * np.pi * 2100 * t) * 0.6
+        out += [band(tone, 300, 6000) * env(len(t), 0.004, 0.02), np.zeros(int(0.1 * SR))]
+    return np.concatenate(out)
+
+
+def buzz(pulses: int = 2, seed: int = 97) -> np.ndarray:
+    """A phone vibrating on a cushion: low rattling pulses."""
+    out = []
+    for i in range(pulses):
+        t = t_axis(0.4)
+        rattle = 1 + 0.8 * np.sin(2 * np.pi * 34 * t)
+        x = (np.sin(2 * np.pi * 170 * t) + noise(0.4, 100, 500, seed + i) * 0.5) * rattle
+        out += [x * env(len(t), 0.01, 0.04), np.zeros(int(0.18 * SR))]
+    x = np.concatenate(out)
+    return x / (np.max(np.abs(x)) + 1e-9)
+
+
+def scrape(seconds: float = 0.8, seed: int = 99) -> np.ndarray:
+    """Furniture dragged across a floor: gritty low-mid noise with an uneven, juddering level."""
+    t = t_axis(seconds)
+    judder = np.interp(t, np.linspace(0, seconds, 14), np.random.default_rng(seed).uniform(0.3, 1, 14))
+    x = noise(seconds, 150, 1400, seed) * judder * np.sin(np.pi * t / seconds) ** 0.7
+    return x / (np.max(np.abs(x)) + 1e-9)
+
+
+def tape_rip(seconds: float = 0.45, seed: int = 101) -> np.ndarray:
+    """Tape pulled off a roll: bright crackle that rises, then stops dead."""
+    t = t_axis(seconds)
+    crackles = (np.random.default_rng(seed).random(len(t)) > 0.9).astype(float)
+    x = band(crackles, 1200, 9000) * (0.3 + t / seconds) + noise(seconds, 2000, 8000, seed) * 0.3 * t / seconds
+    x *= env(len(t), 0.01, 0.01)
+    return x / (np.max(np.abs(x)) + 1e-9)

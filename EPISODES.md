@@ -38,13 +38,15 @@
 - **Plain explanation:** Small jobs keep going first, so a bigger one may never finish—like a 20-page report that never prints because every new one-page job jumps ahead.
 - **Story:** A groom arrives for a haircut before his wedding. The barber repeatedly serves tiny walk-in jobs first. When the wedding car arrives, the still-uncut groom asks how much it would cost to cut only the front.
 - **Format:** Vertical illustrated story with static human scenes, a simple animated printer-queue reveal, synthetic dialogue, situation-specific sound, and original sparse music
-- **Files:** [`episodes/003-just-one-quick-trim`](episodes/003-just-one-quick-trim)
+- **Files:** removed from the repo on 2026-09-27 (in git history); being remade as `Just One Quick Thing` (below), and
+  set to private on YouTube when the remake goes live
 
 ## Publishing plan
 
 | Episode | YouTube | Instagram |
 | --- | --- | --- |
-| 01–03 | Published | Not posted (old format) |
+| 01–02 | Published | Not posted (old format) |
+| 03 (remake) | Published Sun 2026-09-27, ~7:45 PM ET ([link](https://youtube.com/shorts/o2DTWqOxXnY)); old Ep 3 set private | Posted by Hussain from the app, shortly after |
 | 04 | Published 2026-09-24 ([link](https://youtube.com/shorts/ZZZFeXNJyp8)) | Scheduled Fri 2026-09-25, 12:00 PM ET (catch-up) |
 | 05 | Published Fri 2026-09-25, 9:00 AM ET ([link](https://youtube.com/shorts/oroEZpeOLDs)) | Scheduled Fri 2026-09-25, 4:00 PM ET (catch-up) |
 | 06 | Scheduled Fri 2026-09-25, 8:00 PM ET ([link](https://youtube.com/shorts/EVcvuKnatMA)) | Scheduled Fri 2026-09-25, 8:00 PM ET (same time) |
@@ -94,6 +96,22 @@ plus an accusing line. Search was 0.6% of views so far. Recheck the retention gr
 - **Versus the old format:** stayed-to-watch is up from 23% (Episode 1) to 42–59%.
 
 ## In development
+
+### Episode 03 (remake) — Just One Quick Thing
+
+- **Status:** Published on YouTube Sun 2026-09-27, about 7:45 PM ET (https://youtube.com/shorts/o2DTWqOxXnY); the old
+  "Just One Quick Trim" was set to private at the same time. Instagram: posted by Hussain from the app shortly after,
+  because the web composer refused every video upload that evening (Episode 8's already-accepted file failed the same
+  way).
+- **Title:** `Just One Quick Thing | Starvation Explained`
+- **Concept:** Starvation (shortest-job-first scheduling), from the book's moment 4.1
+- **Story:** Mira is writing Priya's wedding speech; "just one quick thing" keeps arriving and is shown being done
+  (carrying the sofa with Dev, Mom's "did you eat?" call on a split screen that runs an hour, the laundry). At 11:58
+  the page is blank. Jo: "Every one of those was quick. So they always went first." Mira tapes "9–11 SPEECH ONLY" to
+  the wall; at 9 AM Dev reads it and asks anyway (loop).
+- **Tests:** frame 1 names the concept ("Software concept: STARVATION, explained with everyday life"), breaking the
+  hide-the-term rule for one episode; a follow line over the last beat
+- **Files:** [`episodes/003-just-one-quick-thing`](episodes/003-just-one-quick-thing)
 
 ### Episode 04 — Neither Roommate Would Let Go
 

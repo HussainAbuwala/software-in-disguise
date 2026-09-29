@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import math
 
-from .canvas import ALERT, FLOOR, INK, MUSTARD, PAPER, WALL, Canvas
+from .canvas import ALERT, FLOOR, HAND, INK, MUSTARD, PAPER, WALL, Canvas, ease
 
 TEAL_DARK = (32, 128, 116)
 
@@ -101,9 +101,9 @@ CLOCK = (205, 700)
 DOOR = (1390, 1600)  # front door x range, right of the couch (outside every camera used before Episode 07)
 
 
-def _clock(c: Canvas, minutes: float):
+def _clock(c: Canvas, minutes: float, at: tuple = CLOCK):
     """Wall clock; `minutes` since midnight (19 * 60 = 7:00 PM)."""
-    x, y = CLOCK
+    x, y = at
     c.circle(x, y, 66, fill=PAPER, width=8)
     for i in range(12):
         a = i / 12 * 2 * math.pi
@@ -115,7 +115,7 @@ def _clock(c: Canvas, minutes: float):
     c.circle(x, y, 7, fill=INK, outline=None)
 
 
-def _door(c: Canvas, open_: bool):
+def _door(c: Canvas, open_: bool, sign: tuple | None = None):
     d0, d1 = DOOR
     top = 820
     c.rect(d0 - 22, top - 22, d1 + 22, 1380, fill=WOOD)
@@ -125,6 +125,27 @@ def _door(c: Canvas, open_: bool):
     else:
         c.rect(d0, top, d1, 1380, fill=(176, 132, 96))
         c.circle(d0 + 30, 1110, 12, fill=MUSTARD, width=4)
+        if sign:
+            door_sign(c, *sign)
+
+
+DOOR_SIGN = (1505, 1000)  # center of the sheet taped to the closed door (Episode 03 remake)
+
+
+def door_sign(c: Canvas, lines: tuple, k: float = 1.0):
+    """A handwritten sheet taped to the door. `k` 0..1 swings it up into place as it's taped."""
+    if k <= 0:
+        return
+    x, y = DOOR_SIGN
+    w, h = 180, 220
+    drop = (1 - ease(k)) * 40
+    c.rect(x - w / 2, y - h / 2 + drop, x + w / 2, y + h / 2 + drop, fill=PAPER, width=5)
+    for dx in (-w / 2 + 18, w / 2 - 18):  # tape strips at the top corners
+        c.rect(x + dx - 22, y - h / 2 - 12 + drop, x + dx + 22, y - h / 2 + 12 + drop, fill=(236, 226, 180), width=3)
+    first, *rest = lines
+    c.text(x, y - h / 2 + 60 + drop, first, 60, fill=ALERT, weight=HAND)
+    for i, line in enumerate(rest):
+        c.text(x, y - h / 2 + 128 + i * 44 + drop, line, 34, weight=HAND)
 
 
 CUPBOARD = (1000, 1240, 760)  # x0, x1, top; a tall two-door cupboard right of the couch (Episode 08)
@@ -203,9 +224,12 @@ def _cupboard(c: Canvas, strain: float, sock: float):
 
 
 def back(c: Canvas, time: str = "day", tv: str = "off", pizza: bool = False, t: float = 0.0, weather: str = "clear",
-         behind=None, clock: float | None = None, door: str | None = None, cupboard: tuple | None = None, **_):
+         behind=None, clock: float | None = None, door: str | None = None, cupboard: tuple | None = None,
+         clock_at: tuple = CLOCK, sign: tuple | None = None, couch: bool = True, **_):
     """Everything behind the seated characters. `behind(c)` draws anyone standing behind the couch. `clock` (minutes
-    since midnight) hangs a wall clock left of the window; `door` ("open" or "closed") draws the front door."""
+    since midnight) hangs a wall clock left of the window, or at `clock_at`; `door` ("open" or "closed") draws the
+    front door, and `sign` ((lines...), k) tapes a handwritten sheet to it when it's closed. `couch=False` leaves the
+    couch out (someone is carrying it: see `sofa_lifted`)."""
     tod = TIMES[time]
     c.rect(-2000, -2000, 3000, 1380, fill=tod["wall"], outline=None)
     c.rect(-2000, 1380, 3000, 4000, fill=tod["floor"], outline=None)
@@ -213,14 +237,16 @@ def back(c: Canvas, time: str = "day", tv: str = "off", pizza: bool = False, t: 
     _window(c, time, t, weather)
     _picture(c)
     if clock is not None:
-        _clock(c, clock)
+        _clock(c, clock, clock_at)
     if door:
-        _door(c, door == "open")
+        _door(c, door == "open", sign)
     if cupboard is not None:
         _cupboard(c, *cupboard)
     _tv(c, tv, t)
     if behind:
         behind(c)
+    if not couch:
+        return
     c.rect(140, 1000, 1040, 1240, fill=COUCH, radius=40)
     if pizza:
         c.rect(515, 1110, 665, 1228, fill=(196, 150, 100), width=6)
@@ -240,9 +266,11 @@ def _under_couch(c: Canvas, clutter: bool):
         c.rect(x - 14, 1322, x + 14, 1382, fill=(90, 70, 56), width=5)
 
 
-def front(c: Canvas, pizza: bool = False, clutter: bool = False, legs: bool = False, **_):
+def front(c: Canvas, pizza: bool = False, clutter: bool = False, legs: bool = False, couch: bool = True, **_):
     """Couch seat front and arms, drawn over the seated characters' laps. `legs` lifts the couch on short legs so
     there's a visible gap underneath (Episode 08); `clutter` fills that gap."""
+    if not couch:
+        return
     if legs:
         _under_couch(c, clutter)
         c.rect(110, 1230, 1070, 1330, fill=COUCH_DARK, radius=34)
@@ -256,3 +284,18 @@ def front(c: Canvas, pizza: bool = False, clutter: bool = False, legs: bool = Fa
         c.poly([(500, 1236), (680, 1236), (668, 1262), (512, 1262)], fill=(196, 150, 100), width=6)
         for cx, cy in ((550, 1246), (600, 1250), (630, 1244)):
             c.circle(cx, cy, 4, fill=(170, 110, 60), outline=None)
+
+
+def sofa_lifted(c: Canvas, x0: float, x1: float, bottom: float, tilt: float = 0.0):
+    """The couch off the floor, being carried (Episode 03's remake): the same couch, drawn between x0 and x1 with its
+    feet at `bottom`. `tilt` raises the right end (world units), for a wobbly carry."""
+    def y(x, v):
+        return v - tilt * (x - x0) / (x1 - x0)
+    c.poly([(x0 + 20, y(x0, bottom - 250)), (x1 - 20, y(x1, bottom - 250)), (x1 - 20, y(x1, bottom - 90)),
+            (x0 + 20, y(x0, bottom - 90))], fill=COUCH)
+    c.poly([(x0 + 10, y(x0, bottom - 110)), (x1 - 10, y(x1, bottom - 110)), (x1 - 10, y(x1, bottom - 16)),
+            (x0 + 10, y(x0, bottom - 16))], fill=COUCH_DARK)
+    for ax in (x0, x1 - 90):
+        c.rect(ax, y(ax, bottom - 140), ax + 90, y(ax, bottom - 140) + 124, fill=COUCH, radius=30)
+    for fx in (x0 + 30, x1 - 30):
+        c.rect(fx - 12, y(fx, bottom - 20), fx + 12, y(fx, bottom - 20) + 26, fill=(90, 70, 56), width=5)

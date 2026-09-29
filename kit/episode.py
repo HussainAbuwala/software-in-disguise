@@ -21,13 +21,13 @@ from PIL import Image
 from . import cast
 from . import living_room as room
 from .canvas import INK, SCREEN, W, H, Camera, Canvas, finish, lerp, new_frame
-from .cast import DEV, JO, MIRA, Look, Pose
+from .cast import DEV, JO, MIRA, MOM, Look, Pose
 from .overlays import bubble, mouth_point, promise
 from .sound import SR, Mix, band, level, load_wav
 
 FPS = 30
-LOOKS = {"DEV": DEV, "MIRA": MIRA, "JO": JO}
-SEEDS = {"DEV": 1, "MIRA": 3, "JO": 4}
+LOOKS = {"DEV": DEV, "MIRA": MIRA, "JO": JO, "MOM": MOM}
+SEEDS = {"DEV": 1, "MIRA": 3, "JO": 4, "MOM": 6}
 
 # Seat bottom (world y 1380) sits just above the bottom 20% reserved for the Shorts UI.
 TWO_SHOT = Camera(1.42, 598, 1080, 540, 1090)
@@ -98,9 +98,9 @@ class Ctx:
         for line in started:
             if any(o.speaker == line.speaker and o.offset > line.offset for o in started):
                 continue  # a newer line from the same speaker replaces this bubble
-            x, y, w = line.bubble
+            x, y, w, *aim = line.bubble  # an optional (tx, ty) aims the tail, e.g. at a phone for an off-screen voice
             pose = poses.get(line.speaker)
-            target = mouth_point(cam, pose) if pose else (x + w * 0.35 + 200, y + 600)
+            target = tuple(aim) if aim else mouth_point(cam, pose) if pose else (x + w * 0.35 + 200, y + 600)
             bubble(c, line.speaker, line.text, x, y, w, target)
 
 
@@ -108,10 +108,11 @@ Cast = list[tuple[Look, Pose]]
 
 
 def scene(ctx: Ctx, cam: Camera, *, time: str = "day", seated: Cast = (), standing: Cast = (), behind: Cast = (),
-          sleepers: tuple[Pose, ...] = (), overlay: Callable | None = None, set=room, **room_kw) -> Image.Image:
+          sleepers: tuple[Pose, ...] = (), overlay: Callable | None = None, props: Callable | None = None, set=room,
+          **room_kw) -> Image.Image:
     """A set (the living room by default) with characters. Draw order: set back, `behind` (e.g. behind the couch
-    back), `seated`, set front (couch front / tables), `standing`, sleeping Z's, bubbles, `overlay(screen_canvas)`,
-    promise line. A set module provides wall_color(time), back(c, time, t=, behind=, **kw) and front(c, **kw)."""
+    back), `seated`, set front (couch front / tables), `standing`, `props(world_canvas)` (things held over the couch
+    front, like a notepad on a lap), sleeping Z's, bubbles, `overlay(screen_canvas)`, promise line. A set module provides wall_color(time), back(c, time, t=, behind=, **kw) and front(c, **kw)."""
     img = new_frame(set.wall_color(time))
     c = Canvas(img, cam)
     draw_behind = (lambda cv: [cast.draw(cv, look, pose) for look, pose in behind]) if behind else None
@@ -121,6 +122,8 @@ def scene(ctx: Ctx, cam: Camera, *, time: str = "day", seated: Cast = (), standi
     set.front(c, **room_kw)
     for look, pose in standing:
         cast.draw(c, look, pose)
+    if props:
+        props(c)
     for i, pose in enumerate(sleepers):
         dx, dy = (60, -230) if pose.facing > 0 else (-20, -240)
         cast.zzz(c, pose.x + dx, pose.y + dy, ctx.g, 0.5 * i, set.wall_color(time))
@@ -130,7 +133,7 @@ def scene(ctx: Ctx, cam: Camera, *, time: str = "day", seated: Cast = (), standi
     if overlay:
         overlay(screen)
     if ctx.g < ctx.ep.promise_until:
-        promise(screen, ctx.ep.promise_size)
+        promise(screen, ctx.ep.promise_size, ctx.ep.promise_lines)
     return img
 
 
@@ -140,6 +143,11 @@ class Episode:
     reveal_chunks = ["reveal-1", "reveal-2", "reveal-3", "reveal-4"]
     promise_until = 3.0
     promise_size = 44
+    promise_lines: tuple[str, ...] | None = None  # custom card text; None = "Programmers have a name for this."
+    # Voices heard through a device, not in the room: speaker -> (low, high) band. They are subtitled only when listed
+    # in `subtitled_offscreen` (the TV in Episode 04 wasn't; Mom on the phone in Episode 03's remake is).
+    device_voices = {"TV": (350, 3200)}
+    subtitled_offscreen: tuple[str, ...] = ()
 
     def __init__(self):
         self.dialogue_dir = self.here / "audio" / "dialogue"
@@ -251,8 +259,8 @@ class Episode:
         mix = Mix(self.duration)
         for shot, line in self.dialogue_lines():
             wave = line.audio
-            if line.speaker == "TV":
-                wave = band(wave, 350, 3200)  # small TV speaker
+            if line.speaker in self.device_voices:
+                wave = band(wave, *self.device_voices[line.speaker])  # a small TV or phone speaker
             mix.add(wave, line.start, 0.9 * line.gain, dialogue=line.speaker != "TV")
         self.sound_design(mix)
         return mix.render()
@@ -260,7 +268,7 @@ class Episode:
     def write_subtitles(self, path: Path):
         entries = []
         for shot, line in self.dialogue_lines():
-            if line.speaker in LOOKS:
+            if line.speaker in LOOKS or line.speaker in self.subtitled_offscreen:
                 entries.append((line.start, line.start + len(line.audio) / SR + 0.2, f"{line.speaker}: {line.text}"))
         r1 = self.shot("R1")
         caps = self.reveal_captions
