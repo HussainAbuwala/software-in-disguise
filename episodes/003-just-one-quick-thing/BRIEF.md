@@ -116,7 +116,7 @@ with a speech recognizer. Mom's quick thing is "did you eat?", the call that's n
       Episode 8 now points forward to this one; not made for kids; AI use: no; paid promotion: no; custom thumbnail;
       comment pinned). Old Episode 3 set to private at the same time.
 - [x] Instagram: posted by Hussain from the app (the web composer refused video uploads that evening)
-- [ ] Ledger updated
+- [x] Ledger updated (analytics 2026-09-29)
 
 ## Packaging
 
@@ -139,10 +139,13 @@ with a speech recognizer. Mom's quick thing is "did you eat?", the call that's n
 
 ## Post-publication notes (fill in 48 h after publishing)
 
-- **Views after 48 hours:**
-- **YouTube swiped away (Episode 5 best: 41%) / Instagram skip rate (Episode 5 best: 18.6%):**
-- **Did naming the concept in frame 1 help or hurt the hook?**
-- **Follows per 1,000 views (baseline ~0.5 on Instagram):**
-- **Average percentage viewed:**
-- **Comments or confusion:**
-- **Lesson for the next episode:**
+- **Views after 48 hours:** 1,238 on YouTube (read 2026-09-29, ~2 days); 94.6% from the Shorts feed
+- **YouTube swiped away (Episode 5 best: 41%) / Instagram skip rate (Episode 5 best: 18.6%):** 62.7% swiped (worst of
+  the code-drawn episodes) / Instagram not read yet
+- **Did naming the concept in frame 1 help or hurt the hook?** Hurt. Same close-up composition as Episodes 4–5
+  (41–48% swiped), 62.7% here. The biggest drop is at 0:03–0:05, exactly when the card leaves.
+- **Follows per 1,000 views (baseline ~0.5 on Instagram):** YouTube 0 subscribers from 1,238 views; Instagram not read
+- **Average percentage viewed:** ~60% (0:20 of 0:33); stayed to watch 36.7%
+- **Comments or confusion:** none yet
+- **Lesson for the next episode:** keep the term hidden until the reveal (the guide rule stands). The reveal was not a
+  cliff this time, so the in-scene reveal works; the problem is the first 5 seconds.

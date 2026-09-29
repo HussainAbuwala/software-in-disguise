@@ -71,6 +71,8 @@ the First Floor | Off-by-One Error Explained`. Compare their search-traffic shar
 | 05 (31 s) | 1,202 | 59.2% | 0:19 (61%) | Drops from ~108% to ~72% during 0:04–0:10 (time cards and a silent flashback); steepest fall at the reveal (0:19–0:23), ending at ~16% |
 | 06 (31 s) | 1,123 | 41.7% | 0:26 (84%) | Most swipes of the three in the first seconds, but the story holds (~90% at 0:16, ~83% at 0:20); halves during the reveal (~80% → ~40%) |
 | 07 (29 s, first built on the new rules) | ~1.2K in the first hours | 43.0% | 0:20 (69%) | Retention graph not processed yet (read 2026-09-27); views flattened about 3.5 h after publishing, like Episodes 4–6 |
+| 08 (read 2026-09-29) | 1,197 | 42.1% | 0:15 | Frame 1 = visible problem + accusing line; swiped about the same as Episode 7 |
+| 03 remake (33 s, read 2026-09-29, ~2 days) | 1,238 | 36.7% (62.7% swiped) | 0:20 (~60%) | Opens above 100% (~128%, replays). Sharpest drop at 0:03–0:05, exactly when the three-line concept card leaves and the cut goes to the sofa; ~100% at 0:05, ~73% at 0:10, ~59% at 0:17, then a steady slide with no cliff at the reveal (0:19–0:24), ending at ~27% |
 
 Episodes 4–6 were read on 2026-09-26, about 1–2 days after publishing. Retention figures are read off the Studio
 chart and are approximate. All three got about 93–96% of their views from the Shorts feed, and their views stopped
@@ -82,6 +84,17 @@ widen it. Subscribers: +3, +1, +2.
 problem (the empty remote, "You said there was milk" with the empty carton); Episodes 6 and 7 open on a mild question
 ("I'm here. First floor." / "Where should we eat?") with nothing visibly wrong. Next test: frame 1 = a visible problem
 plus an accusing line. Search was 0.6% of views so far. Recheck the retention graph (reveal and final gag) in two days.
+
+**Episode 3 remake, read 2026-09-29 (about 2 days after publishing):** 1,238 views (94.6% Shorts feed), 474 engaged
+views, 399 unique viewers, 0 subscribers, 0% end-screen clicks. Views jumped to ~1.05K in the first hours, flattened,
+then got a second small push (~+170) around 1.5 days in. **The concept-in-frame-1 test lost:** 62.7% swiped away, the
+worst of the code-drawn episodes and well outside the 41–48% of Episodes 4–5 (same close-up composition), so naming
+the term up front hurt the hook. Keep the term hidden until the reveal. The reveal itself was not an exit point this
+time (a steady slide, no cliff), and the follow line produced no subscribers.
+
+**The gap (2026-09-29):** every code-drawn Short gets tested on ~1.1–1.3K feed viewers and stops. Swipe-away has sat
+at 57–63% for four episodes in a row (Eps 6, 7, 8, 3R) despite a different hook fix each time (close-up, accusing line,
+named concept), against 41% at our best (Ep 5). The one thing none of these tests changed is the look of frame 1.
 
 **What Episodes 4–6 show:**
 
