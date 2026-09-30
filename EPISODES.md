@@ -26,6 +26,7 @@
 - **Story:** An apology promises restraint. Missing confirmations lead the sender to retry twice, creating three flower deliveries.
 - **Format:** Vertical illustrated limited animation with synthetic dialogue, audio-driven mouths, reactions, original music and sound effects
 - **Files:** [`episodes/002-one-apology-three-deliveries`](episodes/002-one-apology-three-deliveries)
+- **Replaced 2026-09-29** by the pill box remake (below); set to private on YouTube the same evening
 
 ### Episode 03 — Just One Quick Trim
 
@@ -46,6 +47,7 @@
 | Episode | YouTube | Instagram |
 | --- | --- | --- |
 | 01–02 | Published | Not posted (old format) |
+| 02 (remake) | Published Tue 2026-09-29, ~9:30 PM ET ([link](https://youtube.com/shorts/uQi0gcv5R54)); old Ep 2 set private | Web composer refused the video again; Hussain posts from the app |
 | 03 (remake) | Published Sun 2026-09-27, ~7:45 PM ET ([link](https://youtube.com/shorts/o2DTWqOxXnY)); old Ep 3 set private | Posted by Hussain from the app, shortly after |
 | 04 | Published 2026-09-24 ([link](https://youtube.com/shorts/ZZZFeXNJyp8)) | Scheduled Fri 2026-09-25, 12:00 PM ET (catch-up) |
 | 05 | Published Fri 2026-09-25, 9:00 AM ET ([link](https://youtube.com/shorts/oroEZpeOLDs)) | Scheduled Fri 2026-09-25, 4:00 PM ET (catch-up) |
@@ -109,6 +111,22 @@ named concept), against 41% at our best (Ep 5). The one thing none of these test
 - **Versus the old format:** stayed-to-watch is up from 23% (Episode 1) to 42–59%.
 
 ## In development
+
+### Episode 02 (remake) — Did I Take It?
+
+- **Status:** Published on YouTube Tue 2026-09-29, about 9:30 PM ET (https://youtube.com/shorts/uQi0gcv5R54), in the
+  Software in Disguise playlist, related video Episode 3 remake, custom thumbnail, comment pinned. The old "He Tried Not
+  to Overdo the Apology" was set to private. Instagram: the web composer refused the upload again (the file attaches
+  but the page never picks it up), so Hussain posts from the app.
+- **Title:** `Did I Take It? | Idempotency Explained`
+- **Concept:** Idempotency (book moment 9.5, Mom instead of Grandpa)
+- **Story:** "Mom! Stop!" (pill at her lips). She can't remember taking it; the strip shows three gone on a Tuesday.
+  Mira slams down a Mo–Su pill box. Next morning (the wall calendar rips TUE → WED) Wednesday's slot is empty, and
+  flipping the lid again and again changes nothing. Reveal with why it matters (tapping Pay twice). Final gag: Mom takes
+  Thursday's now to "save time", looping into "Mom! Stop!".
+- **Tests:** hook v2 (danger in frame 1, voice at frame 0, tight close-ups, no promise card) and a reveal that says why
+  it matters (5.8 s, past the guide's 3–4 s). The look stays the current kit (comic-page test lost).
+- **Files:** [`episodes/002-the-pill-box`](episodes/002-the-pill-box)
 
 ### Episode 03 (remake) — Just One Quick Thing
 

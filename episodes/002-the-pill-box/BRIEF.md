@@ -87,9 +87,11 @@ the current look.
 - [x] Full cut with stand-in narrator (35.7 s)
 - [x] Days made visible: Mo–Su lids, tear-off wall calendar (TUE → WED)
 - [x] Hussain's reveal (WhatsApp, 2026-09-29, one take), `prep_reveal.py`; re-rendered at 34.0 s, -14 LUFS
-- [ ] Hussain's review
-- [ ] Publish on YouTube and Instagram at the same time; set the old Episode 2 to private
-- [ ] Ledger updated
+- [x] Hussain's review
+- [x] Published on YouTube 2026-09-29 ~9:30 PM ET (https://youtube.com/shorts/uQi0gcv5R54): playlist, related video
+      (Episode 3 remake), custom thumbnail (had to be re-uploaded on the edit page), comment pinned; old Episode 2 private
+- [ ] Instagram: web composer refused the video again; Hussain posts from the app
+- [x] Ledger updated
 
 ## Post-publication notes (fill in 48 h after publishing)
 

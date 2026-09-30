@@ -1,6 +1,6 @@
 # Episode 02 (remake) — the pill box
 
-Status: full cut with Hussain's reveal rendered 2026-09-29 (34.0 s); waiting for Hussain's review. Replaces the
+Status: published on YouTube 2026-09-29 (https://youtube.com/shorts/uQi0gcv5R54); Instagram from the app. Replaces the
 published "He Tried Not to Overdo the Apology" (21 views, old format) when it goes live.
 Concept: idempotency (book moment 9.5, with Mom instead of Grandpa). Details and tests in `BRIEF.md`.
 
