@@ -119,7 +119,19 @@ class Canvas:
         self.d.arc(self.box(x0, y0, x1, y1), start, end, fill=fill, width=self.w(width))
 
     def chord(self, x0, y0, x1, y1, start, end, fill=None, outline=INK, width=LW):
-        self.d.chord(self.box(x0, y0, x1, y1), start, end, fill=fill, outline=outline, width=self.w(width) if outline else 0)
+        b = self.box(x0, y0, x1, y1)
+        wd = self.w(width) if outline else 0
+        iw, ih = self.img.size
+        if b[0] >= 0 and b[1] >= 0 and b[2] < iw and b[3] < ih:
+            self.d.chord(b, start, end, fill=fill, outline=outline, width=wd)
+            return
+        if b[2] < 0 or b[3] < 0 or b[0] >= iw or b[1] >= ih:
+            return
+        # Pillow draws a stray line across the frame when a chord's box crosses the image edge (e.g. an eyelid in a
+        # tight close-up), so draw it on its own small layer and paste that.
+        layer = Image.new("RGBA", (b[2] - b[0] + 1, b[3] - b[1] + 1), (0, 0, 0, 0))
+        ImageDraw.Draw(layer).chord([0, 0, b[2] - b[0], b[3] - b[1]], start, end, fill=fill, outline=outline, width=wd)
+        self.img.paste(layer.convert(self.img.mode), (b[0], b[1]), layer)
 
     def pieslice(self, x0, y0, x1, y1, start, end, fill=None, outline=INK, width=LW):
         self.d.pieslice(self.box(x0, y0, x1, y1), start, end, fill=fill, outline=outline, width=self.w(width) if outline else 0)
