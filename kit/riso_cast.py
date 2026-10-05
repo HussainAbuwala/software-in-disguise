@@ -375,8 +375,9 @@ def torso(sk: Sketch, p: Person, cx, cy, R, bottom=1940.0, turn=0.0):
     if g == "tee":  # orange: yellow dots over pink
         sk.halftone(body, "fill2", cell=max(7, R * 0.045), angle=75, shade=lambda x, y: 0.75)
     sk.halftone(body, "accent", cell=max(8, R * 0.055), shade=shade)
-    sk.stroke(f.pts(left, False), width=lw * 1.1)
-    sk.stroke(f.pts(mirror(left, 0), False), width=lw * 1.1)
+    clip = lambda pts: [(x, y) for x, y in pts if y <= bottom]
+    sk.stroke(clip(f.pts(left, False)), width=lw * 1.1)
+    sk.stroke(clip(f.pts(mirror(left, 0), False)), width=lw * 1.1)
     if g == "cardigan":
         shirt = f.pts([(-0.4, 1.6), (0.4, 1.6), (0.28, 2.75), (0, 3.2), (-0.28, 2.75)])
         sk.shape(shirt, "fill", lw)
