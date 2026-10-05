@@ -166,11 +166,17 @@ class Episode:
         self.sfx += [("whoosh", t + 0.3, 0.6), ("pad", t + 0.3, 0.12)]
         end = place("r05-same-moment", ("priya_same", "lata_twice"), t + 1.2)
         end = place("r06-race", ("priya_race", "meena_hmph"), end + 0.3)
-        self.sfx.append(("thump", self.lines["priya_race"].start + 0.9, 0.7))
+        self.sfx.append(("thump", self.lines["priya_race"].start + 0.7, 0.7))
         self.shots.append(Shot("xray", t, end + 0.3 - t, self.s_xray))
         t = end + 0.3
         # S6: the key
         end = place("r07-key", ("clerk_key", "meena_minegrab"), t + 0.3)
+        lata_mine = HERE / "audio" / "lines" / "lata_mine.wav"
+        if lata_mine.exists():  # both shout it at once
+            m = self.lines["meena_minegrab"]
+            self.lines["lata_mine"] = Line("r07-key", "LATA", "Mine!", sound.level(_trim(sound.load_wav(lata_mine)), -18),
+                                           start=m.start + 0.03)
+            end = max(end, self.lines["lata_mine"].end)
         self.grab = self.lines["meena_minegrab"].start + 0.05
         self.sfx += [("scrape", t + 0.2, 0.25), ("thump", self.grab + 0.18, 0.8)]
         self.shots.append(Shot("key", t, end + 1.1 - t, self.s_key))
@@ -368,6 +374,9 @@ class Episode:
             self.flashback_phones(img, t)
         if shot.name == "xray":
             self.xray_phone(img, t)
+            named = self.lines["priya_race"].start + 0.7  # "...a race condition": the name lands on screen
+            if named <= t < named + 1.5:
+                stamp(img, "RACE CONDITION", 1000, min(1.0, (t - named) / 0.15))
         if shot.name == "key" and t >= self.grab + 0.18:
             stamp(img, "RACE CONDITION", 620, min(1.0, (t - self.grab - 0.18) / 0.15))
         return img
@@ -401,7 +410,8 @@ class Episode:
         out = OUT / ("the-last-room-preview.mp4" if preview else "the-last-room.mp4")
         subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-framerate", str(DRAW_FPS / step), "-i",
                         str(frames / "f%05d.png"), "-i", str(BUILD / "mix.wav"), "-r", str(FPS), "-c:v", "libx264",
-                        "-pix_fmt", "yuv420p", "-crf", "18", "-c:a", "aac", "-b:a", "192k", "-shortest", str(out)],
+                        "-pix_fmt", "yuv420p", "-crf", "18", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", "48000",
+                        "-c:a", "aac", "-b:a", "192k", "-shortest", str(out)],
                        check=True)
         self.frame(0.6, 0).save(OUT / "thumbnail-frame1.png")
         print("wrote", out, f"{self.duration:.1f}s")

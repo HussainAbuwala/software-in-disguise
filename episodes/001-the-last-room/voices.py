@@ -59,6 +59,8 @@ LINES = {
     "lata_tell": ("LATA", "Tell her!"),
     "meena_got": ("MEENA", "Got it!"),
     "lata_got": ("LATA", "Got it!"),
+    "meena_minegrab": ("MEENA", "Mine!"),
+    "lata_mine": ("LATA", "Mine!"),
 }
 LINES_DIR = HERE / "audio" / "lines"
 
