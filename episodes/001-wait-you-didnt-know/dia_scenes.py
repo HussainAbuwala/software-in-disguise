@@ -41,7 +41,12 @@ SCENES = {
     "s02-phone": dict(who=("PRIYA", "MOM"),
                       text="[S1] Mom... guess what? I'm engaged! [S2] (gasps) Oh my God! Oh my God!", max_s=6.5),
     "s03-couch": dict(who=("MOM", "DAD"), text="[S1] Priya's engaged! Can you believe it? [S2] Mm. Nice.", max_s=5.5),
-    "s06-tells": dict(who=("MOM", "GRANDPA"), text="[S1] Dad... Priya's engaged! [S2] Oh!", max_s=4.0),
+    "s06-tells": dict(who=("MOM", "GRANDPA"),
+                      text="[S1] Dad... Priya's engaged! [S2] Oh! Well, why didn't anybody tell me?", max_s=5.5),
+    # Grandpa's reaction, generated in the lunch setup (aunt first) where his voice holds; only his part is used,
+    # cut after Mom's line from s06-tells.
+    "s06-grandpa": dict(who=("AUNT", "GRANDPA"),
+                        text="[S1] Dad, Priya's engaged! [S2] Oh! Well, why didn't anybody tell me?", max_s=5.5),
     "s08-june": dict(who=("PRIYA", "MOM"), text="[S1] Also... we moved the wedding to June. [S2] (gasps) What?",
                      max_s=5.0),
 }

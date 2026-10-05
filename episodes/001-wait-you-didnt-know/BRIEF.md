@@ -48,7 +48,7 @@ Keep from the Episode 2 remake: conflict in frame 1, a voice at frame 0, tight s
 | 10.5 | **S03** Saturday. Mom bursts in; Dad on the couch behind his newspaper | MOM: "Priya's engaged! Can you believe it?" DAD (not looking up): "Mm. Nice." |
 | 13.5 | **S04** The aunt, phone at her ear, already dialling the next person | HUSSAIN: "The aunt found out the way the aunt finds out everything." |
 | 16.5 | **S05** Grandpa asleep in his armchair, the TV on | HUSSAIN: "Grandpa was napping. Nobody called him back." |
-| 19.0 | **S06** Back at lunch, wide: Mom leans over to him | MOM: "Dad… Priya's engaged!" GRANDPA: "Oh!" |
+| 19.0 | **S06** Back at lunch, wide: Mom leans over to him | MOM: "Dad… Priya's engaged!" GRANDPA: "Oh! Well, why didn't anybody tell me?" |
 | 21.0 | **S07** Freeze. Tags snap on: Priya `the original`, everyone `copy · updated`, Grandpa `copy · updated just now` | HUSSAIN: "Engineers call this eventual consistency. Everyone gets the news, just not at the same time." |
 | 25.5 | **S08** Priya clinks her glass; every tag flips to `out of date` | PRIYA: "Also… we moved the wedding to June." MOM: (gasps) HUSSAIN: "…Here we go again." |
 | ~28.5 | Cut on the gasp; it loops into frame 1 | |
@@ -89,8 +89,10 @@ Keep from the Episode 2 remake: conflict in frame 1, a voice at frame 0, tight s
 - [x] Style test (A notebook, B risograph, C chalk): B
 - [x] Finished-quality frame (`style_test_v2.py`, Grandpa close-up)
 - [x] Voice bake-off (Kokoro, Qwen3-TTS, Dia): Dia
-- [ ] Dia casting by scene; Hussain picks takes
-- [ ] S06 and S08 lines with the locked voices
+- [x] Reference voices designed with Qwen3-TTS (`voice_refs.py`); Dia scenes in those voices (`dia_scenes.py`)
+- [x] Grandpa's S06 reaction: Dia wouldn't give it his voice after Mom's line (6 + 6 + 4 takes), so the options
+      include Qwen3 cloning his reference voice; Mom's line is cut from s06-tells seed 4
+- [ ] Hussain picks one take per scene (`audio/scenes/pick-*.m4a`)
 - [ ] Hussain records the narration
 - [ ] Riso kit (`kit/riso.py`): primitives, halftone, line boil, the five characters, the sets
 - [ ] Full cut, Hussain's review
