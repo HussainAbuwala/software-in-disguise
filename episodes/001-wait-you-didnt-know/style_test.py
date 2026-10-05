@@ -433,7 +433,8 @@ def bubble(sk: Sketch, box, tail_to, text, size, fname=None, ink="line"):
     pts = round_rect_pts(x0, y0, x1, y1, 46)
     cx = (x0 + x1) / 2
     tx = cx + (tail_to[0] - cx) * 0.35
-    tail = [(tx - 34, y1 - 2), tail_to, (tx + 34, y1 - 2)]
+    edge = y0 + 2 if tail_to[1] < y0 else y1 - 2  # the tail leaves from the side facing the speaker
+    tail = [(tx - 34, edge), tail_to, (tx + 34, edge)]
     sk.occlude(pts)
     sk.occlude(tail)
     sk.stroke(pts + [pts[0]], width=sk.s["width"] * 1.1)
