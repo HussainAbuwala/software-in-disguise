@@ -26,11 +26,12 @@ INKS = {
     "accent": (255, 72, 140),   # fluorescent pink: shading dots, accents
     "fill": (255, 96, 160),     # pink fill
     "fill2": (255, 214, 40),    # yellow fill
-    "skin": (255, 190, 150),    # skin tint
+    "skin": (240, 172, 128),    # skin, medium
+    "skin2": (214, 144, 100),   # skin, deeper
     "label": (24, 66, 156),
     "good": (24, 66, 156),
 }
-PRINT_ORDER = ["skin", "fill2", "fill", "accent", "line", "label", "good"]
+PRINT_ORDER = ["skin", "skin2", "fill2", "fill", "accent", "line", "label", "good"]
 
 # Looks the same drawing code can print in (2026-10-05 style comparison). "riso" is the default.
 LOOKS = {
@@ -38,11 +39,11 @@ LOOKS = {
     # Clean ink line and flat colour with two-tone (cel) shading, like a newspaper or New Yorker cartoon.
     "clean": dict(paper=(251, 249, 245), grain=False, offset=(0, 0), wobble=0.12, width=0.75, shading="cel",
                   inks={"line": (34, 30, 32), "accent": (196, 96, 84), "fill": (226, 112, 96), "fill2": (240, 192, 88),
-                        "skin": (244, 198, 166), "label": (34, 30, 32), "good": (34, 30, 32)}),
+                        "skin": (222, 166, 124), "skin2": (192, 132, 92), "label": (34, 30, 32), "good": (34, 30, 32)}),
     # Bold comic: heavy black ink, Ben-Day dots for shading, bright primaries.
     "comic": dict(paper=(253, 251, 244), grain=False, offset=(0, 0), wobble=0.35, width=1.7, shading="dots",
-                  dot_scale=1.5, inks={"line": (12, 12, 14), "accent": (12, 12, 14), "fill": (230, 52, 48),
-                                       "fill2": (252, 210, 34), "skin": (252, 214, 184), "label": (12, 12, 14),
+                  dot_scale=1.5, inks={"line": (12, 12, 14), "accent": (196, 84, 62), "fill": (230, 52, 48),
+                                       "fill2": (252, 210, 34), "skin": (226, 168, 124), "skin2": (198, 138, 96), "label": (12, 12, 14),
                                        "good": (12, 12, 14)}),
 }
 LOOK = dict(LOOKS["riso"])
@@ -362,7 +363,7 @@ def composite(sk: Sketch, seed: int = 11) -> Image.Image:
         a = np.asarray(sk.layers[ink], np.float32) / 255
         if LOOK["grain"]:
             grain = rng.random(a.shape, dtype=np.float32)
-            a = a * np.clip(0.78 + grain * 0.3, 0, 1) * (0.9 if ink in ("fill", "fill2", "skin") else 1)
+            a = a * np.clip(0.78 + grain * 0.3, 0, 1) * (0.9 if ink in ("fill", "fill2", "skin", "skin2") else 1)
         color = np.array(LOOK["inks"][ink], np.float32) / 255
         out = out * (1 - a[..., None] * (1 - color))
     img = Image.fromarray(np.clip(out, 0, 255).astype(np.uint8))

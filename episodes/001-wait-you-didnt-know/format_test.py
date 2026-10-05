@@ -19,12 +19,11 @@ from PIL import Image, ImageDraw, ImageFont  # noqa: E402
 
 from kit import riso  # noqa: E402
 from kit.riso import Sketch, bubble, composite, ellipse_pts, path, round_rect_pts  # noqa: E402
-from kit.riso_cast import AUNT, EXPRESSIONS, MOM, person  # noqa: E402
+from kit.riso_cast import AUNT, AUNT2, EXPRESSIONS, person  # noqa: E402
 
 OUT = Path(__file__).parent / "deliverables"
 
 EXPRESSIONS.setdefault("glare", dict(brow=(0.06, 0.06), tilt=-0.09, lid=0.42, mouth="flat", smile=0.0))
-AUNT2 = replace(MOM, name="Aunt2", glasses=True, garment="polo", age=0.5)
 
 
 def confirmation(booking_id: str):

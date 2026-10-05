@@ -31,19 +31,25 @@ class Person:
     hair_grey: float = 0.0    # 0 dark .. 1 white
     garment: str = "tee"      # cardigan | scarf_top | blouse | polo | tee
     shoulders: float = 2.1    # half-width of the shoulders, in head units
+    skin: str = "skin"        # skin | skin2 (deeper)
+    lashes: bool = False
+    parting: bool = False     # a middle parting (symmetric hairline)
 
 
 GRANDPA = Person("Grandpa", "bald_tufts", jaw=1.0, nose=1.25, glasses=True, moustache=True, age=1.0, hair_grey=1.0,
-                 garment="cardigan")
-AUNT = Person("Aunt", "bun", jaw=0.9, crown=1.2, nose=0.95, earrings=True, age=0.45, hair_grey=0.15,
-              garment="scarf_top", shoulders=2.2)
-MOM = Person("Mom", "long", jaw=0.84, crown=1.18, nose=0.85, earrings=True, age=0.3, garment="blouse",
-             shoulders=1.95)
-DAD = Person("Dad", "short", jaw=1.02, crown=1.2, nose=1.05, stubble=True, age=0.35, hair_grey=0.35, garment="polo",
-             shoulders=2.3)
-PRIYA = Person("Priya", "ponytail", jaw=0.8, crown=1.16, nose=0.8, earrings=True, garment="tee", shoulders=1.85)
+                 garment="cardigan", skin="skin2")
+AUNT = Person("Aunt", "bun", jaw=0.9, crown=1.2, nose=1.05, earrings=True, age=0.45, hair_grey=0.15,
+              garment="scarf_top", shoulders=2.2, lashes=True, parting=True)
+AUNT2 = Person("Aunt2", "long", jaw=0.92, crown=1.18, nose=1.1, glasses=True, earrings=True, age=0.5,
+               garment="blouse", shoulders=2.1, skin="skin2", lashes=True, parting=True)
+MOM = Person("Mom", "long", jaw=0.84, crown=1.18, nose=0.95, earrings=True, age=0.3, garment="blouse",
+             shoulders=1.95, lashes=True, parting=True)
+DAD = Person("Dad", "short", jaw=1.02, crown=1.2, nose=1.15, moustache=True, age=0.35, hair_grey=0.35, garment="polo",
+             shoulders=2.3, skin="skin2")
+PRIYA = Person("Priya", "ponytail", jaw=0.8, crown=1.16, nose=0.9, earrings=True, garment="tee", shoulders=1.85,
+               lashes=True)
 
-FAMILY = {p.name.upper(): p for p in (GRANDPA, AUNT, MOM, DAD, PRIYA)}
+FAMILY = {p.name.upper(): p for p in (GRANDPA, AUNT, AUNT2, MOM, DAD, PRIYA)}
 
 # Expression: brow lift per side (head units, negative = up), brow tilt (inner end up = worried), upper lid
 # (0 wide .. 1 shut), smile (curve of a closed mouth), and the mouth shape when not talking.
@@ -127,7 +133,7 @@ def head(sk: Sketch, p: Person, cx, cy, R, expr="neutral", mouth=0.0, gaze=(0.0,
                 continue
             ear = f.pts(path((side * 0.98, -0.19), ((side * 1.28, -0.33), (side * 1.33, 0.19), (side * 1.21, 0.4)),
                              ((side * 1.12, 0.6), (side * 0.98, 0.55), (side * 0.95, 0.43)), n=12), feature=False)
-            sk.shape(ear + [f(side * 0.95, -0.15, False)], "skin", lw)
+            sk.shape(ear + [f(side * 0.95, -0.15, False)], p.skin, lw)
             sk.stroke(f.pts(bez((side * 1.06, -0.07), (side * 1.2, -0.05), (side * 1.19, 0.28), (side * 1.08, 0.35),
                                 10), False), width=lw * 0.6)
             if p.earrings:
@@ -138,7 +144,7 @@ def head(sk: Sketch, p: Person, cx, cy, R, expr="neutral", mouth=0.0, gaze=(0.0,
 
     # -- Face
     sk.occlude(outline)
-    sk.solid(outline, "skin")
+    sk.solid(outline, p.skin)
     sk.halftone(outline, "accent", cell=max(7, R * 0.05), shade=shade)
     sk.stroke(outline + [outline[0]], width=lw * 1.15)
     if p.stubble:
@@ -148,7 +154,7 @@ def head(sk: Sketch, p: Person, cx, cy, R, expr="neutral", mouth=0.0, gaze=(0.0,
         sk.halftone(jaw, "line", cell=max(6, R * 0.04), angle=45, shade=lambda x, y: 0.16)
     if p.hair == "bald_tufts":
         sk.erase([(x + (y - cy) * 0.6, y) for x, y in ellipse_pts(*f(-0.4, -0.95, False), R * 0.25, R * 0.1, 18)],
-                 ["skin", "accent"])
+                 [p.skin, "accent"])
     # Wrinkles
     if p.age > 0.6:
         for k, v in enumerate((-0.76, -0.63, -0.5)):
@@ -163,7 +169,7 @@ def head(sk: Sketch, p: Person, cx, cy, R, expr="neutral", mouth=0.0, gaze=(0.0,
     lid = 1.0 if blink else e["lid"]
     for side in (-1, 1):
         ex, ey = f(side * 0.467, 0.01)
-        rx, ry = R * 0.16, R * 0.115
+        rx, ry = R * 0.17, R * 0.135
         if lid >= 0.95:
             if e["mouth"] == "grin" or expr == "beaming":  # happy closed eyes: arcs up
                 sk.stroke(ellipse_pts(ex, ey + ry * 0.4, rx * 0.95, ry * 1.1, 14, math.pi * 1.1, math.pi * 1.9),
@@ -176,8 +182,11 @@ def head(sk: Sketch, p: Person, cx, cy, R, expr="neutral", mouth=0.0, gaze=(0.0,
         sk.occlude(white)
         px = ex + gaze[0] * rx * 0.45
         py = ey + gaze[1] * ry * 0.4
-        sk.dot(px, py, R * 0.062)
-        sk.erase(ellipse_pts(px - R * 0.022, py - R * 0.022, R * 0.02, R * 0.02, 10), ["line"])
+        sk.dot(px, py, R * 0.08)
+        sk.erase(ellipse_pts(px - R * 0.028, py - R * 0.03, R * 0.024, R * 0.024, 10), ["line"])
+        if lid < 0.8:  # the eyelid crease
+            sk.stroke(bez((ex - rx * 0.55, ey - ry * 1.35), (ex - rx * 0.1, ey - ry * 1.85), (ex + rx * 0.6, ey - ry * 1.8),
+                          (ex + rx * 1.05, ey - ry * 1.1), 12), width=lw * 0.5)
         top = ey - ry * (1.25 - lid * 1.4)
         sk.stroke([(ex - rx * 1.1, ey - ry * 0.05)] + bez((ex - rx * 1.1, ey), (ex - rx * 0.6, top), (ex + rx * 0.6, top),
                                                           (ex + rx * 1.1, ey), 14)[1:], width=lw * 1.0)
@@ -185,8 +194,9 @@ def head(sk: Sketch, p: Person, cx, cy, R, expr="neutral", mouth=0.0, gaze=(0.0,
             cover = bez((ex - rx * 1.1, ey), (ex - rx * 0.6, top), (ex + rx * 0.6, top), (ex + rx * 1.1, ey), 14)
             cover = cover + [(ex + rx * 1.2, ey - ry * 2), (ex - rx * 1.2, ey - ry * 2)]
             sk.occlude(cover)
-            sk.solid(cover, "skin", offset=False)
+            sk.solid(cover, p.skin, offset=False)
         sk.stroke(white[3:12], width=lw * 0.55)  # lower lid
+
         if p.age > 0.4:
             sk.stroke(bez((ex - rx * 0.9, ey + ry * 1.5), (ex - rx * 0.3, ey + ry * 1.95), (ex + rx * 0.3, ey + ry * 1.95),
                           (ex + rx * 0.9, ey + ry * 1.45), 10), width=lw * 0.45)
@@ -216,7 +226,7 @@ def head(sk: Sketch, p: Person, cx, cy, R, expr="neutral", mouth=0.0, gaze=(0.0,
             sk.stroke(lens + [lens[0]], width=lw * 1.05)
             glare = [(ex + R * 0.1, ey - R * 0.27), (ex + R * 0.19, ey - R * 0.27), (ex + R * 0.31, ey - R * 0.08),
                      (ex + R * 0.24, ey - R * 0.06)]
-            sk.erase(glare, ["skin", "accent"])
+            sk.erase(glare, [p.skin, "accent"])
             sk.stroke([f(side * 0.82, -0.1), f(side * 0.98, -0.14, False)], width=lw * 0.9)
         sk.stroke(f.pts(bez((-0.12, -0.04), (-0.06, -0.12), (0.06, -0.12), (0.12, -0.04), 8)), width=lw)
 
@@ -226,16 +236,19 @@ def head(sk: Sketch, p: Person, cx, cy, R, expr="neutral", mouth=0.0, gaze=(0.0,
                       ((-0.28 * n, 0.72), (-0.08 * n, 0.78), (0, 0.75)),
                       ((0.1 * n, 0.8), (0.28 * n, 0.72), (0.22 * n, 0.56)), n=14))
     sk.occlude(nose + [f(0.06 * n, 0.1)])
-    sk.solid(nose + [f(0.06 * n, 0.1)], "skin", offset=False)
+    sk.solid(nose + [f(0.06 * n, 0.1)], p.skin, offset=False)
     sk.halftone(nose + [f(0.06 * n, 0.1)], "accent", cell=max(7, R * 0.05), shade=shade)
     if p.name == "Grandpa":
         tip = f(0.02, 0.63)
         sk.halftone(ellipse_pts(*tip, R * 0.19, R * 0.12, 18), "accent", cell=max(6, R * 0.04), angle=45,
                     shade=lambda x, y: 0.55)
     sk.stroke(nose[14:], width=lw * 1.0)
+    sk.stroke(f.pts(bez((0.1, -0.02), (0.12, 0.15), (0.13, 0.3), (0.17 * n, 0.46), 8)), width=lw * 0.55)  # bridge
     for side in (-1, 1):
         sk.stroke(f.pts(bez((side * 0.04, 0.72), (side * 0.08, 0.68), (side * 0.13, 0.69), (side * 0.16, 0.73), 6)),
                   width=lw * 0.6)
+        sk.stroke(f.pts(bez((side * 0.2 * n, 0.58), (side * 0.29 * n, 0.62), (side * 0.29 * n, 0.72),
+                            (side * 0.21 * n, 0.76), 8)), width=lw * 0.7)  # nostril wing
 
     # -- Mouth, and blush when happy
     _mouth(sk, f, e, mouth, R, lw, p)
@@ -291,6 +304,10 @@ def _front_hair(sk: Sketch, f: Frame, p: Person, lw, R):
                         ((-0.3, -0.8), (-0.8, -0.66), (-1.0, -0.3)), n=14)
         cap = path((-1.02, -0.2), ((-1.1, -0.9), (-0.7, -T - 0.14), (0, -T - 0.12)),
                    ((0.7, -T - 0.14), (1.1, -0.9), (1.02, -0.2)), n=18)
+    elif p.parting:  # middle parting: the hairline rises to a point at the centre and sweeps down both sides
+        half = path((1.04, 0.1), ((1.0, -0.45), (0.62, -0.74), (0.12, -0.84)), ((0.05, -0.86), (0.02, -0.9), (0, -0.92)),
+                    n=12)
+        hairline = half + mirror(half, 0)[::-1][1:]
     else:
         hairline = path((1.04, 0.05), ((0.98, -0.45), (0.6, -0.78), (0.12, -0.8)),
                         ((0.05, -0.66), (-0.35, -0.62), (-0.7, -0.68)),
@@ -298,6 +315,14 @@ def _front_hair(sk: Sketch, f: Frame, p: Person, lw, R):
     shape = f.pts(cap + hairline[1:], feature=False)
     _hair_fill(sk, shape, p, lw)
     sk.stroke(shape + [shape[0]], width=lw)
+    if p.parting and p.hair_grey < 0.9:  # the parting line, and a few strands
+        sk.erase(f.pts([(-0.025, -T - 0.06), (0.025, -T - 0.06), (0.012, -0.9), (-0.012, -0.9)], False), ["line"])
+        for side in (-1, 1):
+            for k in range(2):
+                strand = f.pts(bez((side * (0.15 + 0.25 * k), -T + 0.05), (side * (0.55 + 0.2 * k), -T + 0.1),
+                                   (side * (0.85 + 0.1 * k), -0.6), (side * (0.98 + 0.03 * k), -0.1 - 0.1 * k), 12), False)
+                th = R * 0.012
+                sk.erase(strand + [(x + th, y + th) for x, y in strand[::-1]], ["line"])
     # Sheen: a pale curved stripe across the dark hair
     if p.hair_grey < 0.9:
         sheen = f.pts(path((-0.62, -0.98), ((-0.4, -1.16), (-0.05, -1.22), (0.25, -1.16)), n=10) +
@@ -339,6 +364,9 @@ def _mouth(sk: Sketch, f: Frame, e, m, R, lw, p: Person):
         sk.stroke(pts, width=lw)
     elif shape == "flat":
         sk.stroke([(mx - R * 0.17, my + R * 0.04), (mx + R * 0.17, my + R * 0.03)], width=lw)
+        if p.lashes:  # lower lip
+            sk.stroke(bez((mx - R * 0.1, my + R * 0.13), (mx - R * 0.04, my + R * 0.17), (mx + R * 0.04, my + R * 0.17),
+                          (mx + R * 0.1, my + R * 0.13), 8), width=lw * 0.55)
     else:  # closed smile
         s = e["smile"]
         sk.stroke(bez((mx - R * 0.2, my), (mx - R * 0.08, my + R * 0.1 * s), (mx + R * 0.08, my + R * 0.1 * s),
@@ -354,7 +382,7 @@ def torso(sk: Sketch, p: Person, cx, cy, R, bottom=1940.0, turn=0.0):
     f = Frame(cx, cy, R, 0)
     sw = p.shoulders
     neck = f.pts([(-0.34, 0.95), (0.34, 0.95), (0.37, 1.72), (-0.37, 1.72)])
-    sk.shape(neck, "skin", R * 0.024)
+    sk.shape(neck, p.skin, R * 0.024)
     sk.halftone(neck, "accent", cell=max(7, R * 0.05), shade=lambda x, y: 0.45 - (y - f(0, 0.95)[1]) / (R * 1.6))
     left = path((0, 1.68), ((-0.6, 1.7), (-1.2, 1.82), (-sw * 0.8, 2.15)),
                 ((-sw * 1.02, 2.5), (-sw * 1.06, 3.4), (-sw * 1.1, 4.5)), n=18)
@@ -395,7 +423,8 @@ def torso(sk: Sketch, p: Person, cx, cy, R, bottom=1940.0, turn=0.0):
         scarf = [(x, min(y, bottom)) for x, y in scarf]
         sk.shape(scarf, "fill2", lw)
         sk.halftone(scarf, "accent", cell=max(9, R * 0.07), angle=45, shade=lambda x, y: 0.35)
-        sk.stroke(f.pts(bez((-0.6, 1.9), (-1.0, 2.4), (-1.25, 3.2), (-1.3, 4.3), 12), False), width=lw * 0.6)
+        sk.stroke([(x, y) for x, y in f.pts(bez((-0.6, 1.9), (-1.0, 2.4), (-1.25, 3.2), (-1.3, 4.3), 12), False)
+                   if y <= bottom], width=lw * 0.6)
         sk.stroke(f.pts(bez((-0.42, 1.68), (0, 1.95), (0.3, 1.9), (0.5, 1.7), 10), False), width=lw)
     elif g == "blouse":
         sk.stroke(f.pts(bez((-0.45, 1.68), (-0.2, 2.25), (0.2, 2.25), (0.45, 1.68), 12), False), width=lw)
@@ -434,7 +463,7 @@ def sleeve(sk: Sketch, pts, thick, ink="fill2", line_w=4.5):
     return band
 
 
-def hand(sk: Sketch, x, y, s, kind="fist", angle=0.0, line_w=4.0):
+def hand(sk: Sketch, x, y, s, kind="fist", angle=0.0, line_w=4.0, skin="skin"):
     """A simple hand at (x, y), size s (about a palm width): fist | open | phone."""
     rot = lambda pts: [(x + (u * math.cos(angle) - v * math.sin(angle)) * s,
                         y + (u * math.sin(angle) + v * math.cos(angle)) * s) for u, v in pts]
@@ -447,7 +476,7 @@ def hand(sk: Sketch, x, y, s, kind="fist", angle=0.0, line_w=4.0):
         palm = rot(path((-0.5, 0.45), ((-0.65, 0.0), (-0.55, -0.55), (-0.1, -0.6)), ((0.35, -0.65), (0.6, -0.4), (0.55, 0.0)),
                         ((0.55, 0.4), (0.3, 0.55), (-0.5, 0.45)), n=10))
     sk.occlude(palm)
-    sk.solid(palm, "skin", offset=False)
+    sk.solid(palm, skin, offset=False)
     sk.halftone(palm, "accent", cell=8, shade=lambda a, b: 0.25)
     sk.stroke(palm + [palm[0]], width=line_w)
     if kind == "fist":
