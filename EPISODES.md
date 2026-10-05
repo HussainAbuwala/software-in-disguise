@@ -46,6 +46,7 @@
 
 | Episode | YouTube | Instagram |
 | --- | --- | --- |
+| 01 (remake) | Published Mon 2026-10-05 ([link](https://youtube.com/shorts/OeGX6GOu2dI)); old Ep 1 set private | Not posted yet (Hussain posts from the app) |
 | 01–02 | Published | Not posted (old format) |
 | 02 (remake) | Published Tue 2026-09-29, ~9:30 PM ET ([link](https://youtube.com/shorts/uQi0gcv5R54)); old Ep 2 set private | Web composer refused the video again; Hussain posts from the app |
 | 03 (remake) | Published Sun 2026-09-27, ~7:45 PM ET ([link](https://youtube.com/shorts/o2DTWqOxXnY)); old Ep 3 set private | Posted by Hussain from the app, shortly after |
@@ -125,6 +126,19 @@ named concept), against 41% at our best (Ep 5). The one thing none of these test
 - **Versus the old format:** stayed-to-watch is up from 23% (Episode 1) to 42–59%.
 
 ## In development
+
+### Episode 01 (remake) — The Last Room
+
+- **Status:** Published on YouTube Mon 2026-10-05 (https://youtube.com/shorts/OeGX6GOu2dI), public, in the Software in
+  Disguise playlist, related video Episode 2 remake, custom thumbnail ("1 ROOM. 2 BOOKINGS."), pinned comment pointing
+  to the booking-ID clue. The old "Two People Bought the Same Concert Seat" was set to private.
+- **Title:** `We Both Booked the Last Room | Race Condition Explained`
+- **Concept:** Race condition (check-then-act), shown in a real (unbranded) booking app
+- **Format (new, 2026-10-05):** real people hit a real app glitch; the phone turns see-through ("inside the app") and
+  the characters watch the requests, the database row and the bookings. Big-head cartoon cast B (uncles Raj and
+  Vikram, receptionist Nisha, Dev explaining), every line voiced with Qwen3-TTS clones of designed voices.
+- **Tests:** format + look + voices changed together (see BRIEF.md); everything kept inside the Shorts/Reels safe area
+- **Files:** [`episodes/001-the-last-room`](episodes/001-the-last-room)
 
 ### Episode 02 (remake) — Did I Take It?
 

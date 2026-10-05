@@ -40,5 +40,10 @@ calling the look AI-like. This one changes the format and the look together (Hus
 ## Production
 
 - [x] Characters, voices, renderer, first full cut (`deliverables/the-last-room.mp4`, -15.5 LUFS)
-- [ ] Hussain's review (takes, timing, jokes)
-- [ ] Publish; set the old Episode 1 to private; Instagram from the app
+- [x] Hussain's review: "MY" was spelled out by the TTS (voice text now lowercase); voices too high → version B
+- [x] Version B chosen (uncles, Nisha, Dev; lower voices, all lines cloned with Qwen3-TTS); text moved into the
+      Shorts/Reels safe area (y 250–1450, x 60–960)
+- [x] Published on YouTube 2026-10-05 (https://youtube.com/shorts/OeGX6GOu2dI): playlist, related video, custom
+      thumbnail, pinned comment; old Episode 1 set private
+- [ ] Instagram: Hussain posts from the app (`deliverables/the-last-room-b.mp4`)
+- [ ] Read analytics after ~48 h: swipe-away, like rate, comments (vs Ep 2R: 40.2% swiped, 1.1% likes, ~1.3K views)
