@@ -274,7 +274,7 @@ class Episode:
         if t >= self.lines["lata_tell"].start - 0.05:
             speech(p, (30, 230, 380, 350), (-20, 420), "Tell him!" if VARIANT == "b" else "Tell her!", 58)
         if t >= self.lines["clerk_one"].start - 0.05:
-            speech(p, (330, 1230, 1050, 1370), (560, 1135), "We have ONE room.", 60)
+            speech(p, (250, 1230, 950, 1370), (560, 1135), "We have ONE room.", 60)
 
     def s_flashback(self, p: Pen, t: float, k: float, img: Image.Image | None = None):
         p.d.rectangle([0, 0, W * S, H * S], fill=FLASHBACK)
@@ -284,16 +284,16 @@ class Episode:
             happy = t > self.tap + 0.35
             character(p, c, x, 360, 135, "triumphant" if happy else "worried", self.mouth(who, t),
                       gaze=(0, 0.8) if not happy else (0, 0), blink=self.blink(who, t), arm="rest", bottom=560)
-        p.line([(540, 200), (540, 1500)], (160, 180, 205), 6)
+        p.line([(540, 200), (540, 1380)], (160, 180, 205), 6)
         if t >= self.lines["meena_got"].start - 0.05:
-            speech(p, (20, 1500, 400, 1610), (200, 1440), "Got it!", 58)
-            speech(p, (680, 1500, 1060, 1610), (880, 1440), "Got it!", 58)
+            speech(p, (60, 1390, 400, 1490), (230, 1360), "Got it!", 58)
+            speech(p, (620, 1390, 950, 1490), (800, 1360), "Got it!", 58)
 
     def flashback_phones(self, img: Image.Image, t: float):
         tapped = t >= self.tap
         confirmed = t >= self.tap + 0.35
         for x, ang, bid in ((280, 2, "MH-48213"), (800, -2, "MH-48214")):
-            phone(img, x, 1030, 400, booking_screen(tapped, confirmed, bid), angle=ang)
+            phone(img, x, 1000, 360, booking_screen(tapped, confirmed, bid), angle=ang)
         if abs(t - self.tap) < 0.6:  # the same second on both clocks
             d = ImageDraw.Draw(img)
             from kit.phone import sf as sffont
@@ -324,25 +324,25 @@ class Episode:
             p.d.line([(0, y * S), (W * S, y * S)], fill=(28, 42, 76), width=2)
         # reaction heads at the top
         priya_talk = t < self.lines["lata_twice"].start or self.speaking("priya_race", t, 0.1)
-        character(p, R["PRIYA"], 170, 165, 92, "explaining", self.mouth("PRIYA", t), gaze=(0.5, 0.6),
-                  blink=self.blink("PRIYA", t), bottom=290)
+        character(p, R["PRIYA"], 190, 225, 82, "explaining", self.mouth("PRIYA", t), gaze=(0.5, 0.6),
+                  blink=self.blink("PRIYA", t), bottom=340)
         lata_expr = "shocked" if t >= self.lines["lata_twice"].start - 0.1 else "worried"
-        character(p, R["LATA"], 910, 165, 90, lata_expr, self.mouth("LATA", t), gaze=(-0.5, 0.6),
-                  blink=self.blink("LATA", t), bottom=290)
-        character(p, R["MEENA"], 540, 170, 85, "furious" if t >= self.lines["meena_hmph"].start - 0.1 else "worried",
-                  self.mouth("MEENA", t), gaze=(0, 0.8), blink=self.blink("MEENA", t), bottom=290)
+        character(p, R["LATA"], 890, 225, 80, lata_expr, self.mouth("LATA", t), gaze=(-0.5, 0.6),
+                  blink=self.blink("LATA", t), bottom=340)
+        character(p, R["MEENA"], 540, 230, 76, "furious" if t >= self.lines["meena_hmph"].start - 0.1 else "worried",
+                  self.mouth("MEENA", t), gaze=(0, 0.8), blink=self.blink("MEENA", t), bottom=340)
         del priya_talk
 
     def xray_phone(self, img: Image.Image, t: float):
         x0 = self.xray_t0
-        phone(img, 540, 1000, 660, xray_screen(t - x0, self), angle=0)
+        phone(img, 540, 975, 600, xray_screen(t - x0, self), angle=0)
         # captions for Priya's long lines
         live = [k for k in ("priya_same", "lata_twice", "priya_race", "meena_hmph")
                 if self.lines[k].start - 0.05 <= t < self.lines[k].end + 0.3]
         if live:  # only the most recent line, so captions never stack
             key = max(live, key=lambda k: self.lines[k].start)
             ln = self.lines[key]
-            caption(img, CAPTIONS[key](t - ln.start, ln.dur), 1585)
+            caption(img, CAPTIONS[key](t - ln.start, ln.dur), 1440)
 
     def s_key(self, p: Pen, t: float, k: float):
         self.reception(p, sign=False)
@@ -371,7 +371,7 @@ class Episode:
             speech(p, (330, 120, 1050, 240), (560, 400), "So... who gets the key?", 50)
         if t >= self.lines["meena_minegrab"].start - 0.05:
             speech(p, (40, 1340, 420, 1450), (190, 1270), "MINE!", 64)
-            speech(p, (660, 1340, 1040, 1450), (890, 1270), "MINE!", 64)
+            speech(p, (590, 1340, 950, 1450), (850, 1270), "MINE!", 64)
 
     # -- rendering -----------------------------------------------------------------------------------------------
 
@@ -383,15 +383,15 @@ class Episode:
         shot.draw(p, t, k)
         img = img.resize((W, H), Image.LANCZOS)
         if shot.name == "standoff":
-            phone(img, 290, 1500, 370, confirmation("MH-48213"), angle=4)
-            phone(img, 790, 1500, 370, confirmation("MH-48214"), angle=-4)
+            phone(img, 290, 1390, 370, confirmation("MH-48213"), angle=4)
+            phone(img, 790, 1390, 370, confirmation("MH-48214"), angle=-4)
         if shot.name == "flashback":
             self.flashback_phones(img, t)
         if shot.name == "xray":
             self.xray_phone(img, t)
             named = self.lines["priya_race"].start + 0.7  # "...a race condition": the name lands on screen
             if named <= t < named + 1.5:
-                stamp(img, "RACE CONDITION", 1000, min(1.0, (t - named) / 0.15))
+                stamp(img, "RACE CONDITION", 900, min(1.0, (t - named) / 0.15))
         if shot.name == "key" and t >= self.grab + 0.18:
             stamp(img, "RACE CONDITION", 620, min(1.0, (t - self.grab - 0.18) / 0.15))
         return img
@@ -551,7 +551,7 @@ def xray_screen(t: float, ep: "Episode"):
                     y = 506 + j * 70
                     d.rect(18, y, 372, y + 58, (70, 30, 44), r=12, outline=RED_UI, width=3)
                     d.text(36, y + 16, f"{bid} · {who} · 204", 20, "Bold", WHITE)
-            if q > 0.85:
+            if q > 0.85 and t < t_race:  # gone once the name is said, so the caption has room
                 d.text(195, 664, "2 bookings. 1 room.", 26, "Heavy", RED_UI, "ma")
         else:
             arrow(61, 228, 360, q / 0.15, CYAN, "check + lock")
@@ -594,7 +594,7 @@ def caption(img: Image.Image, text: str, y: float):
     words, lines, cur = text.split(), [], ""
     for w in words:
         trial = (cur + " " + w).strip()
-        if d.textlength(trial, font=f) > 900:
+        if d.textlength(trial, font=f) > 800:  # stays clear of the right-hand buttons
             lines.append(cur)
             cur = w
         else:
