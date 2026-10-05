@@ -95,6 +95,11 @@ the current look.
 
 ## Post-publication notes (fill in 48 h after publishing)
 
-- **Swiped away (Episodes 6–8 and 3R: 57–63%; Episode 5 best: 41%):**
-- **Retention at the reveal (longer than the guide's 3–4 s):**
-- **Lesson for the next episode:**
+Read 2026-10-04, 5 days after publishing: 1,319 views, 59.8% stayed, 0:24 average, 15 likes, 0 subscribers.
+
+- **Swiped away (Episodes 6–8 and 3R: 57–63%; Episode 5 best: 41%):** **40.2%**, the best yet. Hook v2 works.
+- **Retention at the reveal (longer than the guide's 3–4 s):** ~67% → ~37% across the 5.8 s reveal, the biggest exit
+  in the episode. The longer reveal cost viewers.
+- **Lesson for the next episode:** keep all four hook v2 changes; cut the reveal back to 3–4 s and move "why it
+  matters" to the pinned comment. Views still stopped at ~1.3K like every code-drawn Short, so the hook was not the
+  ceiling; two stranger comments call the look AI-like and boring.

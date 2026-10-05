@@ -75,6 +75,7 @@ the First Floor | Off-by-One Error Explained`. Compare their search-traffic shar
 | 07 (29 s, first built on the new rules) | ~1.2K in the first hours | 43.0% | 0:20 (69%) | Retention graph not processed yet (read 2026-09-27); views flattened about 3.5 h after publishing, like Episodes 4–6 |
 | 08 (read 2026-09-29) | 1,197 | 42.1% | 0:15 | Frame 1 = visible problem + accusing line; swiped about the same as Episode 7 |
 | 03 remake (33 s, read 2026-09-29, ~2 days) | 1,238 | 36.7% (62.7% swiped) | 0:20 (~60%) | Opens above 100% (~128%, replays). Sharpest drop at 0:03–0:05, exactly when the three-line concept card leaves and the cut goes to the sofa; ~100% at 0:05, ~73% at 0:10, ~59% at 0:17, then a steady slide with no cliff at the reveal (0:19–0:24), ending at ~27% |
+| 02 remake (34 s, read 2026-10-04, ~5 days) | 1,319 | 59.8% (40.2% swiped, best yet) | 0:24 (~71%) | Opens at ~121% (replays). Gentle slide through the story: ~100% at 0:07, ~81% at 0:13, ~72% at 0:20, ~67% when the reveal starts (0:23.6). **The reveal is the cliff again:** ~67% → ~37% across its 5.8 s (the drop starts ~1.5 s in). The final gag loses the rest to ~23% |
 
 Episodes 4–6 were read on 2026-09-26, about 1–2 days after publishing. Retention figures are read off the Studio
 chart and are approximate. All three got about 93–96% of their views from the Shorts feed, and their views stopped
@@ -93,6 +94,19 @@ then got a second small push (~+170) around 1.5 days in. **The concept-in-frame-
 worst of the code-drawn episodes and well outside the 41–48% of Episodes 4–5 (same close-up composition), so naming
 the term up front hurt the hook. Keep the term hidden until the reveal. The reveal itself was not an exit point this
 time (a steady slide, no cliff), and the follow line produced no subscribers.
+
+**Episode 2 remake, read 2026-10-04 (5 days after publishing):** 1,319 views (95.2% Shorts feed, 93.9% Canada,
+99.6% new viewers), 748 engaged views, 733 unique viewers, 15 likes (1.1%), 3 comments (one is our pin), 0
+subscribers. **Hook v2 worked:** 40.2% swiped away, the best of any episode (Ep 5 41%; Eps 6, 7, 8, 3R 57–63%).
+**But views stopped at the same ~1.3K** (1,250 in the first hours, then nearly flat for five days). A better hook did
+not widen the audience, so swipe-away is not what's holding the feed back. **The longer reveal cost viewers:** it lost
+about 45% of the people who reached it (the 3 remake's short reveal had no cliff). Keep the reveal to 3–4 s; the
+"why it matters" line belongs in the pinned comment and description. **Comments (both from strangers):** "It's weird.
+Like if AI was given video creation software" and "Most boring … ever". First direct feedback on the look.
+
+**Like rate is the weak number everywhere:** Ep 2R 15 likes (1.1%), Ep 5 20 (1.6%), Ep 3R 9 (0.7%), Ep 6 9 (0.7%),
+with 0–3 subscribers per episode. Every code-drawn Short now stops at 1.2–1.35K whatever its swipe rate (40–63%), so
+the next lever is whether viewers *react* (like, share, comment, follow), not whether they stay.
 
 **The gap (2026-09-29):** every code-drawn Short gets tested on ~1.1–1.3K feed viewers and stops. Swipe-away has sat
 at 57–63% for four episodes in a row (Eps 6, 7, 8, 3R) despite a different hook fix each time (close-up, accusing line,
