@@ -32,6 +32,27 @@ INKS = {
 }
 PRINT_ORDER = ["skin", "fill2", "fill", "accent", "line", "label", "good"]
 
+# Looks the same drawing code can print in (2026-10-05 style comparison). "riso" is the default.
+LOOKS = {
+    "riso": dict(paper=PAPER, inks=INKS, grain=True, offset=(6, -4), wobble=1.0, width=1.0, shading="dots"),
+    # Clean ink line and flat colour with two-tone (cel) shading, like a newspaper or New Yorker cartoon.
+    "clean": dict(paper=(251, 249, 245), grain=False, offset=(0, 0), wobble=0.12, width=0.75, shading="cel",
+                  inks={"line": (34, 30, 32), "accent": (196, 96, 84), "fill": (226, 112, 96), "fill2": (240, 192, 88),
+                        "skin": (244, 198, 166), "label": (34, 30, 32), "good": (34, 30, 32)}),
+    # Bold comic: heavy black ink, Ben-Day dots for shading, bright primaries.
+    "comic": dict(paper=(253, 251, 244), grain=False, offset=(0, 0), wobble=0.35, width=1.7, shading="dots",
+                  dot_scale=1.5, inks={"line": (12, 12, 14), "accent": (12, 12, 14), "fill": (230, 52, 48),
+                                       "fill2": (252, 210, 34), "skin": (252, 214, 184), "label": (12, 12, 14),
+                                       "good": (12, 12, 14)}),
+}
+LOOK = dict(LOOKS["riso"])
+
+
+def use(name: str):
+    """Switch every drawing that follows to another look."""
+    LOOK.clear()
+    LOOK.update(LOOKS[name])
+
 SUPP = "/System/Library/Fonts/Supplemental/"
 FONTS = {
     "hand": ("/System/Library/Fonts/Noteworthy.ttc", 1),
@@ -112,7 +133,7 @@ def mask_of(pts) -> Image.Image:
 class Sketch:
     def __init__(self, seed: int = 7, wobble: float = 1.6, width: float = 5.5):
         self.rng = random.Random(seed)
-        self.wobble = wobble
+        self.wobble = wobble * LOOK["wobble"]
         self.width = width
         self.layers: dict[str, Image.Image] = {}
 
@@ -141,8 +162,8 @@ class Sketch:
                                 + 0.22 * math.sin(f[2] * s + p[2])) / 1.72
 
     def stroke(self, pts, ink="line", width=None, wobble=None, double=0.0, overshoot=4.0):
-        width = width or self.width
-        wobble = self.wobble if wobble is None else wobble
+        width = (width or self.width) * LOOK["width"]
+        wobble = self.wobble if wobble is None else wobble * LOOK["wobble"]
         self._stroke_once(pts, ink, width, wobble, overshoot)
         if double and self.rng.random() < double:
             self._stroke_once(pts, ink, width * 0.55, wobble * 1.6, overshoot * 1.5)
@@ -190,12 +211,16 @@ class Sketch:
     def solid(self, pts, ink, offset=True):
         """A flat riso fill, printed slightly off the line art."""
         m = mask_of(pts)
-        if offset:
-            m = ImageChops.offset(m, 6 * SS, -4 * SS)
+        dx, dy = LOOK["offset"]
+        if offset and (dx or dy):
+            m = ImageChops.offset(m, dx * SS, dy * SS)
         self.layers[ink] = ImageChops.lighter(self.layer(ink), m)
 
     def halftone(self, pts, ink="accent", cell=11.0, angle=22.0, shade=lambda x, y: 0.5, max_r=0.62):
         """Riso halftone: a rotated dot grid inside the shape, each dot sized by shade (0 light .. 1 dark)."""
+        if LOOK["shading"] == "cel":
+            return self._cel(pts, ink, shade)
+        cell = cell * LOOK.get("dot_scale", 1.0)
         xs, ys = [p[0] for p in pts], [p[1] for p in pts]
         x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
         cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
@@ -215,6 +240,22 @@ class Sketch:
                 if r > 0.6:
                     dr.ellipse([(x - r) * SS, (y - r) * SS, (x + r) * SS, (y + r) * SS], fill=255)
         self.layers[ink] = ImageChops.lighter(self.layer(ink), ImageChops.multiply(dots, mask_of(pts)))
+
+    def _cel(self, pts, ink, shade, step=4.0, threshold=0.3, tone=130):
+        """Two-tone shading: a flat tint wherever the shade passes a threshold."""
+        xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+        x0, x1, y0, y1 = int(min(xs)), int(max(xs)) + 1, int(min(ys)), int(max(ys)) + 1
+        gx, gy = np.meshgrid(np.arange(x0, x1, step), np.arange(y0, y1, step))
+        try:
+            s = np.asarray(shade(gx, gy), float) * np.ones_like(gx, float)
+        except Exception:
+            s = np.vectorize(lambda x, y: float(shade(x, y)))(gx, gy)
+        small = Image.fromarray(((s > threshold) * tone).astype(np.uint8))
+        big = small.resize((max(1, round((x1 - x0) * SS)), max(1, round((y1 - y0) * SS))), Image.NEAREST)
+        big = big.filter(ImageFilter.GaussianBlur(SS * 1.5)).point(lambda v: tone if v > tone / 2 else 0)
+        canvas = Image.new("L", (W * SS, H * SS), 0)
+        canvas.paste(big, (x0 * SS, y0 * SS))
+        self.layers[ink] = ImageChops.lighter(self.layer(ink), ImageChops.multiply(canvas, mask_of(pts)))
 
     def hairs(self, base, n, length, spread, angle, width=2.6, ink="line"):
         """Short pen flicks for brows, moustaches and loose hair."""
@@ -312,15 +353,17 @@ def paper() -> np.ndarray:
 
 def composite(sk: Sketch, seed: int = 11) -> Image.Image:
     """Print the ink masks onto paper (multiply, with riso grain) and downsample."""
-    out = paper().copy()
+    out = paper().copy() if LOOK["grain"] else np.ones((H * SS, W * SS, 3), np.float32) * np.array(LOOK["paper"],
+                                                                                                    np.float32)
     rng = np.random.default_rng(seed)
     for ink in PRINT_ORDER:
         if ink not in sk.layers:
             continue
         a = np.asarray(sk.layers[ink], np.float32) / 255
-        grain = rng.random(a.shape, dtype=np.float32)
-        a = a * np.clip(0.78 + grain * 0.3, 0, 1) * (0.9 if ink in ("fill", "fill2", "skin") else 1)
-        color = np.array(INKS[ink], np.float32) / 255
+        if LOOK["grain"]:
+            grain = rng.random(a.shape, dtype=np.float32)
+            a = a * np.clip(0.78 + grain * 0.3, 0, 1) * (0.9 if ink in ("fill", "fill2", "skin") else 1)
+        color = np.array(LOOK["inks"][ink], np.float32) / 255
         out = out * (1 - a[..., None] * (1 - color))
     img = Image.fromarray(np.clip(out, 0, 255).astype(np.uint8))
     return img.resize((W, H), Image.LANCZOS)

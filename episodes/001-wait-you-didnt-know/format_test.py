@@ -15,6 +15,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from kit.phone import BG, GREEN, GREY, INK, LINE, ORANGE, WHITE, BLUE, ScreenDraw, phone  # noqa: E402
+from PIL import Image, ImageDraw, ImageFont  # noqa: E402
+
+from kit import riso  # noqa: E402
 from kit.riso import Sketch, bubble, composite, ellipse_pts, path, round_rect_pts  # noqa: E402
 from kit.riso_cast import AUNT, EXPRESSIONS, MOM, person  # noqa: E402
 
@@ -48,7 +51,8 @@ def confirmation(booking_id: str):
     return draw
 
 
-def main():
+def frame(look: str) -> Image.Image:
+    riso.use("clean" if look == "pixel" else look)
     sk = Sketch(seed=31)
     # Reception: wall, a sign, the key board with one empty hook, the desk
     sk.halftone([(0, 0), (1080, 0), (1080, 1100), (0, 1100)], "fill2", cell=11, angle=0,
@@ -73,12 +77,37 @@ def main():
     sk.shape(tagp, "fill", 3.5)
     sk.text((528, 1120), "204", "mono", 21, "line")
     img = composite(sk)
+    if look == "pixel":  # 16-bit game look: a fifth of the resolution, a small palette, hard pixels
+        small = img.resize((216, 384), Image.BOX).quantize(colors=20, method=Image.Quantize.MEDIANCUT).convert("RGB")
+        img = small.resize((1080, 1920), Image.NEAREST)
     # Crisp phones over the print: identical confirmations, IDs one apart
     phone(img, 290, 1490, 370, confirmation("MH-48213"), angle=4)
     phone(img, 790, 1490, 370, confirmation("MH-48214"), angle=-4)
+    return img
+
+
+LABELS = {"riso": "Risograph print", "clean": "Clean ink + flat colour", "comic": "Bold comic", "pixel": "Pixel art"}
+
+
+def main():
     OUT.mkdir(exist_ok=True)
-    img.save(OUT / "format-hybrid-frame1.png")
-    print("wrote", OUT / "format-hybrid-frame1.png")
+    looks = sys.argv[1:] or list(LABELS)
+    frames = []
+    for look in looks:
+        img = frame(look)
+        img.save(OUT / f"format-{look}.png")
+        frames.append((LABELS[look], img))
+        print("wrote", OUT / f"format-{look}.png")
+    tw, th = 432, 768
+    sheet = Image.new("RGB", (len(frames) * (tw + 20) + 20, th + 100), (245, 245, 245))
+    dr = ImageDraw.Draw(sheet)
+    f = ImageFont.truetype("/System/Library/Fonts/Avenir Next.ttc", 30, index=0)
+    for i, (label, img) in enumerate(frames):
+        x = 20 + i * (tw + 20)
+        sheet.paste(img.resize((tw, th), Image.LANCZOS), (x, 80))
+        dr.text((x + tw / 2, 42), label, font=f, fill=(30, 30, 30), anchor="mm")
+    sheet.save(OUT / "format-styles.png")
+    print("wrote", OUT / "format-styles.png")
 
 
 if __name__ == "__main__":
