@@ -107,14 +107,24 @@ class Char:
     grey: bool = False            # grey streaks
     bags: bool = False            # tired eyes (the receptionist)
     name_tag: str | None = None
+    top: str = "plain"            # scarf | vest | neckline | collar | kurta | hoodie | blazer | sweater_vest
 
 
-MEENA = Char("Meena", (196, 135, 92), "bun", RED, YELLOW, grey=True)
-LATA = Char("Lata", (168, 110, 72), "long", YELLOW, None, glasses=True)
-CLERK = Char("Clerk", (150, 100, 66), "short", (60, 66, 92), WHITE, earrings=None, bags=True, name_tag="STAFF")
-PRIYA = Char("Priya", (190, 128, 86), "ponytail", TEAL, None, earrings=GOLD)
+MEENA = Char("Meena", (196, 135, 92), "bun", RED, YELLOW, grey=True, top="scarf")
+LATA = Char("Lata", (168, 110, 72), "long", YELLOW, None, glasses=True, top="collar")
+CLERK = Char("Clerk", (150, 100, 66), "short", (60, 66, 92), WHITE, earrings=None, bags=True, name_tag="STAFF",
+             top="vest")
+PRIYA = Char("Priya", (190, 128, 86), "ponytail", TEAL, None, earrings=GOLD, top="neckline")
 
-CAST = {c.name.upper(): c for c in (MEENA, LATA, CLERK, PRIYA)}
+# Cast B (2026-10-05): two uncles, a calm receptionist, and Dev (Priya's brother) as the explainer.
+RAJ = Char("Raj", (176, 118, 80), "bald_sides", (74, 108, 176), (240, 226, 196), hair_color=(58, 54, 58),
+           earrings=None, moustache=True, top="kurta")
+VIKRAM = Char("Vikram", (150, 98, 64), "short", (150, 52, 62), WHITE, hair_color=(168, 164, 166), glasses=True,
+              earrings=None, top="sweater_vest")
+NISHA = Char("Nisha", (160, 105, 70), "bun", (40, 46, 70), WHITE, earrings=None, name_tag="NISHA", top="blazer")
+DEV = Char("Dev", (166, 112, 76), "short", (227, 178, 60), None, earrings=None, top="hoodie")
+
+CAST = {c.name.upper(): c for c in (MEENA, LATA, CLERK, PRIYA, RAJ, VIKRAM, NISHA, DEV)}
 
 # brows: (inner y, outer y) in head units, negative = up; lid: 0 open .. 1 shut; mouth: resting shape
 EXPR = {
@@ -137,18 +147,30 @@ def body(p: Pen, c: Char, cx, cy, r, bottom, lean=0.0):
     pts = [(cx - sw * 1.18 + lean, bottom), (cx - sw + lean * 0.5, top + r * 0.12), (cx - sw * 0.6, top),
            (cx + sw * 0.6, top), (cx + sw + lean * 0.5, top + r * 0.12), (cx + sw * 1.18 + lean, bottom)]
     p.poly(pts, c.outfit)
-    if c.name == "Meena":  # a yellow scarf across one shoulder
+    if c.top == "scarf":  # a scarf across one shoulder
         p.poly([(cx - sw * 0.55, top), (cx - sw * 0.2, top), (cx + sw * 0.55, bottom), (cx + sw * 0.05, bottom)], c.outfit2)
-    if c.name == "Clerk":  # white shirt and a dark vest, a name tag
+    if c.top in ("vest", "blazer"):  # white shirt under a dark vest or blazer, a name tag
         p.poly([(cx - sw * 0.3, top), (cx + sw * 0.3, top), (cx, top + r * 0.5)], WHITE)
         p.poly([(cx - r * 0.12, top + r * 0.04), (cx + r * 0.12, top + r * 0.04), (cx + r * 0.05, top + r * 0.16),
                 (cx - r * 0.05, top + r * 0.16)], RED, 5)
         if c.name_tag:
             p.rrect(cx + sw * 0.35, top + r * 0.32, cx + sw * 0.85, top + r * 0.5, 6, WHITE, 4)
             p.text((cx + sw * 0.6, top + r * 0.41), c.name_tag, r * 0.075, BOLD_FONT)
-    if c.name == "Priya":  # a round neckline
+    if c.top == "neckline":  # a round neckline
         p.arc(cx, top - r * 0.02, sw * 0.35, r * 0.16, 10, 170, INK, 6)
-    if c.name == "Lata":  # a collar
+    if c.top in ("collar", "sweater_vest"):  # a collar (over a V-neck vest)
+        if c.top == "sweater_vest":
+            p.poly([(cx - sw * 0.35, top), (cx + sw * 0.35, top), (cx, top + r * 0.55)], c.outfit2)
+    if c.top == "kurta":  # a placket with buttons
+        p.poly([(cx - r * 0.1, top), (cx + r * 0.1, top), (cx + r * 0.1, top + r * 0.75), (cx - r * 0.1, top + r * 0.75)],
+               c.outfit2, 5)
+        for k in range(3):
+            p.ell(cx, top + r * (0.18 + 0.2 * k), r * 0.03, r * 0.03, INK, 0)
+    if c.top == "hoodie":  # hood behind the neck and two strings
+        p.arc(cx, top + r * 0.02, sw * 0.62, r * 0.22, 0, 180, INK, 7)
+        for side in (-1, 1):
+            p.line([(cx + side * r * 0.14, top + r * 0.12), (cx + side * r * 0.16, top + r * 0.5)], WHITE, 6)
+    if c.top in ("collar", "sweater_vest"):
         for side in (-1, 1):
             p.poly([(cx, top + r * 0.05), (cx + side * sw * 0.42, top - r * 0.02), (cx + side * sw * 0.3, top + r * 0.2)],
                    WHITE, 6)
@@ -175,6 +197,11 @@ def head(p: Pen, c: Char, cx, cy, r, expr="neutral", mouth=0.0, gaze=(0.0, 0.0),
         cap += [(cx + r * 1.02, cy - r * 0.12), (cx + r * 0.5, cy - r * 0.62), (cx, cy - r * 0.8), (cx - r * 0.5, cy - r * 0.62)]
         p.poly(cap, c.hair_color, 6)
         p.line([(cx, cy - r * 1.13), (cx, cy - r * 0.82)], c.skin, 6)
+    elif c.hair == "bald_sides":  # bald on top, hair over the ears, a shine
+        for side in (-1, 1):
+            p.poly([(cx + side * r * 0.98, cy - r * 0.45), (cx + side * r * 0.62, cy - r * 0.62), (cx + side * r * 0.72, cy - r * 0.3),
+                    (cx + side * r * 1.02, cy + r * 0.05)], c.hair_color, 6)
+        p.arc(cx - r * 0.35, cy - r * 0.72, r * 0.2, r * 0.1, 200, 300, WHITE, 7)
     elif c.hair == "short":  # a neat side part
         cap = [(cx - r * 1.02, cy - r * 0.2)]
         cap += [(cx + r * 1.05 * math.cos(math.radians(a)), cy - r * 0.08 + r * 1.1 * math.sin(math.radians(a)))
@@ -238,8 +265,12 @@ def head(p: Pen, c: Char, cx, cy, r, expr="neutral", mouth=0.0, gaze=(0.0, 0.0),
     else:
         s = e["smile"]
         p.arc(mx, my - r * 0.05, r * 0.2, r * (0.04 + 0.1 * s), 20, 160, INK, 8)
-    if c.moustache:
-        p.arc(mx, my - r * 0.08, r * 0.22, r * 0.08, 200, 340, c.hair_color, 12)
+    if c.moustache:  # a big bushy moustache over the top lip
+        pts = [(mx, my - r * 0.18), (mx + r * 0.12, my - r * 0.22), (mx + r * 0.3, my - r * 0.16), (mx + r * 0.4, my - r * 0.02),
+               (mx + r * 0.3, my - r * 0.06), (mx + r * 0.14, my - r * 0.06), (mx, my - r * 0.1),
+               (mx - r * 0.14, my - r * 0.06), (mx - r * 0.3, my - r * 0.06), (mx - r * 0.4, my - r * 0.02),
+               (mx - r * 0.3, my - r * 0.16), (mx - r * 0.12, my - r * 0.22)]
+        p.poly(pts, c.hair_color, 6)
 
 
 def limb(p: Pen, c: Char, r, pts, hand=True, finger=None):

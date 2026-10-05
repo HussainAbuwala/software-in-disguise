@@ -26,13 +26,21 @@ from PIL import Image, ImageDraw
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from kit import sound  # noqa: E402
-from kit.bighead import (CLERK, GOLD, INK, LATA, MEENA, PAPER, PRIYA, RED, S, WHITE, YELLOW, Pen,  # noqa: E402
+from kit.bighead import (CLERK, DEV, GOLD, INK, LATA, MEENA, NISHA, PAPER, PRIYA, RAJ, RED, S, VIKRAM,  # noqa: E402
+                         WHITE, YELLOW, Pen,
                          character, limb, speech)
 from kit.phone import BG, BLUE, GREEN, GREY, LINE, ORANGE, ScreenDraw, phone  # noqa: E402
 
 HERE = Path(__file__).parent
 OUT = HERE / "deliverables"
-BUILD = HERE / "build"
+# Version A: the aunts (Meena, Lata), a male clerk, Priya. Version B (--b): the uncles (Raj, Vikram), Nisha at the
+# desk, Dev. Role ids (MEENA, LATA, CLERK, PRIYA) stay the same in the voices and the code.
+VARIANT = "b" if "--b" in sys.argv else "a"
+R = ({"MEENA": RAJ, "LATA": VIKRAM, "CLERK": NISHA, "PRIYA": DEV} if VARIANT == "b"
+     else {"MEENA": MEENA, "LATA": LATA, "CLERK": CLERK, "PRIYA": PRIYA})
+AUDIO = HERE / ("audio-b" if VARIANT == "b" else "audio")
+BUILD = HERE / ("build-b" if VARIANT == "b" else "build")
+SUFFIX = "-b" if VARIANT == "b" else ""
 W, H = 1080, 1920
 FPS, DRAW_FPS = 30, 15
 
@@ -44,12 +52,15 @@ NAVY = (12, 22, 44)
 CYAN = (90, 220, 255)
 RED_UI = (255, 69, 58)
 
-CAST = {"MEENA": MEENA, "LATA": LATA, "CLERK": CLERK, "PRIYA": PRIYA}
+CAST = {"MEENA": R["MEENA"], "LATA": R["LATA"], "CLERK": R["CLERK"], "PRIYA": R["PRIYA"]}
 
 # ----------------------------------------------------------------------------------------------------------------
 # Dialogue: one Dia take per exchange (the first of each reel unless overridden), split into its two speakers.
 
-TAKE_OVERRIDE: dict[str, int] = {}  # e.g. {"r01-mine": 3} once Hussain picks by ear
+SCENE_WHO = {"r01-mine": ("MEENA", "LATA"), "r02-one-room": ("LATA", "CLERK"), "r03-got-it": ("MEENA", "LATA"),
+             "r04-show-me": ("PRIYA", "MEENA"), "r05-same-moment": ("PRIYA", "LATA"), "r06-race": ("PRIYA", "MEENA"),
+             "r07-key": ("CLERK", "MEENA")}
+TAKE_OVERRIDE: dict[str, int] = {"r01-mine": 2} if VARIANT == "a" else {}  # the take with the full line
 
 
 @dataclass
@@ -71,10 +82,10 @@ class Line:
 
 
 def load_exchange(scene: str) -> tuple[Line, Line]:
-    report = json.loads((HERE / "audio" / "voices.json").read_text())[scene]
+    report = json.loads((AUDIO / "voices.json").read_text())[scene]
     seed = TAKE_OVERRIDE.get(scene, report["reel"][0])
     take = next(t for t in report["takes"] if t["seed"] == seed)
-    a = sound.load_wav(HERE / "audio" / "scenes" / scene / f"seed-{seed:02d}.wav")
+    a = sound.load_wav(AUDIO / "scenes" / scene / f"seed-{seed:02d}.wav")
     cut = int(take["cut"] * sound.SR)
     s1, s2 = report["text"].split("[S2]")
     parts = []
@@ -129,11 +140,15 @@ class Episode:
         t = 0.0
 
         def place(scene, keys, start, gap=0.12, overlap=False):
-            a, b = load_exchange(scene)
-            for ln, key in ((a, keys[0]), (b, keys[1])):  # a per-line clone replaces Dia's version if there is one
-                cloned = HERE / "audio" / "lines" / f"{key}.wav"
-                if cloned.exists():
-                    ln.audio = sound.level(_trim(sound.load_wav(cloned)), -18)
+            clones = [AUDIO / "lines" / f"{key}.wav" for key in keys]
+            if all(c.exists() for c in clones):  # every line voiced on its own (version B)
+                who = SCENE_WHO[scene]
+                a, b = (Line(scene, w, "", sound.level(_trim(sound.load_wav(c)), -18)) for w, c in zip(who, clones))
+            else:
+                a, b = load_exchange(scene)
+                for ln, c in zip((a, b), clones):  # a per-line clone replaces Dia's version if there is one
+                    if c.exists():
+                        ln.audio = sound.level(_trim(sound.load_wav(c)), -18)
             a.start = start
             b.start = start + 0.04 if overlap else a.end + gap
             self.lines[keys[0]], self.lines[keys[1]] = a, b
@@ -171,7 +186,7 @@ class Episode:
         t = end + 0.3
         # S6: the key
         end = place("r07-key", ("clerk_key", "meena_minegrab"), t + 0.3)
-        lata_mine = HERE / "audio" / "lines" / "lata_mine.wav"
+        lata_mine = AUDIO / "lines" / "lata_mine.wav"
         if lata_mine.exists():  # both shout it at once
             m = self.lines["meena_minegrab"]
             self.lines["lata_mine"] = Line("r07-key", "LATA", "Mine!", sound.level(_trim(sound.load_wav(lata_mine)), -18),
@@ -232,10 +247,10 @@ class Episode:
     def s_standoff(self, p: Pen, t: float, k: float):
         self.reception(p)
         lata_talks = self.speaking("lata_first", t)
-        character(p, MEENA, 285, 640, 200, "furious" if not lata_talks else "angry", self.mouth("MEENA", t),
+        character(p, R["MEENA"], 285, 640, 200, "furious" if not lata_talks else "angry", self.mouth("MEENA", t),
                   gaze=(0.9, 0.1), blink=self.blink("MEENA", t), arm="point" if not lata_talks else "rest",
                   bottom=1045, turn=0.3)
-        character(p, LATA, 800, 665, 192, "angry" if lata_talks else "smug", self.mouth("LATA", t),
+        character(p, R["LATA"], 800, 665, 192, "angry" if lata_talks else "smug", self.mouth("LATA", t),
                   gaze=(-0.9, 0.1), blink=self.blink("LATA", t), arm="crossed", bottom=1045, turn=-0.3)
         self.desk(p)
         self.key(p, 505, 1080)
@@ -248,7 +263,7 @@ class Episode:
         self.reception(p)
         talking = self.speaking("clerk_one", t)
         raised = max(0.0, min(1.0, (t - self.lines["clerk_one"].start - 0.15) / 0.25))
-        character(p, CLERK, 540, 760, 285, "deadpan", self.mouth("CLERK", t), gaze=(0, 0.25 if talking else 0),
+        character(p, R["CLERK"], 540, 760, 285, "deadpan", self.mouth("CLERK", t), gaze=(0, 0.25 if talking else 0),
                   blink=self.blink("CLERK", t), arm="hold_up" if raised > 0 else "rest", bottom=1500)
         if raised > 0:
             hx, hy = 540 + 285 * 0.82 * 1.4, 760 - 285 * 0.2
@@ -257,14 +272,14 @@ class Episode:
             self.key(p, hx - 40 + swing, hy + 100, 1.25)
         self.desk(p, 1500, 420)
         if t >= self.lines["lata_tell"].start - 0.05:
-            speech(p, (30, 230, 380, 350), (-20, 420), "Tell her!", 58)
+            speech(p, (30, 230, 380, 350), (-20, 420), "Tell him!" if VARIANT == "b" else "Tell her!", 58)
         if t >= self.lines["clerk_one"].start - 0.05:
             speech(p, (330, 1230, 1050, 1370), (560, 1135), "We have ONE room.", 60)
 
     def s_flashback(self, p: Pen, t: float, k: float, img: Image.Image | None = None):
         p.d.rectangle([0, 0, W * S, H * S], fill=FLASHBACK)
         p.text((540, 115), "3 weeks ago · 9:41 PM", 46, ("/System/Library/Fonts/Avenir Next.ttc", 8), (60, 80, 110))
-        for i, (c, x) in enumerate(((MEENA, 280), (LATA, 800))):
+        for i, (c, x) in enumerate(((R["MEENA"], 280), (R["LATA"], 800))):
             who = "MEENA" if i == 0 else "LATA"
             happy = t > self.tap + 0.35
             character(p, c, x, 360, 135, "triumphant" if happy else "worried", self.mouth(who, t),
@@ -290,12 +305,12 @@ class Episode:
         enter = min(1.0, (t - self.shots[3].start) / 0.45)
         ease = 1 - (1 - enter) ** 3
         px = 1300 - (1300 - 540) * ease
-        character(p, PRIYA, px, 600, 175, "explaining" if self.speaking("priya_wait", t) else "neutral",
+        character(p, R["PRIYA"], px, 600, 175, "explaining" if self.speaking("priya_wait", t) else "neutral",
                   self.mouth("PRIYA", t), gaze=(-0.3, 0.2), blink=self.blink("PRIYA", t), arm="rest", bottom=1045)
         meena_shows = t >= self.lines["meena_look"].start - 0.1
-        character(p, MEENA, 215, 760, 175, "angry" if not meena_shows else "triumphant", self.mouth("MEENA", t),
+        character(p, R["MEENA"], 215, 760, 175, "angry" if not meena_shows else "triumphant", self.mouth("MEENA", t),
                   gaze=(0.8, 0), blink=self.blink("MEENA", t), arm="phone" if meena_shows else "rest", bottom=1045)
-        character(p, LATA, 870, 780, 170, "angry", self.mouth("LATA", t), gaze=(-0.8, 0), blink=self.blink("LATA", t),
+        character(p, R["LATA"], 870, 780, 170, "angry", self.mouth("LATA", t), gaze=(-0.8, 0), blink=self.blink("LATA", t),
                   arm="crossed", bottom=1045)
         self.desk(p, 1040, 880)
         if t >= self.lines["priya_wait"].start - 0.05:
@@ -309,12 +324,12 @@ class Episode:
             p.d.line([(0, y * S), (W * S, y * S)], fill=(28, 42, 76), width=2)
         # reaction heads at the top
         priya_talk = t < self.lines["lata_twice"].start or self.speaking("priya_race", t, 0.1)
-        character(p, PRIYA, 170, 165, 92, "explaining", self.mouth("PRIYA", t), gaze=(0.5, 0.6),
+        character(p, R["PRIYA"], 170, 165, 92, "explaining", self.mouth("PRIYA", t), gaze=(0.5, 0.6),
                   blink=self.blink("PRIYA", t), bottom=290)
         lata_expr = "shocked" if t >= self.lines["lata_twice"].start - 0.1 else "worried"
-        character(p, LATA, 910, 165, 90, lata_expr, self.mouth("LATA", t), gaze=(-0.5, 0.6),
+        character(p, R["LATA"], 910, 165, 90, lata_expr, self.mouth("LATA", t), gaze=(-0.5, 0.6),
                   blink=self.blink("LATA", t), bottom=290)
-        character(p, MEENA, 540, 170, 85, "furious" if t >= self.lines["meena_hmph"].start - 0.1 else "worried",
+        character(p, R["MEENA"], 540, 170, 85, "furious" if t >= self.lines["meena_hmph"].start - 0.1 else "worried",
                   self.mouth("MEENA", t), gaze=(0, 0.8), blink=self.blink("MEENA", t), bottom=290)
         del priya_talk
 
@@ -331,14 +346,14 @@ class Episode:
 
     def s_key(self, p: Pen, t: float, k: float):
         self.reception(p, sign=False)
-        character(p, CLERK, 540, 560, 150, "deadpan", self.mouth("CLERK", t), gaze=(0, 0.6), blink=self.blink("CLERK", t),
+        character(p, R["CLERK"], 540, 560, 150, "deadpan", self.mouth("CLERK", t), gaze=(0, 0.6), blink=self.blink("CLERK", t),
                   bottom=830)
         self.desk(p, 820, 1100)
         slide = min(1.0, max(0.0, (t - self.shots[-1].start - 0.2) / 0.6))
         ky = 900 + 260 * (1 - (1 - slide) ** 2)
         reach = max(0.0, min(1.0, (t - self.grab + 0.25) / 0.25))
-        for c, cx, d, who in ((MEENA, 150, 1, "MEENA"), (LATA, 930, -1, "LATA")):
-            cy = 1000 if c is MEENA else 1020
+        for c, cx, d, who in ((R["MEENA"], 150, 1, "MEENA"), (R["LATA"], 930, -1, "LATA")):
+            cy = 1000 if c is R["MEENA"] else 1020
             r = 210
             expr = "furious" if reach > 0 else "angry"
             character(p, c, cx, cy, r, expr, self.mouth(who, t), gaze=(d * 0.7, 0.8), blink=self.blink(who, t),
@@ -350,7 +365,7 @@ class Episode:
                 limb(p, c, r, [sh, ((sh[0] + hand[0]) / 2, min(sh[1], hand[1]) - 40), hand])
         self.key(p, 512, ky, 1.5)
         if reach >= 1:  # both hands land on the key at once
-            for c, d in ((MEENA, 1), (LATA, -1)):
+            for c, d in ((R["MEENA"], 1), (R["LATA"], -1)):
                 p.ell(540 - d * 38, ky + 6, 26, 24, c.skin, 6)
         if t >= self.lines["clerk_key"].start - 0.05:
             speech(p, (330, 120, 1050, 240), (560, 400), "So... who gets the key?", 50)
@@ -407,13 +422,13 @@ class Episode:
         audio = self.mix()
         sf.write(BUILD / "mix.wav", audio, sound.SR)
         OUT.mkdir(exist_ok=True)
-        out = OUT / ("the-last-room-preview.mp4" if preview else "the-last-room.mp4")
+        out = OUT / (f"the-last-room{SUFFIX}-preview.mp4" if preview else f"the-last-room{SUFFIX}.mp4")
         subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-framerate", str(DRAW_FPS / step), "-i",
                         str(frames / "f%05d.png"), "-i", str(BUILD / "mix.wav"), "-r", str(FPS), "-c:v", "libx264",
                         "-pix_fmt", "yuv420p", "-crf", "18", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", "48000",
                         "-c:a", "aac", "-b:a", "192k", "-shortest", str(out)],
                        check=True)
-        self.frame(0.6, 0).save(OUT / "thumbnail-frame1.png")
+        self.frame(0.6, 0).save(OUT / f"thumbnail-frame1{SUFFIX}.png")
         print("wrote", out, f"{self.duration:.1f}s")
 
 
@@ -493,7 +508,7 @@ def xray_screen(t: float, ep: "Episode"):
         span = (race.end - ep.xray_t0 - (t_race + 2.0)) if fix else (t_twice - t_same)
         q = max(0.0, min(1.0, u / max(span, 0.1)))
         # the two requests
-        for i, (who, ms, col) in enumerate((("Meena's phone", ".07.120", RED), ("Lata's phone", ".07.124", YELLOW))):
+        for i, (who, ms, col) in enumerate(((f"{R['MEENA'].name}'s phone", ".07.120", RED), (f"{R['LATA'].name}'s phone", ".07.124", YELLOW))):
             x0 = 12 + i * 188
             d.rect(x0, 100, x0 + 178, 226, (28, 44, 80), r=14, outline=col, width=3)
             d.text(x0 + 89, 112, who, 17, "Bold", W_, "ma")
@@ -531,7 +546,7 @@ def xray_screen(t: float, ep: "Episode"):
                 if q > 0.5:
                     d.text(x + 40, 300, "book!", 15, "Bold", (255, 160, 150), "ma")
             d.text(195, 484, "BOOKINGS", 15, "Heavy", (150, 170, 210), "ma")
-            for j, (bid, who) in enumerate((("MH-48213", "Meena"), ("MH-48214", "Lata"))):
+            for j, (bid, who) in enumerate((("MH-48213", R["MEENA"].name), ("MH-48214", R["LATA"].name))):
                 if q > 0.62 + 0.08 * j:
                     y = 506 + j * 70
                     d.rect(18, y, 372, y + 58, (70, 30, 44), r=12, outline=RED_UI, width=3)
@@ -552,7 +567,7 @@ def xray_screen(t: float, ep: "Episode"):
             d.text(195, 484, "BOOKINGS", 15, "Heavy", (150, 170, 210), "ma")
             if q > 0.45:
                 d.rect(18, 506, 372, 564, (24, 60, 44), r=12, outline=GREEN, width=3)
-                d.text(36, 522, "MH-48213 · Meena · 204", 20, "Bold", WHITE)
+                d.text(36, 522, f"MH-48213 · {R['MEENA'].name} · 204", 20, "Bold", WHITE)
             d.text(195, 610, "THE FIX:", 18, "Heavy", GOLD, "ma")
             d.text(195, 638, "lock, then book", 24, "Heavy", GOLD, "ma")
         if scan < 1:  # the X-ray scan line revealing the inside, top to bottom

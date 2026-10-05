@@ -1,6 +1,6 @@
 {
   "r01-mine": {
-    "text": "[S1] That's MY room! [S2] Excuse me, I booked it first!",
+    "text": "[S1] That's my room! [S2] Excuse me, I booked it first!",
     "who": [
       "MEENA",
       "LATA"
@@ -8,105 +8,105 @@
     "takes": [
       {
         "seed": 1,
-        "heard": "That's MY Room! Excuse me, I booked it!",
-        "match": 0.88,
-        "f0": [
-          315,
-          253
-        ],
-        "ref_f0": [
-          304,
-          231
-        ],
-        "cut": 1.76,
-        "dur": 2.7,
-        "ok": true
-      },
-      {
-        "seed": 2,
-        "heard": "That's MY Room! Excuse me, I booked it first!",
-        "match": 0.95,
-        "f0": [
-          361,
-          288
-        ],
-        "ref_f0": [
-          304,
-          231
-        ],
-        "cut": 2.0,
-        "dur": 3.23,
-        "ok": true
-      },
-      {
-        "seed": 3,
-        "heard": "That's MY Room! Excuse me, I booked it for",
+        "heard": "That's my room! Excuse me, I booked it for-",
         "match": 0.91,
         "f0": [
-          298,
-          281
-        ],
-        "ref_f0": [
-          304,
-          231
-        ],
-        "cut": 1.76,
-        "dur": 2.79,
-        "ok": true
-      },
-      {
-        "seed": 4,
-        "heard": "That's in my room! Excuse me, I booked it",
-        "match": 0.85,
-        "f0": [
-          315,
-          291
-        ],
-        "ref_f0": [
-          304,
-          231
-        ],
-        "cut": 1.36,
-        "dur": 2.46,
-        "ok": true
-      },
-      {
-        "seed": 5,
-        "heard": "That's that my room? Excuse me! I booked it first!",
-        "match": 0.9,
-        "f0": [
-          300,
-          320
+          313,
+          308
         ],
         "ref_f0": [
           304,
           231
         ],
         "cut": 1.28,
-        "dur": 3.07,
-        "ok": false
+        "dur": 2.25,
+        "ok": true
       },
       {
-        "seed": 6,
-        "heard": "That's MY room! Excuse me, I booked it!",
-        "match": 0.88,
+        "seed": 2,
+        "heard": "That's my room! Excuse me, I booked it first!",
+        "match": 0.95,
         "f0": [
-          350,
-          274
+          315,
+          349
         ],
         "ref_f0": [
           304,
           231
         ],
-        "cut": 1.76,
-        "dur": 2.72,
+        "cut": 1.68,
+        "dur": 2.89,
+        "ok": false
+      },
+      {
+        "seed": 3,
+        "heard": "That's my room! Excuse me, I booked it",
+        "match": 0.88,
+        "f0": [
+          314,
+          251
+        ],
+        "ref_f0": [
+          304,
+          231
+        ],
+        "cut": 1.36,
+        "dur": 2.3,
+        "ok": true
+      },
+      {
+        "seed": 4,
+        "heard": "That's my room! Excuse me, I booked it!",
+        "match": 0.88,
+        "f0": [
+          282,
+          303
+        ],
+        "ref_f0": [
+          304,
+          231
+        ],
+        "cut": 1.44,
+        "dur": 2.5,
+        "ok": true
+      },
+      {
+        "seed": 5,
+        "heard": "That's my room! Excuse me, I booked it first!",
+        "match": 0.95,
+        "f0": [
+          306,
+          350
+        ],
+        "ref_f0": [
+          304,
+          231
+        ],
+        "cut": 1.44,
+        "dur": 2.68,
+        "ok": false
+      },
+      {
+        "seed": 6,
+        "heard": "That's my room! Excuse me, I booked it",
+        "match": 0.88,
+        "f0": [
+          329,
+          292
+        ],
+        "ref_f0": [
+          304,
+          231
+        ],
+        "cut": 1.44,
+        "dur": 2.42,
         "ok": true
       }
     ],
     "reel": [
-      2,
+      1,
       3,
-      1
+      6
     ]
   },
   "r02-one-room": {

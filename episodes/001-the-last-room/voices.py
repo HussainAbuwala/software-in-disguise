@@ -20,26 +20,51 @@ from kit.voices import (ASR, DIA, QWEN_CLONE, QWEN_DESIGN, match, median_f0, ree
                         speaker_cut, tighten)
 
 HERE = Path(__file__).parent
-REFS = HERE / "audio" / "refs"
-SCENES_DIR = HERE / "audio" / "scenes"
-REPORT = HERE / "audio" / "voices.json"
+# Version A: two aunts (Meena, Lata), a male clerk, Priya. Version B (--b): two uncles (Raj, Vikram), Nisha at the
+# desk, Dev explaining, all with deliberately lower, natural voices. Role ids stay MEENA/LATA/CLERK/PRIYA so the
+# renderer is shared; only the drawings, voices and folders change.
+VARIANT = "b" if "--b" in sys.argv else "a"
+AUDIO = HERE / ("audio-b" if VARIANT == "b" else "audio")
+REFS = AUDIO / "refs"
+SCENES_DIR = AUDIO / "scenes"
+REPORT = AUDIO / "voices.json"
+# Natural speaking pitch ranges a reference voice must fall in (Hz). Version A's women came out around 300 Hz,
+# which Hussain heard as too high.
+PITCH = {"f": (165, 235), "m": (85, 150)}
 
-# Who each character is, and a reference line in their voice. Meena (the aunt) and Priya were designed for the
-# "Wait, you didn't know?" draft and are reused.
-CAST = {
-    "MEENA": dict(take="meena/take-1", gender="f"),
-    "PRIYA": dict(take="priya/take-2", gender="f"),
-    "LATA": dict(gender="f", desc="A woman in her late fifties with a sharp, proud, slightly haughty voice, quick to "
-                                  "take offence, crisp and precise.",
-                 text="Excuse me, I have been coming to this hotel for twenty years. I know how it works."),
-    "CLERK": dict(gender="m", desc="A man in his mid twenties with a flat, tired, polite voice, a deadpan hotel "
-                                   "receptionist at the end of a long shift.",
-                  text="Good evening. Yes, ma'am. I understand. I'm just checking the system for you."),
-}
+if VARIANT == "a":
+    # Meena (the aunt) and Priya were designed for the "Wait, you didn't know?" draft and are reused.
+    CAST = {
+        "MEENA": dict(take="meena/take-1", gender="f"),
+        "PRIYA": dict(take="priya/take-2", gender="f"),
+        "LATA": dict(gender="f", desc="A woman in her late fifties with a sharp, proud, slightly haughty voice, quick "
+                                      "to take offence, crisp and precise.",
+                     text="Excuse me, I have been coming to this hotel for twenty years. I know how it works."),
+        "CLERK": dict(gender="m", desc="A man in his mid twenties with a flat, tired, polite voice, a deadpan hotel "
+                                       "receptionist at the end of a long shift.",
+                      text="Good evening. Yes, ma'am. I understand. I'm just checking the system for you."),
+    }
+else:
+    CAST = {
+        "MEENA": dict(gender="m", desc="A man in his early sixties with a very deep, low, gravelly bass voice, speaking "
+                                       "firmly and slowly, a heavy, low-pitched baritone.",
+                      text="Excuse me? I have been coming to this hotel for twenty years. I know how it works."),
+        "LATA": dict(gender="m", desc="A man in his late sixties with a low, dry, precise voice, calm but stubborn, "
+                                      "speaking slowly, natural low pitch.",
+                     text="Now listen, young lady, I made this booking myself, on my own phone, three weeks ago."),
+        "CLERK": dict(gender="f", desc="A woman in her late twenties with a low, calm, warm voice, a polite and "
+                                       "unbothered hotel receptionist, natural low pitch, never shrill.",
+                      text="Good evening, sir. Yes, I understand. I'm just checking the system for you."),
+        "PRIYA": dict(gender="m", desc="A man in his late twenties with a relaxed, warm, friendly mid-low voice, "
+                                       "easygoing and clear, like explaining something to his uncles.",
+                      text="Okay, okay, everybody calm down. Let me just have a look at this, alright?"),
+    }
 
+SIR = "Sir" if VARIANT == "b" else "Ma'am"
+TELL = "Tell him!" if VARIANT == "b" else "Tell her!"
 SCENES = {
-    "r01-mine": dict(who=("MEENA", "LATA"), text="[S1] That's MY room! [S2] Excuse me, I booked it first!", max_s=5.0),
-    "r02-one-room": dict(who=("LATA", "CLERK"), text="[S1] Tell her! [S2] Ma'am... we have one room.", max_s=4.5),
+    "r01-mine": dict(who=("MEENA", "LATA"), text="[S1] That's my room! [S2] Excuse me, I booked it first!", max_s=5.0),
+    "r02-one-room": dict(who=("LATA", "CLERK"), text=f"[S1] {TELL} [S2] {SIR}... we have one room.", max_s=4.5),
     "r03-got-it": dict(who=("MEENA", "LATA"), text="[S1] Got it! [S2] Got it!", max_s=3.0),
     "r04-show-me": dict(who=("PRIYA", "MEENA"), text="[S1] Wait. Show me your phones. [S2] Look! It says confirmed!",
                         max_s=5.0),
@@ -56,13 +81,26 @@ KEEP = 3
 
 # Single lines where Dia wouldn't keep the speaker's voice or clipped the line: cloned per line with Qwen3-TTS Base.
 LINES = {
-    "lata_tell": ("LATA", "Tell her!"),
+    "lata_tell": ("LATA", TELL),
     "meena_got": ("MEENA", "Got it!"),
     "lata_got": ("LATA", "Got it!"),
     "meena_minegrab": ("MEENA", "Mine!"),
     "lata_mine": ("LATA", "Mine!"),
 }
-LINES_DIR = HERE / "audio" / "lines"
+# Every line's key, per exchange (the renderer uses the same keys).
+KEYS = {"r01-mine": ("meena_mine", "lata_first"), "r02-one-room": ("lata_tell", "clerk_one"),
+        "r03-got-it": ("meena_got", "lata_got"), "r04-show-me": ("priya_wait", "meena_look"),
+        "r05-same-moment": ("priya_same", "lata_twice"), "r06-race": ("priya_race", "meena_hmph"),
+        "r07-key": ("clerk_key", "meena_minegrab")}
+if VARIANT == "b":
+    # Dia wouldn't hold the deep male reference voices (it came out at 290-350 Hz), so version B clones every line
+    # with Qwen3-TTS from the character's reference voice.
+    for scene, (k1, k2) in KEYS.items():
+        spec = SCENES[scene]
+        t1, t2 = spec["text"].split("[S2]")
+        LINES[k1] = (spec["who"][0], t1.replace("[S1]", "").strip())
+        LINES[k2] = (spec["who"][1], t2.strip())
+LINES_DIR = AUDIO / "lines"
 
 
 def ref_path(who: str) -> Path:
@@ -81,7 +119,7 @@ def design_refs():
         d = REFS / who.lower()
         d.mkdir(parents=True, exist_ok=True)
         best = None
-        for k in range(1, 4):
+        for k in range(1, 5):
             mx.random.seed(100 + k)
             res = list(model.generate_voice_design(text=c["text"], language="English", instruct=c["desc"]))
             a = np.concatenate([np.asarray(r.audio, np.float32).reshape(-1) for r in res])
@@ -91,12 +129,15 @@ def design_refs():
             (d / f"take-{k}.txt").write_text(c["text"])
             f0 = median_f0(a, model.sample_rate)
             m = match(c["text"], stt.generate(str(path)).text)
-            fits = f0 >= 165 if c["gender"] == "f" else 0 < f0 < 165
-            print(f"{who} take {k}: f0 {f0:.0f} match {m:.2f} {'fits' if fits else ''}", flush=True)
-            if fits and (best is None or m > best[1]):
-                best = (k, m)
-        c["take"] = f"{who.lower()}/take-{best[0] if best else 1}"
-        reel([d / f"take-{k}.wav" for k in range(1, 4)], d / "reel.wav")
+            lo, hi = PITCH[c["gender"]]
+            off = 0 if lo <= f0 <= hi else min(abs(f0 - lo), abs(f0 - hi))
+            print(f"{who} take {k}: f0 {f0:.0f} match {m:.2f} {'fits' if not off else f'off by {off:.0f} Hz'}",
+                  flush=True)
+            score = (-off, m)
+            if best is None or score > best[1]:
+                best = (k, score)
+        c["take"] = f"{who.lower()}/take-{best[0]}"
+        reel([d / f"take-{k}.wav" for k in range(1, 5)], d / "reel.wav")
     picks = {w: c["take"] for w, c in CAST.items()}
     (REFS / "picks.json").write_text(json.dumps(picks, indent=2))
     print("reference picks:", picks)
@@ -190,6 +231,7 @@ def clone_lines(names):
 
 
 if __name__ == "__main__":
+    sys.argv = [a for a in sys.argv if a != "--b"]
     what = sys.argv[1]
     if what == "refs":
         design_refs()
