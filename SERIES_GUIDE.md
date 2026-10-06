@@ -93,7 +93,10 @@ those tests tried. The retention lessons below still apply:
   where it's going.
 - **Likes and follows are the weak numbers** (about 0.7–1.6% likes, 0–3 subscribers per episode). A face, a
   first-person voice, and an ending question ("What app does this to you?") are the levers to test.
-- **Length:** candlesan runs 2½–3 min. Start at **45–75 s**, read the retention graph, then lengthen if it holds.
+- **Length: no target. The topic decides.** Take as long as a good explanation needs, up to the platform limit
+  (3 min for YouTube Shorts; Instagram recommends Reels of up to 3 min to non-followers). Every line must earn its
+  place: cut anything that doesn't help the explanation. The retention graph judges each one. A steady slide means
+  it dragged; a sharp drop points to the exact line that lost people.
 
 ## Workflow
 

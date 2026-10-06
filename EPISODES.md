@@ -4,28 +4,55 @@
 
 | # | Moment | Concept | Status | Link |
 | --- | --- | --- | --- | --- |
-| | | | | |
+| 001 | WhatsApp's grey and blue ticks | Acknowledgements (store-and-forward) | Brief drafted ([`episodes/001-whatsapp-ticks`](episodes/001-whatsapp-ticks/BRIEF.md)) | |
 
 ## Idea bank
 
-Each idea starts from something on the viewer's own phone. All of them still need a check that the mapping is
-accurate (see the Core promise in [`SERIES_GUIDE.md`](SERIES_GUIDE.md)).
+Pick things nearly everyone did today. Each idea has to pass four checks:
 
-| Kind | The moment | What's behind it |
+- **Daily:** nearly everyone did it today.
+- **Twist:** the real explanation contradicts what people assume. "Wait, *really*?" is what earns comments and shares.
+- **Filmable:** it can be shown on Hussain's own phone.
+- **True and short:** the mapping is accurate and fits in under 3 minutes (see the Core promise in
+  [`SERIES_GUIDE.md`](SERIES_GUIDE.md)).
+
+### Strongest picks
+
+| Everyday thing | The twist | Concept |
 | --- | --- | --- |
-| Hidden feature | Gmail's Undo Send: the email never left | A send delay (holding queue) |
-| Hidden feature | Instagram shows your post right away, even on bad Wi-Fi | Optimistic UI, then reconciling with the server |
-| Hidden feature | "Typing…" appears, then vanishes without a message | Presence and heartbeats |
-| Hidden feature | A site says "you've used this password before" | Hashing: it compares fingerprints, not your password |
-| Everyday magic | Netflix starts blurry, then turns sharp | Adaptive bitrate streaming |
-| Everyday magic | Search suggests the rest of your word as you type | Prefix lookup and debouncing |
-| Everyday magic | Two people typing in one Google Doc never clash | Operational transforms / CRDTs |
-| Glitch | The like count goes *down* when you refresh | Eventual consistency and caches |
-| Glitch | Tapping Pay twice doesn't charge you twice (usually) | Idempotency keys |
-| Glitch | Two people book the "last room" | Race condition (check-then-act) |
-| Glitch | A group chat shows the reply before the question | Message ordering |
-| Glitch | Everything breaks at once right after an outage ends | Retry storm / thundering herd |
-| Glitch | The app says "updated" but your friend still sees the old version | Stale cache / TTL |
+| WhatsApp's grey and blue ticks | One tick means the message reached WhatsApp's server, not your friend | Acknowledgements, store-and-forward |
+| Authenticator codes | They work in airplane mode: the phone and the website each compute the code from a shared secret and the time | TOTP |
+| Gmail's Undo Send | Nothing is unsent; Gmail waits a few seconds before sending | Delay queue |
+| Red traffic lines in Google Maps | The red is other people's phones moving slowly on that road | Crowdsourced (anonymized) location data |
+| Face ID | Your face never leaves the phone; a mathematical version is kept in a separate chip | On-device biometrics, secure enclave |
+| Shazam | It matches a fingerprint of the loudest points in the sound, not the song | Audio fingerprinting, hash lookup |
+| Notifications when the app is closed | The app isn't running; one connection from Apple or Google delivers for every app | Push notification services |
+| YouTube or Netflix starting blurry, then sharp | The video is stored at several qualities and the player switches between them | Adaptive bitrate streaming |
+| The "I'm not a robot" checkbox | The click barely matters; it judges how you got there | Risk analysis, bot detection |
+| Searching "dog" in your photos | It finds your dog offline, because the phone recognized the photos itself | On-device image classification |
+
+### Runner-ups
+
+| Everyday thing | What's behind it |
+| --- | --- |
+| The Uber car jumping around the map | Location updates every few seconds, smoothed in between |
+| "Typing…" appears, then vanishes | Presence events that expire |
+| The Pay button greys out after one tap; a double tap doesn't charge twice | Idempotency |
+| Instagram shows your post before it has uploaded | Optimistic UI |
+| A site says "you've used this password before" | Hashing: it compares fingerprints, not passwords |
+| Search suggests the rest of your word | Prefix lookup and debouncing |
+| Two people typing in one Google Doc never clash | Operational transforms / CRDTs |
+| The like count goes *down* when you refresh | Eventual consistency, caches |
+| Two people book the "last room" | Race condition |
+
+**Avoid:** "prices go up because you looked". It's tempting, but the popular explanation is mostly a myth and hard to
+cover accurately.
+
+### Series shape: "A day in your phone"
+
+Order the first batch the way people use their phones: unlock with Face ID → WhatsApp ticks → Maps traffic on the
+commute → Undo Send at work → Shazam at a café → Netflix at night. That gives a playlist, a reason to follow
+("tomorrow: …"), and relatability every episode.
 
 ## Story-era Shorts (retired 2026-10-06)
 
