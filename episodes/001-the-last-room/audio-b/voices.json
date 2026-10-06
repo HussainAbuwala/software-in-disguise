@@ -1,0 +1,112 @@
+{
+  "r01-mine": {
+    "text": "[S1] That's my room! [S2] Excuse me, I booked it first!",
+    "who": [
+      "MEENA",
+      "LATA"
+    ],
+    "takes": [
+      {
+        "seed": 1,
+        "heard": "That's my room! Excuse me, I booked it f-",
+        "match": 0.9,
+        "f0": [
+          300,
+          241
+        ],
+        "ref_f0": [
+          119,
+          88
+        ],
+        "cut": 1.12,
+        "dur": 1.94,
+        "ok": false
+      },
+      {
+        "seed": 2,
+        "heard": "That's my room! Excuse me, I booked it",
+        "match": 0.88,
+        "f0": [
+          290,
+          155
+        ],
+        "ref_f0": [
+          119,
+          88
+        ],
+        "cut": 1.44,
+        "dur": 2.36,
+        "ok": false
+      },
+      {
+        "seed": 3,
+        "heard": "That's my room! Excuse me, I booked it",
+        "match": 0.88,
+        "f0": [
+          332,
+          290
+        ],
+        "ref_f0": [
+          119,
+          88
+        ],
+        "cut": 1.04,
+        "dur": 1.78,
+        "ok": false
+      },
+      {
+        "seed": 4,
+        "heard": "That's my room! Excuse me, I booked a-",
+        "match": 0.84,
+        "f0": [
+          292,
+          223
+        ],
+        "ref_f0": [
+          119,
+          88
+        ],
+        "cut": 1.2,
+        "dur": 1.89,
+        "ok": false
+      },
+      {
+        "seed": 5,
+        "heard": "That's my room! Excuse me, I booked it for",
+        "match": 0.91,
+        "f0": [
+          334,
+          148
+        ],
+        "ref_f0": [
+          119,
+          88
+        ],
+        "cut": 1.44,
+        "dur": 2.28,
+        "ok": false
+      },
+      {
+        "seed": 6,
+        "heard": "That's my room! Excuse me, I booked it f-",
+        "match": 0.9,
+        "f0": [
+          349,
+          253
+        ],
+        "ref_f0": [
+          119,
+          88
+        ],
+        "cut": 1.12,
+        "dur": 2.02,
+        "ok": false
+      }
+    ],
+    "reel": [
+      5,
+      1,
+      6
+    ]
+  }
+}
